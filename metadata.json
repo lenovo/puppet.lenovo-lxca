@@ -1,0 +1,14 @@
+{
+  "name": "np-lxca",
+  "version": "0.1.0",
+  "author": "Manasa K Rao",
+  "summary": "This is a puppet module to interface with Lenovo XClarity Administrator (LXCA)",
+  "license": "Apache-2.0",
+  "source": "<To be filled>",
+  "project_page": "<To be filled>",
+  "issues_url": "<To be filled>",
+  "dependencies": [
+    {"name":"puppetlabs-stdlib","version_requirement":">= 1.0.0"}
+  ]
+}
+

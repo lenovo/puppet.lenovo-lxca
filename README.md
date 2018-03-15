@@ -55,8 +55,7 @@ The lxca module needs xclarity_client gem to be installed.
 
 ## Usage
 ### Types and Providers
-In this POC, 3 types and the respective providers have been implemented - lxca_node, lxca_chassis, lxca_resource
-
+There are types and the respective providers have been implemented - lxca_node, lxca_chassis, lxca_resource ...
 
 lxca_nodes accepts the following ensurable methods:
 discover_all, discover_managed, discover_unmanaged, filter_by_chassis, filter_by_uuid, power_on, power_off, power_restart, blink_led, turn_on_led, turn_off_led
@@ -106,22 +105,4 @@ lxca_chassis{'filter_by_uuid':
   uuid => 'F44E92339683385A8D97CD6348A6F45F',
 }
 ```
-
-
-## Reference
-
-Here, list the classes, types, providers, facts, etc contained in your module.
-This section should include all of the under-the-hood workings of your module so
-people know what the module is touching on their system but don't need to mess
-with things. (We are working on automating this section!)
-
-## Limitations
-
-a. Validations to be improved
-b. More functionality to be added
-c. LED functionality probably not working
-
-## Development
-
-<To be filled with help of legal and management>
 

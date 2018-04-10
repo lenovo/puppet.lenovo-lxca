@@ -20,23 +20,23 @@
 # This manifest contains some sample invocations of lxca_unmanage_request resource type
 
 lxca_unmanage_request{'fetch_unmanage_request':
-  host => 'https://10.243.13.140',
-  port => '443',
-  login_user => 'USERID',
+  ensure         => 'fetch_unmanage_request',
+  port           => '443',
+  login_user     => 'USERID',
   login_password => 'Passw0rd',
-  verify_ssl => 'NONE',
-  ensure => 'fetch_unmanage_request',
-  job_id => '4253',
+  verify_ssl     => 'NONE',
+  host           => 'https://10.243.13.140',
+  job_id         => '4253',
 }
 
 lxca_unmanage_request{'unmanage_discovered_devices':
-  host => 'https://10.243.13.140',
-  port => '443',
-  login_user => 'USERID',
+  ensure         => 'unmanage_discovered_devices',
+  port           => '443',
+  login_user     => 'USERID',
   login_password => 'Passw0rd',
-  verify_ssl => 'NONE',
-  ensure => 'unmanage_discovered_devices',
-  endpoints => [{"ipAddresses"=>["10.243.8.28"],"type"=>"Chassis","uuid"=>"792812BA57B24337821B72AC27CF2055"}],
-  force => 'True',
+  verify_ssl     => 'NONE',
+  host           => 'https://10.243.13.140',
+  endpoints      => [{'ipAddresses'=>['10.243.8.28'],'type'=>'Chassis','uuid'=>'792812BA57B24337821B72AC27CF2055'}],
+  force          => 'True',
 }
 

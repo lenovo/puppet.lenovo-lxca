@@ -26,15 +26,15 @@ require 'xclarity_client'
 
 Puppet::Type.type(:lxca_config_pattern).provide(:lxca_config_pattern) do
   desc 'Configuration pattern provider for LXCA resource'
-  
+
   def create_client
-    conf=XClarityClient::Configuration.new(
-      :username => @resource['login_user'],
-      :password => @resource['login_password'],
-      :host => @resource['host'],
-      :port => @resource['port'],
-      :auth_type => @resource['auth_type'],
-      :verify_ssl => @resource['verify_ssl']
+    conf = XClarityClient::Configuration.new(
+      username: @resource['login_user'],
+      password: @resource['login_password'],
+      host: @resource['host'],
+      port: @resource['port'],
+      auth_type: @resource['auth_type'],
+      verify_ssl: @resource['verify_ssl'],
     )
     @client = XClarityClient::Client.new(conf)
   end
@@ -63,9 +63,9 @@ Puppet::Type.type(:lxca_config_pattern).provide(:lxca_config_pattern) do
   def filter_by_id
     create_client if @client.nil?
     if @resource[:id].nil?
-      raise Puppet::Error, _("Attribute id is mandatory for the ensurable filter_by_id")
+      raise Puppet::Error, _('Attribute id is mandatory for the ensurable filter_by_id')
     end
-    @client.fetch_config_pattern(["#{@resource[:id]}"]).map do |pattern|
+    @client.fetch_config_pattern([(@resource[:id]).to_s]).map do |pattern|
       pattern.instance_variables.each do |att|
         puts "#{att} - #{pattern.instance_variable_get att}"
       end
@@ -75,10 +75,10 @@ Puppet::Type.type(:lxca_config_pattern).provide(:lxca_config_pattern) do
   def export_config_pattern
     create_client if @client.nil?
     if @resource[:id].nil?
-      raise Puppet::Error, _("Attribute id is mandatory for the ensurable export_config_pattern")
+      raise Puppet::Error, _('Attribute id is mandatory for the ensurable export_config_pattern')
     end
 
-    @client.export_config_pattern("#{@resource[:id]}").map do |pattern|
+    @client.export_config_pattern((@resource[:id]).to_s).map do |pattern|
       pattern.instance_variables.each do |att|
         puts "#{att} - #{pattern.instance_variable_get att}"
       end
@@ -88,29 +88,27 @@ Puppet::Type.type(:lxca_config_pattern).provide(:lxca_config_pattern) do
   def deploy_config_pattern
     create_client if @client.nil?
     if @resource[:id].nil?
-      raise Puppet::Error, _("Attribute id is mandatory for the ensurable deploy_config_pattern")
+      raise Puppet::Error, _('Attribute id is mandatory for the ensurable deploy_config_pattern')
     end
     if @resource[:endpoints].nil?
-      raise Puppet::Error, _("Attribute endpoints is mandatory for the ensurable deploy_config_pattern")
+      raise Puppet::Error, _('Attribute endpoints is mandatory for the ensurable deploy_config_pattern')
     end
     if @resource[:restart].nil?
-      raise Puppet::Error, _("Attribute restart is mandatory for the ensurable deploy_config_pattern")
+      raise Puppet::Error, _('Attribute restart is mandatory for the ensurable deploy_config_pattern')
     end
     if @resource[:etype].nil?
-      raise Puppet::Error, _("Attribute etype is mandatory for the ensurable deploy_config_pattern")
+      raise Puppet::Error, _('Attribute etype is mandatory for the ensurable deploy_config_pattern')
     end
 
-    @client.deploy_config_pattern("#{@resource[:id]}", "#{@resource[:endpoints]}", "#{@resource[:restart]}", "#{@resource[:etype]}")
+    @client.deploy_config_pattern((@resource[:id]).to_s, (@resource[:endpoints]).to_s, (@resource[:restart]).to_s, (@resource[:etype]).to_s)
   end
 
   def import_config_pattern
     create_client if @client.nil?
     if @resource[:import_json].nil?
-      raise Puppet::Error, _("Attribute import_json is mandatory for the ensurable import_config_pattern")
+      raise Puppet::Error, _('Attribute import_json is mandatory for the ensurable import_config_pattern')
     end
 
-    @client.import_config_pattern("#{@resource[:import_json]}")
+    @client.import_config_pattern((@resource[:import_json]).to_s)
   end
-
 end
-

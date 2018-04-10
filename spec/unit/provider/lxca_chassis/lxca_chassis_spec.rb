@@ -26,7 +26,6 @@
 require 'spec_helper'
 
 describe Puppet::Type.type(:lxca_chassis).provider(:lxca_chassis) do
-
   before :each do
     described_class.stubs(:suitable?).returns true
     Puppet::Type.type(:lxca_chassis).stubs(:defaultprovider).returns described_class
@@ -34,64 +33,63 @@ describe Puppet::Type.type(:lxca_chassis).provider(:lxca_chassis) do
 
   let :chassis do
     Puppet::Type.type(:lxca_chassis).new(
-      :name => 'lxca_chassis',
-      :host => 'https://10.243.10.75',
-      :port => '443',
-      :login_user => 'Admin',
-      :login_password => 'Lenovo123',
-      :verify_ssl => 'NONE',
-    )
-  end
-  
-  let :chassis_with_uuid do
-    Puppet::Type.type(:lxca_chassis).new(
-      :name => 'lxca_chassis',
-      :host => 'https://10.243.10.75',
-      :port => '443',
-      :login_user => 'Admin',
-      :login_password => 'Lenovo123',
-      :verify_ssl => 'NONE',
-      :uuid => 'FA59C0BBC43C3C15B9D72B94AFF52B91'
+      name: 'lxca_chassis',
+      host: 'https://10.243.10.75',
+      port: '443',
+      login_user: 'Admin',
+      login_password: 'Lenovo123',
+      verify_ssl: 'NONE',
     )
   end
 
-  describe "provider instance type" do
-    it "without uuid should be an instance of provider ruby" do
+  let :chassis_with_uuid do
+    Puppet::Type.type(:lxca_chassis).new(
+      name: 'lxca_chassis',
+      host: 'https://10.243.10.75',
+      port: '443',
+      login_user: 'Admin',
+      login_password: 'Lenovo123',
+      verify_ssl: 'NONE',
+      uuid: 'FA59C0BBC43C3C15B9D72B94AFF52B91',
+    )
+  end
+
+  describe 'provider instance type' do
+    it 'without uuid should be an instance of provider ruby' do
       expect(chassis.provider).to be_an_instance_of Puppet::Type.type(:lxca_chassis).provider(:lxca_chassis)
     end
-    it "with uuid should be an instance of provider ruby" do
+    it 'with uuid should be an instance of provider ruby' do
       expect(chassis_with_uuid.provider).to be_an_instance_of Puppet::Type.type(:lxca_chassis).provider(:lxca_chassis)
     end
   end
 
-  describe "for ensurable filter_by_uuid" do
-    it "should have uuid as a parameter" do
-      expect {chassis.provider.filter_by_uuid}.to raise_error(Puppet::Error, /Attribute uuid is mandatory for the ensurable filter_by_uuid/)
+  describe 'for ensurable filter_by_uuid' do
+    it 'has uuid as a parameter' do
+      expect { chassis.provider.filter_by_uuid }.to raise_error(Puppet::Error, %r{Attribute uuid is mandatory for the ensurable filter_by_uuid})
     end
   end
 
-  describe "for discover_all" do
-    it "should return an array as a result" do
+  describe 'for discover_all' do
+    it 'returns an array as a result' do
       expect(chassis.provider.discover_all).to be_instance_of(Array)
     end
   end
 
-  describe "for discover_managed" do
-    it "should return an array as a result" do
+  describe 'for discover_managed' do
+    it 'returns an array as a result' do
       expect(chassis.provider.discover_managed_chassis).to be_instance_of(Array)
     end
   end
 
-  describe "for discover_unmanaged" do
-    it "should return an array as a result" do
+  describe 'for discover_unmanaged' do
+    it 'returns an array as a result' do
       expect(chassis.provider.discover_unmanaged_chassis).to be_instance_of(Array)
     end
   end
 
-  describe "for filter_by_uuid" do
-    it "should return an array as a result" do
+  describe 'for filter_by_uuid' do
+    it 'returns an array as a result' do
       expect(chassis_with_uuid.provider.filter_by_uuid).to be_instance_of(Array)
     end
   end
-
 end

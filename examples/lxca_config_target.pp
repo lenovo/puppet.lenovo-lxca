@@ -20,12 +20,12 @@
 # This manifest contains some sample invocations of lxca_config_target resource type
 
 lxca_config_target{'filter_by_id':
-  host => 'https://10.240.29.217',
-  port => '443',
-  login_user => 'USERID',
+  ensure         => 'filter_by_id',
+  port           => '443',
+  login_user     => 'USERID',
   login_password => 'Passw0rd',
-  verify_ssl => 'NONE',
-  ensure => 'filter_by_id',
-  id => '65',
+  verify_ssl     => 'NONE',
+  host           => 'https://10.240.29.217',
+  id             => '65',
 }
 

@@ -20,11 +20,11 @@
 # This manifest contains some sample invocations of lxca_discovery resource type
 
 lxca_discovery{'discover_devices_by_slp':
-  host => 'https://10.240.29.217',
-  port => '443',
-  login_user => 'USERID',
+  ensure         => 'discover_devices_by_slp',
+  port           => '443',
+  login_user     => 'USERID',
   login_password => 'Passw0rd',
-  verify_ssl => 'NONE',
-  ensure => 'discover_devices_by_slp',
+  verify_ssl     => 'NONE',
+  host           => 'https://10.240.29.217',
 }
 

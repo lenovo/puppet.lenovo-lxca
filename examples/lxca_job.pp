@@ -20,60 +20,60 @@
 # This manifest contains some sample invocations of lxca_job resource type
 
 lxca_job{'list_all':
-  host => 'https://10.243.10.75',
-  port => '443',
-  login_user => 'Admin',
+  ensure         => 'discover_all',
+  port           => '443',
+  login_user     => 'Admin',
   login_password => 'Lenovo123',
-  verify_ssl => 'NONE',
-  ensure => 'discover_all',
+  verify_ssl     => 'NONE',
+  host           => 'https://10.243.10.75',
 }
 
 lxca_job{'filter_by_deviceid':
-  host => 'https://10.243.10.75',
-  port => '443',
-  login_user => 'Admin',
+  ensure         => 'filter_by_uuid',
+  port           => '443',
+  login_user     => 'Admin',
   login_password => 'Lenovo123',
-  verify_ssl => 'NONE',
-  ensure => 'filter_by_uuid',
-  uuid => 'F44E92339683385A8D97CD6348A6F45F',
+  verify_ssl     => 'NONE',
+  host           => 'https://10.243.10.75',
+  uuid           => 'F44E92339683385A8D97CD6348A6F45F',
 }
 
 lxca_job{'filter_by_jobid':
-  host => 'https://10.243.10.75',
-  port => '443',
-  login_user => 'Admin',
+  ensure         => 'filter_by_id',
+  port           => '443',
+  login_user     => 'Admin',
   login_password => 'Lenovo123',
-  verify_ssl => 'NONE',
-  ensure => 'filter_by_id',
-  id => '6',
+  verify_ssl     => 'NONE',
+  host           => 'https://10.243.10.75',
+  id             => '6',
 }
 
 lxca_job{'filter_by_state':
-  host => 'https://10.243.10.75',
-  port => '443',
-  login_user => 'Admin',
+  ensure         => 'filter_by_state',
+  port           => '443',
+  login_user     => 'Admin',
   login_password => 'Lenovo123',
-  verify_ssl => 'NONE',
-  ensure => 'filter_by_state',
-  state => 'Complete',
+  verify_ssl     => 'NONE',
+  host           => 'https://10.243.10.75',
+  state          => 'Complete',
 }
 
 lxca_job{'cancel_job':
-  host => 'https://10.243.10.75',
-  port => '443',
-  login_user => 'Admin',
+  ensure         => 'cancel_job',
+  port           => '443',
+  login_user     => 'Admin',
   login_password => 'Lenovo123',
-  verify_ssl => 'NONE',
-  ensure => 'cancel_job',
-  id => '289',
+  verify_ssl     => 'NONE',
+  host           => 'https://10.243.10.75',
+  id             => '289',
 }
 
 lxca_job{'delete_job':
-  host => 'https://10.243.10.75',
-  port => '443',
-  login_user => 'Admin',
+  ensure         => 'delete_job',
+  port           => '443',
+  login_user     => 'Admin',
   login_password => 'Lenovo123',
-  verify_ssl => 'NONE',
-  ensure => 'delete_job',
-  id => '289',
+  verify_ssl     => 'NONE',
+  host           => 'https://10.243.10.75',
+  id             => '289',
 }

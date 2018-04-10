@@ -26,15 +26,15 @@ require 'xclarity_client'
 
 Puppet::Type.type(:lxca_node).provide(:lxca_node) do
   desc 'Node provider for LXCA resource'
-  
+
   def create_client
-    conf=XClarityClient::Configuration.new(
-      :username => @resource['login_user'],
-      :password => @resource['login_password'],
-      :host => @resource['host'],
-      :port => @resource['port'],
-      :auth_type => @resource['auth_type'],
-      :verify_ssl => @resource['verify_ssl']
+    conf = XClarityClient::Configuration.new(
+      username: @resource['login_user'],
+      password: @resource['login_password'],
+      host: @resource['host'],
+      port: @resource['port'],
+      auth_type: @resource['auth_type'],
+      verify_ssl: @resource['verify_ssl'],
     )
     @client = XClarityClient::Client.new(conf)
   end
@@ -62,16 +62,16 @@ Puppet::Type.type(:lxca_node).provide(:lxca_node) do
 
   def discover_managed_nodes
     create_client if @client.nil?
-    @client.discover_nodes({:status => 'managed'}).map do |node|
+    @client.discover_nodes(status: 'managed').map do |node|
       node.instance_variables.each do |att|
         puts "#{att} - #{node.instance_variable_get att}"
       end
     end
   end
-  
+
   def discover_unmanaged_nodes
     create_client if @client.nil?
-    @client.discover_nodes({:status => 'unmanaged'}).map do |node|
+    @client.discover_nodes(status: 'unmanaged').map do |node|
       node.instance_variables.each do |att|
         puts "#{att} - #{node.instance_variable_get att}"
       end
@@ -81,9 +81,9 @@ Puppet::Type.type(:lxca_node).provide(:lxca_node) do
   def filter_by_chassis
     create_client if @client.nil?
     if @resource[:chassis].nil?
-      raise Puppet::Error, _("Attribute chassis is mandatory for the ensurable filter_by_chassis")
+      raise Puppet::Error, _('Attribute chassis is mandatory for the ensurable filter_by_chassis')
     end
-    @client.discover_nodes({:chassis => "#{@resource[:chassis]}"}).map do |node|
+    @client.discover_nodes(chassis: (@resource[:chassis]).to_s).map do |node|
       node.instance_variables.each do |att|
         puts "#{att} - #{node.instance_variable_get att}"
       end
@@ -93,10 +93,10 @@ Puppet::Type.type(:lxca_node).provide(:lxca_node) do
   def filter_by_uuid
     create_client if @client.nil?
     if @resource[:uuid].nil?
-      raise Puppet::Error, _("Attribute uuid is mandatory for the ensurable filter_by_uuid")
+      raise Puppet::Error, _('Attribute uuid is mandatory for the ensurable filter_by_uuid')
     end
 
-    @client.fetch_nodes(["#{@resource[:uuid]}"]).map do |node|
+    @client.fetch_nodes([(@resource[:uuid]).to_s]).map do |node|
       node.instance_variables.each do |att|
         puts "#{att} - #{node.instance_variable_get att}"
       end
@@ -106,7 +106,7 @@ Puppet::Type.type(:lxca_node).provide(:lxca_node) do
   def power_on
     create_client if @client.nil?
     if @resource[:uuid].nil?
-      raise Puppet::Error, _("Attribute uuid is mandatory when ensure is set to power_on")
+      raise Puppet::Error, _('Attribute uuid is mandatory when ensure is set to power_on')
     end
     @client.power_on_node(@resource[:uuid])
   end
@@ -114,7 +114,7 @@ Puppet::Type.type(:lxca_node).provide(:lxca_node) do
   def power_off
     create_client if @client.nil?
     if @resource[:uuid].nil?
-      raise Puppet::Error, _("Attribute uuid is mandatory when ensure is set to power_off")
+      raise Puppet::Error, _('Attribute uuid is mandatory when ensure is set to power_off')
     end
     @client.power_off_node(@resource[:uuid])
   end
@@ -122,7 +122,7 @@ Puppet::Type.type(:lxca_node).provide(:lxca_node) do
   def power_restart
     create_client if @client.nil?
     if @resource[:uuid].nil?
-      raise Puppet::Error, _("Attribute uuid is mandatory when ensure is set to power_restart")
+      raise Puppet::Error, _('Attribute uuid is mandatory when ensure is set to power_restart')
     end
     @client.power_restart_node(@resource[:uuid])
   end
@@ -130,7 +130,7 @@ Puppet::Type.type(:lxca_node).provide(:lxca_node) do
   def blink_led
     create_client if @client.nil?
     if @resource[:uuid].nil?
-      raise Puppet::Error, _("Attribute uuid is mandatory when ensure is set to blink_led")
+      raise Puppet::Error, _('Attribute uuid is mandatory when ensure is set to blink_led')
     end
     @client.blink_loc_led(@resource[:uuid])
   end
@@ -138,7 +138,7 @@ Puppet::Type.type(:lxca_node).provide(:lxca_node) do
   def turn_on_led
     create_client if @client.nil?
     if @resource[:uuid].nil?
-      raise Puppet::Error, _("Attribute uuid is mandatory when ensure is set to turn_on_led")
+      raise Puppet::Error, _('Attribute uuid is mandatory when ensure is set to turn_on_led')
     end
     @client.turn_on_loc_led(@resource[:uuid])
   end
@@ -146,10 +146,8 @@ Puppet::Type.type(:lxca_node).provide(:lxca_node) do
   def turn_off_led
     create_client if @client.nil?
     if @resource[:uuid].nil?
-      raise Puppet::Error, _("Attribute uuid is mandatory when ensure is set to turn_off_led")
+      raise Puppet::Error, _('Attribute uuid is mandatory when ensure is set to turn_off_led')
     end
     @client.turn_off_loc_led(@resource[:uuid])
   end
-
 end
-

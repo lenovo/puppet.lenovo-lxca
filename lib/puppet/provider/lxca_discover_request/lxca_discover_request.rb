@@ -26,15 +26,15 @@ require 'xclarity_client'
 
 Puppet::Type.type(:lxca_discover_request).provide(:lxca_discover_request) do
   desc 'Discover request provider for LXCA resource'
-  
+
   def create_client
-    conf=XClarityClient::Configuration.new(
-      :username => @resource['login_user'],
-      :password => @resource['login_password'],
-      :host => @resource['host'],
-      :port => @resource['port'],
-      :auth_type => @resource['auth_type'],
-      :verify_ssl => @resource['verify_ssl']
+    conf = XClarityClient::Configuration.new(
+      username: @resource['login_user'],
+      password: @resource['login_password'],
+      host: @resource['host'],
+      port: @resource['port'],
+      auth_type: @resource['auth_type'],
+      verify_ssl: @resource['verify_ssl'],
     )
     @client = XClarityClient::Client.new(conf)
   end
@@ -54,7 +54,7 @@ Puppet::Type.type(:lxca_discover_request).provide(:lxca_discover_request) do
   def discover_manageable_devices
     create_client if @client.nil?
     if @resource[:ip_addresses].nil?
-      raise Puppet::Error, _("Attribute ip_addresses is mandatory for the ensurable discover_manageable_devices")
+      raise Puppet::Error, _('Attribute ip_addresses is mandatory for the ensurable discover_manageable_devices')
     end
 
     @client.discover_manageable_devices(@resource[:ip_addresses])
@@ -63,15 +63,13 @@ Puppet::Type.type(:lxca_discover_request).provide(:lxca_discover_request) do
   def monitor_discover_request
     create_client if @client.nil?
     if @resource[:job_id].nil?
-      raise Puppet::Error, _("Attribute job_id is mandatory for the ensurable monitor_discover_request")
+      raise Puppet::Error, _('Attribute job_id is mandatory for the ensurable monitor_discover_request')
     end
 
-    @client.monitor_discover_request("#{@resource[:job_id]}").map do |req|
+    @client.monitor_discover_request((@resource[:job_id]).to_s).map do |req|
       req.instance_variables.each do |attr|
         puts "#{attr} - #{req.instance_variable_get attr}"
       end
     end
   end
-
 end
-

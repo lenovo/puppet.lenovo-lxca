@@ -26,15 +26,15 @@ require 'xclarity_client'
 
 Puppet::Type.type(:lxca_canister).provide(:lxca_canister) do
   desc 'Canister provider for LXCA resource'
-  
+
   def create_client
-    conf=XClarityClient::Configuration.new(
-      :username => @resource['login_user'],
-      :password => @resource['login_password'],
-      :host => @resource['host'],
-      :port => @resource['port'],
-      :auth_type => @resource['auth_type'],
-      :verify_ssl => @resource['verify_ssl']
+    conf = XClarityClient::Configuration.new(
+      username: @resource['login_user'],
+      password: @resource['login_password'],
+      host: @resource['host'],
+      port: @resource['port'],
+      auth_type: @resource['auth_type'],
+      verify_ssl: @resource['verify_ssl'],
     )
     @client = XClarityClient::Client.new(conf)
   end
@@ -63,15 +63,13 @@ Puppet::Type.type(:lxca_canister).provide(:lxca_canister) do
   def filter_by_uuid
     create_client if @client.nil?
     if @resource[:uuid].nil?
-      raise Puppet::Error, _("Attribute uuid is mandatory for the ensurable filter_by_uuid")
+      raise Puppet::Error, _('Attribute uuid is mandatory for the ensurable filter_by_uuid')
     end
 
-    @client.fetch_canisters(["#{@resource[:uuid]}"]).map do |canister|
+    @client.fetch_canisters([(@resource[:uuid]).to_s]).map do |canister|
       canister.instance_variables.each do |att|
         puts "#{att} - #{canister.instance_variable_get att}"
       end
     end
   end
-
 end
-

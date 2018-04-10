@@ -20,12 +20,12 @@
 # This manifest contains some sample invocations of lxca_ffdc resource type
 
 lxca_ffdc{'filter_by_uuid':
-  host => 'https://10.243.10.75',
-  port => '443',
-  login_user => 'Admin',
+  ensure         => 'filter_by_uuid',
+  port           => '443',
+  login_user     => 'Admin',
   login_password => 'passw0rd',
-  verify_ssl => 'NONE',
-  ensure => 'filter_by_uuid',
-  uuid => 'FA59C0BBC43C3C15B9D72B94AFF52B91',
+  verify_ssl     => 'NONE',
+  host           => 'https://10.243.10.75',
+  uuid           => 'FA59C0BBC43C3C15B9D72B94AFF52B91',
 }
 

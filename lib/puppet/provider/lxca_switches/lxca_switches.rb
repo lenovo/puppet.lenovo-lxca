@@ -26,15 +26,15 @@ require 'xclarity_client'
 
 Puppet::Type.type(:lxca_switches).provide(:lxca_switches) do
   desc 'Switch provider for LXCA resource'
-  
+
   def create_client
-    conf=XClarityClient::Configuration.new(
-      :username => @resource['login_user'],
-      :password => @resource['login_password'],
-      :host => @resource['host'],
-      :port => @resource['port'],
-      :auth_type => @resource['auth_type'],
-      :verify_ssl => @resource['verify_ssl']
+    conf = XClarityClient::Configuration.new(
+      username: @resource['login_user'],
+      password: @resource['login_password'],
+      host: @resource['host'],
+      port: @resource['port'],
+      auth_type: @resource['auth_type'],
+      verify_ssl: @resource['verify_ssl'],
     )
     @client = XClarityClient::Client.new(conf)
   end
@@ -63,9 +63,9 @@ Puppet::Type.type(:lxca_switches).provide(:lxca_switches) do
   def filter_by_chassis
     create_client if @client.nil?
     if @resource[:chassis].nil?
-      raise Puppet::Error, _("Attribute chassis is mandatory for the ensurable filter_by_chassis")
+      raise Puppet::Error, _('Attribute chassis is mandatory for the ensurable filter_by_chassis')
     end
-    @client.discover_switches({:chassis => "#{@resource[:chassis]}"}).map do |switch|
+    @client.discover_switches(chassis: (@resource[:chassis]).to_s).map do |switch|
       switch.instance_variables.each do |att|
         puts "#{att} - #{switch.instance_variable_get att}"
       end
@@ -75,15 +75,13 @@ Puppet::Type.type(:lxca_switches).provide(:lxca_switches) do
   def filter_by_uuid
     create_client if @client.nil?
     if @resource[:uuid].nil?
-      raise Puppet::Error, _("Attribute uuid is mandatory for the ensurable filter_by_uuid")
+      raise Puppet::Error, _('Attribute uuid is mandatory for the ensurable filter_by_uuid')
     end
 
-    @client.fetch_switches(["#{@resource[:uuid]}"]).map do |switch|
+    @client.fetch_switches([(@resource[:uuid]).to_s]).map do |switch|
       switch.instance_variables.each do |att|
         puts "#{att} - #{switch.instance_variable_get att}"
       end
     end
   end
-
 end
-

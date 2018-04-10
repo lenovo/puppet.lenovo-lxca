@@ -26,7 +26,6 @@
 require 'spec_helper'
 
 describe Puppet::Type.type(:lxca_discover_request).provider(:lxca_discover_request) do
-
   before :each do
     described_class.stubs(:suitable?).returns true
     Puppet::Type.type(:lxca_discover_request).stubs(:defaultprovider).returns described_class
@@ -34,71 +33,70 @@ describe Puppet::Type.type(:lxca_discover_request).provider(:lxca_discover_reque
 
   let :discover_request do
     Puppet::Type.type(:lxca_discover_request).new(
-      :name => 'lxca_discover_request',
-      :host => 'https://10.240.29.217',
-      :port => '443',
-      :login_user => 'USERID',
-      :login_password => 'Passw0rd',
-      :verify_ssl => 'NONE',
+      name: 'lxca_discover_request',
+      host: 'https://10.240.29.217',
+      port: '443',
+      login_user: 'USERID',
+      login_password: 'Passw0rd',
+      verify_ssl: 'NONE',
     )
   end
 
   let :discover_request_with_ip_addr do
     Puppet::Type.type(:lxca_discover_request).new(
-      :name => 'lxca_discover_request',
-      :host => 'https://10.240.29.217',
-      :port => '443',
-      :login_user => 'USERID',
-      :login_password => 'Passw0rd',
-      :verify_ssl => 'NONE',
-      :ip_addresses => ['10.240.74.210'],
+      name: 'lxca_discover_request',
+      host: 'https://10.240.29.217',
+      port: '443',
+      login_user: 'USERID',
+      login_password: 'Passw0rd',
+      verify_ssl: 'NONE',
+      ip_addresses: ['10.240.74.210'],
     )
   end
 
   let :discover_request_with_job_id do
     Puppet::Type.type(:lxca_discover_request).new(
-      :name => 'lxca_discover_request',
-      :host => 'https://10.240.29.217',
-      :port => '443',
-      :login_user => 'USERID',
-      :login_password => 'Passw0rd',
-      :verify_ssl => 'NONE',
-      :job_id => '3124',
+      name: 'lxca_discover_request',
+      host: 'https://10.240.29.217',
+      port: '443',
+      login_user: 'USERID',
+      login_password: 'Passw0rd',
+      verify_ssl: 'NONE',
+      job_id: '3124',
     )
   end
 
-  describe "provider instance type" do
-    it "with ip_addresses should be an instance of provider ruby" do
+  describe 'provider instance type' do
+    it 'with ip_addresses should be an instance of provider ruby' do
       expect(discover_request_with_ip_addr.provider).to be_an_instance_of Puppet::Type.type(:lxca_discover_request).provider(:lxca_discover_request)
     end
 
-    it "with job_id should be an instance of provider ruby" do
+    it 'with job_id should be an instance of provider ruby' do
       expect(discover_request_with_job_id.provider).to be_an_instance_of Puppet::Type.type(:lxca_discover_request).provider(:lxca_discover_request)
     end
   end
 
-  describe "for ensurable discover_manageable_devices" do
-    it "should have ip_addresses as a parameter" do
-      expect {discover_request.provider.discover_manageable_devices}.to raise_error(Puppet::Error, /Attribute ip_addresses is mandatory for the ensurable discover_manageable_devices/)
+  describe 'for ensurable discover_manageable_devices' do
+    it 'has ip_addresses as a parameter' do
+      expect { discover_request.provider.discover_manageable_devices }.to raise_error(Puppet::Error, %r{Attribute ip_addresses is mandatory for the ensurable discover_manageable_devices})
     end
   end
 
-  describe "for ensurable discover_manageable_devices" do
-    it "response should have location" do
-      expect(discover_request_with_ip_addr.provider.discover_manageable_devices.headers).to include "location" 
+  describe 'for ensurable discover_manageable_devices' do
+    it 'response should have location' do
+      expect(discover_request_with_ip_addr.provider.discover_manageable_devices.headers).to include 'location'
     end
   end
 
-  describe "for ensurable monitor_discover_request" do
-    it "should have job_id as a parameter" do
-      expect {discover_request.provider.monitor_discover_request}.to raise_error(Puppet::Error, /Attribute job_id is mandatory for the ensurable monitor_discover_request/)
+  describe 'for ensurable monitor_discover_request' do
+    it 'has job_id as a parameter' do
+      expect { discover_request.provider.monitor_discover_request }.to raise_error(Puppet::Error, %r{Attribute job_id is mandatory for the ensurable monitor_discover_request})
     end
   end
 
-  describe "for ensurable monitor_discover_request" do
-    it "should return an array as a result" do
+  describe 'for ensurable monitor_discover_request' do
+    it 'returns an array as a result' do
       expect(discover_request_with_job_id.provider.monitor_discover_request).to be_instance_of(Array)
     end
   end
-
 end

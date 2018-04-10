@@ -26,31 +26,30 @@
 require 'spec_helper'
 
 describe Puppet::Type.type(:lxca_power_supplies) do
-
-  before do
+  before(:each) do
     @power_supplies_example = {
-      :host => 'https://10.243.10.75',
-      :port => '443',
-      :login_user => 'Admin',
-      :login_password => 'Lenovo123',
-      :verify_ssl => 'NONE',
+      host: 'https://10.243.10.75',
+      port: '443',
+      login_user: 'Admin',
+      login_password: 'Lenovo123',
+      verify_ssl: 'NONE',
     }
-   
-    @provider = stub('provider', :class => described_class.defaultprovider, :clear => nil)
+
+    @provider = stub('provider', class: described_class.defaultprovider, clear: nil)
     described_class.defaultprovider.stubs(:new).returns(@provider)
   end
 
-  it "should have :name be its namevar" do
+  it 'has :name be its namevar' do
     described_class.key_attributes.should == [:name]
   end
 
-  describe "when validating attributes" do
+  describe 'when validating attributes' do
     [:name, :provider, :host, :port, :login_user, :login_password, :verify_ssl].each do |param|
       it "should have a #{param} parameter" do
         described_class.attrtype(param).should == :param
       end
     end
-  
+
     [:ensure].each do |prop|
       it "should have a #{prop} property" do
         described_class.attrtype(prop).should == :property
@@ -58,51 +57,49 @@ describe Puppet::Type.type(:lxca_power_supplies) do
     end
   end
 
-  describe "for ensure" do
-    it "should not support other values" do
-      expect { described_class.new(:name => 'lxca_power_supplies', :ensure => 'foo') }.to raise_error(Puppet::Error, /Invalid value "foo"/)
+  describe 'for ensure' do
+    it 'does not support other values' do
+      expect { described_class.new(name: 'lxca_power_supplies', ensure: 'foo') }.to raise_error(Puppet::Error, %r{Invalid value "foo"})
     end
 
-    it "should not have a default value" do
-      described_class.new(:name => 'lxca_power_supplies')[:ensure].should == nil
-    end
-    
-  end
-
-  describe "for host" do
-    it "should not have a default value" do
-      described_class.new(:name => 'lxca_power_supplies')[:host].should == nil
+    it 'does not have a default value' do
+      described_class.new(name: 'lxca_power_supplies')[:ensure].should.nil?
     end
   end
 
-  describe "for port" do
-    it "should not have a default value" do
-      described_class.new(:name => 'lxca_power_supplies')[:port].should == nil
+  describe 'for host' do
+    it 'does not have a default value' do
+      described_class.new(name: 'lxca_power_supplies')[:host].should.nil?
     end
   end
 
-  describe "for login_user" do
-    it "should not have a default value" do
-        described_class.new(:name => 'lxca_power_supplies')[:login_user].should == nil
+  describe 'for port' do
+    it 'does not have a default value' do
+      described_class.new(name: 'lxca_power_supplies')[:port].should.nil?
     end
   end
 
-  describe "for login_password" do
-    it "should not have a default value" do
-        described_class.new(:name => 'lxca_power_supplies')[:login_password].should == nil
+  describe 'for login_user' do
+    it 'does not have a default value' do
+      described_class.new(name: 'lxca_power_supplies')[:login_user].should.nil?
     end
   end
 
-  describe "for verify_ssl" do
-    it "should not have a default value" do
-      described_class.new(:name => 'lxca_power_supplies')[:verify_ssl].should == nil
+  describe 'for login_password' do
+    it 'does not have a default value' do
+      described_class.new(name: 'lxca_power_supplies')[:login_password].should.nil?
     end
   end
 
-  describe "for auth_type" do
-    it "should have a default value of 'basic_auth" do
-      described_class.new(:name => 'lxca_power_supplies', :ensure => 'discover_all')[:auth_type].should == 'basic_auth'
+  describe 'for verify_ssl' do
+    it 'does not have a default value' do
+      described_class.new(name: 'lxca_power_supplies')[:verify_ssl].should.nil?
     end
   end
 
-end 
+  describe 'for auth_type' do
+    it "has a default value of 'basic_auth" do
+      described_class.new(name: 'lxca_power_supplies', ensure: 'discover_all')[:auth_type].should == 'basic_auth'
+    end
+  end
+end

@@ -26,15 +26,15 @@ require 'xclarity_client'
 
 Puppet::Type.type(:lxca_manage_request).provide(:lxca_manage_request) do
   desc 'Manage request provider for LXCA resource'
-  
+
   def create_client
-    conf=XClarityClient::Configuration.new(
-      :username => @resource['login_user'],
-      :password => @resource['login_password'],
-      :host => @resource['host'],
-      :port => @resource['port'],
-      :auth_type => @resource['auth_type'],
-      :verify_ssl => @resource['verify_ssl']
+    conf = XClarityClient::Configuration.new(
+      username: @resource['login_user'],
+      password: @resource['login_password'],
+      host: @resource['host'],
+      port: @resource['port'],
+      auth_type: @resource['auth_type'],
+      verify_ssl: @resource['verify_ssl'],
     )
     @client = XClarityClient::Client.new(conf)
   end
@@ -54,10 +54,10 @@ Puppet::Type.type(:lxca_manage_request).provide(:lxca_manage_request) do
   def fetch_manage_request
     create_client if @client.nil?
     if @resource[:job_id].nil?
-      raise Puppet::Error, _("Attribute job_id is mandatory for the ensurable fetch_manage_request")
+      raise Puppet::Error, _('Attribute job_id is mandatory for the ensurable fetch_manage_request')
     end
 
-    @client.fetch_manage_request("#{@resource[:job_id]}").map do |req|
+    @client.fetch_manage_request((@resource[:job_id]).to_s).map do |req|
       req.instance_variables.each do |attr|
         puts "#{attr} - #{req.instance_variable_get attr}"
       end
@@ -67,23 +67,21 @@ Puppet::Type.type(:lxca_manage_request).provide(:lxca_manage_request) do
   def manage_discovered_devices
     create_client if @client.nil?
     if @resource[:ip_address].nil?
-      raise Puppet::Error, _("Attribute ip_address is mandatory for the ensurable manage_discovered_devices")
+      raise Puppet::Error, _('Attribute ip_address is mandatory for the ensurable manage_discovered_devices')
     end
     if @resource[:username].nil?
-      raise Puppet::Error, _("Attribute username is mandatory for the ensurable manage_discovered_devices")
+      raise Puppet::Error, _('Attribute username is mandatory for the ensurable manage_discovered_devices')
     end
     if @resource[:password].nil?
-      raise Puppet::Error, _("Attribute password is mandatory for the ensurable manage_discovered_devices")
+      raise Puppet::Error, _('Attribute password is mandatory for the ensurable manage_discovered_devices')
     end
     if @resource[:recovery_password].nil?
-      raise Puppet::Error, _("Attribute recovery_password is mandatory for the ensurable manage_discovered_devices")
+      raise Puppet::Error, _('Attribute recovery_password is mandatory for the ensurable manage_discovered_devices')
     end
     if @resource[:force].nil?
-      raise Puppet::Error, _("Attribute force is mandatory for the ensurable manage_discovered_devices")
+      raise Puppet::Error, _('Attribute force is mandatory for the ensurable manage_discovered_devices')
     end
 
-    @client.manage_discovered_devices(@resource[:ip_address], "#{@resource[:username]}", "#{@resource[:password]}", "#{@resource[:recovery_password]}", "#{@resource[:force]}")
+    @client.manage_discovered_devices(@resource[:ip_address], (@resource[:username]).to_s, (@resource[:password]).to_s, (@resource[:recovery_password]).to_s, (@resource[:force]).to_s)
   end
-
 end
-

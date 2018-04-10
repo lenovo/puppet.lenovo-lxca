@@ -26,7 +26,6 @@
 require 'spec_helper'
 
 describe Puppet::Type.type(:lxca_discovery).provider(:lxca_discovery) do
-
   before :each do
     described_class.stubs(:suitable?).returns true
     Puppet::Type.type(:lxca_discovery).stubs(:defaultprovider).returns described_class
@@ -34,25 +33,24 @@ describe Puppet::Type.type(:lxca_discovery).provider(:lxca_discovery) do
 
   let :discovery do
     Puppet::Type.type(:lxca_discovery).new(
-      :name => 'lxca_discovery',
-      :host => 'https://10.240.29.217',
-      :port => '443',
-      :login_user => 'USERID',
-      :login_password => 'Passw0rd',
-      :verify_ssl => 'NONE',
+      name: 'lxca_discovery',
+      host: 'https://10.240.29.217',
+      port: '443',
+      login_user: 'USERID',
+      login_password: 'Passw0rd',
+      verify_ssl: 'NONE',
     )
   end
 
-  describe "provider instance type" do
-    it "should be an instance of provider ruby" do
+  describe 'provider instance type' do
+    it 'is an instance of provider ruby' do
       expect(discovery.provider).to be_an_instance_of Puppet::Type.type(:lxca_discovery).provider(:lxca_discovery)
     end
   end
 
-  describe "for discover_devices_by_slp" do
-    it "should return an array as a result" do
+  describe 'for discover_devices_by_slp' do
+    it 'returns an array as a result' do
       expect(discovery.provider.discover_devices_by_slp).to be_instance_of(Array)
     end
   end
-
 end

@@ -26,7 +26,6 @@
 require 'spec_helper'
 
 describe Puppet::Type.type(:lxca_event).provider(:lxca_event) do
-
   before :each do
     described_class.stubs(:suitable?).returns true
     Puppet::Type.type(:lxca_event).stubs(:defaultprovider).returns described_class
@@ -34,21 +33,20 @@ describe Puppet::Type.type(:lxca_event).provider(:lxca_event) do
 
   let :event do
     Puppet::Type.type(:lxca_event).new(
-      :name => 'lxca_event',
-      :host => 'https://10.243.10.75',
-      :port => '443',
-      :login_user => 'Admin',
-      :login_password => 'Lenovo123',
-      :verify_ssl => 'NONE',
+      name: 'lxca_event',
+      host: 'https://10.243.10.75',
+      port: '443',
+      login_user: 'Admin',
+      login_password: 'Lenovo123',
+      verify_ssl: 'NONE',
     )
   end
-  
-  describe "for discover_all" do
-    it "should return an array as a result" do
+
+  describe 'for discover_all' do
+    it 'returns an array as a result' do
       expect(event.provider.discover_all).to be_instance_of(Array)
     end
   end
-
 end
 # Lenovo Copyright
 #
@@ -77,7 +75,6 @@ end
 require 'spec_helper'
 
 describe Puppet::Type.type(:lxca_event).provider(:lxca_event) do
-
   before :each do
     described_class.stubs(:suitable?).returns true
     Puppet::Type.type(:lxca_event).stubs(:defaultprovider).returns described_class
@@ -85,19 +82,18 @@ describe Puppet::Type.type(:lxca_event).provider(:lxca_event) do
 
   let :event do
     Puppet::Type.type(:lxca_event).new(
-      :name => 'lxca_event',
-      :host => 'https://10.243.10.75',
-      :port => '443',
-      :login_user => 'Admin',
-      :login_password => 'Lenovo123',
-      :verify_ssl => 'NONE',
+      name: 'lxca_event',
+      host: 'https://10.243.10.75',
+      port: '443',
+      login_user: 'Admin',
+      login_password: 'Lenovo123',
+      verify_ssl: 'NONE',
     )
   end
-  
-  describe "for discover_all" do
-    it "should return an array as a result" do
+
+  describe 'for discover_all' do
+    it 'returns an array as a result' do
       expect(event.provider.discover_all).to be_instance_of(Array)
     end
   end
-
 end

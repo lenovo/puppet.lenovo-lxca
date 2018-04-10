@@ -26,7 +26,6 @@
 require 'spec_helper'
 
 describe Puppet::Type.type(:lxca_fan_muxes).provider(:lxca_fan_muxes) do
-
   before :each do
     described_class.stubs(:suitable?).returns true
     Puppet::Type.type(:lxca_fan_muxes).stubs(:defaultprovider).returns described_class
@@ -34,79 +33,78 @@ describe Puppet::Type.type(:lxca_fan_muxes).provider(:lxca_fan_muxes) do
 
   let :fan_mux do
     Puppet::Type.type(:lxca_fan_muxes).new(
-      :name => 'lxca_fan_mux',
-      :host => 'https://10.243.10.75',
-      :port => '443',
-      :login_user => 'Admin',
-      :login_password => 'Lenovo123',
-      :verify_ssl => 'NONE',
+      name: 'lxca_fan_mux',
+      host: 'https://10.243.10.75',
+      port: '443',
+      login_user: 'Admin',
+      login_password: 'Lenovo123',
+      verify_ssl: 'NONE',
     )
   end
-  
+
   let :fan_mux_with_chassis do
     Puppet::Type.type(:lxca_fan_muxes).new(
-      :name => 'lxca_fan_mux',
-      :host => 'https://10.243.10.75',
-      :port => '443',
-      :login_user => 'Admin',
-      :login_password => 'Lenovo123',
-      :verify_ssl => 'NONE',
-      :chassis => 'F44E92339683385A8D97CD6348A6F45F'
+      name: 'lxca_fan_mux',
+      host: 'https://10.243.10.75',
+      port: '443',
+      login_user: 'Admin',
+      login_password: 'Lenovo123',
+      verify_ssl: 'NONE',
+      chassis: 'F44E92339683385A8D97CD6348A6F45F',
     )
   end
 
   let :fan_mux_with_uuid do
     Puppet::Type.type(:lxca_fan_muxes).new(
-      :name => 'lxca_fan_mux',
-      :host => 'https://10.243.10.75',
-      :port => '443',
-      :login_user => 'Admin',
-      :login_password => 'Lenovo123',
-      :verify_ssl => 'NONE',
-      :uuid => 'FA59C0BBC43C3C15B9D72B94AFF52B91'
+      name: 'lxca_fan_mux',
+      host: 'https://10.243.10.75',
+      port: '443',
+      login_user: 'Admin',
+      login_password: 'Lenovo123',
+      verify_ssl: 'NONE',
+      uuid: 'FA59C0BBC43C3C15B9D72B94AFF52B91',
     )
   end
 
-  describe "provider instance type" do
-    it "without uuid and chassis should be an instance of provider ruby" do
+  describe 'provider instance type' do
+    it 'without uuid and chassis should be an instance of provider ruby' do
       expect(fan_mux.provider).to be_an_instance_of Puppet::Type.type(:lxca_fan_muxes).provider(:lxca_fan_muxes)
     end
-    it "with chassis should be an instance of provider ruby" do
+    it 'with chassis should be an instance of provider ruby' do
       expect(fan_mux_with_chassis.provider).to be_an_instance_of Puppet::Type.type(:lxca_fan_muxes).provider(:lxca_fan_muxes)
     end
-    it "with uuid should be an instance of provider ruby" do
+    it 'with uuid should be an instance of provider ruby' do
       expect(fan_mux_with_uuid.provider).to be_an_instance_of Puppet::Type.type(:lxca_fan_muxes).provider(:lxca_fan_muxes)
     end
   end
 
-  describe "for ensurable filter_by_chassis" do
-    it "should have chassis as a parameter" do
-      expect {fan_mux.provider.filter_by_chassis}.to raise_error(Puppet::Error, /Attribute chassis is mandatory for the ensurable filter_by_chassis/)
+  describe 'for ensurable filter_by_chassis' do
+    it 'has chassis as a parameter' do
+      expect { fan_mux.provider.filter_by_chassis }.to raise_error(Puppet::Error, %r{Attribute chassis is mandatory for the ensurable filter_by_chassis})
     end
   end
 
-  describe "for ensurable filter_by_uuid" do
-    it "should have uuid as a parameter" do
-      expect {fan_mux.provider.filter_by_uuid}.to raise_error(Puppet::Error, /Attribute uuid is mandatory for the ensurable filter_by_uuid/)
+  describe 'for ensurable filter_by_uuid' do
+    it 'has uuid as a parameter' do
+      expect { fan_mux.provider.filter_by_uuid }.to raise_error(Puppet::Error, %r{Attribute uuid is mandatory for the ensurable filter_by_uuid})
     end
   end
 
-  describe "for discover_all" do
-    it "should return an array as a result" do
+  describe 'for discover_all' do
+    it 'returns an array as a result' do
       expect(fan_mux.provider.discover_all).to be_instance_of(Array)
     end
   end
 
-  describe "for filter_by_chassis" do
-    it "should return an array as a result" do
+  describe 'for filter_by_chassis' do
+    it 'returns an array as a result' do
       expect(fan_mux_with_chassis.provider.filter_by_chassis).to be_instance_of(Array)
     end
   end
 
-  describe "for filter_by_uuid" do
-    it "should return an array as a result" do
+  describe 'for filter_by_uuid' do
+    it 'returns an array as a result' do
       expect(fan_mux_with_uuid.provider.filter_by_uuid).to be_instance_of(Array)
     end
   end
-
 end

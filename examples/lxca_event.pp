@@ -20,12 +20,12 @@
 # This manifest contains some sample invocations of lxca_event resource type
 
 lxca_event{'list_all':
-  host => 'https://10.243.10.75',
-  port => '443',
-  login_user => 'Admin',
+  ensure         => 'discover_all',
+  port           => '443',
+  login_user     => 'Admin',
   login_password => 'Lenovo123',
-  verify_ssl => 'NONE',
-  ensure => 'discover_all',
+  verify_ssl     => 'NONE',
+  host           => 'https://10.243.10.75',
 }
 
 

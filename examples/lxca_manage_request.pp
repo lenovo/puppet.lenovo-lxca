@@ -20,26 +20,26 @@
 # This manifest contains some sample invocations of lxca_manage_request resource type
 
 lxca_manage_request{'fetch_manage_request':
-  host => 'https://10.243.13.140',
-  port => '443',
-  login_user => 'USERID',
+  ensure         => 'fetch_manage_request',
+  port           => '443',
+  login_user     => 'USERID',
   login_password => 'Passw0rd',
-  verify_ssl => 'NONE',
-  ensure => 'fetch_manage_request',
-  job_id => '4191',
+  verify_ssl     => 'NONE',
+  host           => 'https://10.243.13.140',
+  job_id         => '4191',
 }
 
 lxca_manage_request{'manage_discovered_devices':
-  host => 'https://10.243.13.140',
-  port => '443',
-  login_user => 'USERID',
-  login_password => 'Passw0rd',
-  verify_ssl => 'NONE',
-  ensure => 'manage_discovered_devices',
-  ip_address => ['10.243.8.28'], 
-  username => 'USERID',
-  password => 'CME44ibm',
+  ensure            => 'manage_discovered_devices',
+  port              => '443',
+  login_user        => 'USERID',
+  login_password    => 'Passw0rd',
+  verify_ssl        => 'NONE',
+  host              => 'https://10.243.13.140',
+  ip_address        => ['10.243.8.28'],
+  username          => 'USERID',
+  password          => 'CME44ibm',
   recovery_password => 'CME55ibm',
-  force => 'True'
+  force             => 'True'
 }
 

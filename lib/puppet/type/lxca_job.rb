@@ -23,9 +23,7 @@
 ################################################################################
 
 Puppet::Type.newtype(:lxca_job) do
-
   ensurable do
-    
     newvalue(:discover_all) do
       Puppet.notice "Fetching all the LXCA job elements. Results displayed below\n"
       provider.discover_all
@@ -35,72 +33,71 @@ Puppet::Type.newtype(:lxca_job) do
       Puppet.notice "Fetching all the LXCA job elements filtered by id of the job. Results displayed below\n"
       provider.filter_by_id
     end
-    
+
     newvalue(:filter_by_uuid) do
       Puppet.notice "Fetching LXCA job filtered by UUID of the device. Results displayed below\n"
       provider.filter_by_uuid
     end
-   
+
     newvalue(:filter_by_state) do
       Puppet.notice "Fetching LXCA job filtered by state of the job. Results displayed below\n"
       provider.filter_by_state
     end
- 
+
     newvalue(:cancel_job) do
-      Puppet.notice "Cancelling the job"
+      Puppet.notice 'Cancelling the job'
       provider.cancel_job
     end
 
     newvalue(:delete_job) do
-      Puppet.notice "Deleting the job"
+      Puppet.notice 'Deleting the job'
       provider.delete_job
     end
+  end
 
+  newparam(:name, namevar: true) do
+    desc 'Name for the lxca job resource'
   end
-                                  
-  newparam(:name, :namevar => true) do
-    desc "Name for the lxca job resource"
-  end
-                                              
+
   newparam(:host) do
-    desc "LXCA Host to connect to"
+    desc 'LXCA Host to connect to'
   end
 
   newparam(:port) do
-    desc "Port of LXCA to connect to"
+    desc 'Port of LXCA to connect to'
   end
 
   newparam(:login_user) do
-    desc "The username to be used to login into LXCA"
+    desc 'The username to be used to login into LXCA'
   end
 
   newparam(:login_password) do
-    desc "The password to be used to login into LXCA"
+    desc 'The password to be used to login into LXCA'
   end
 
   newparam(:verify_ssl) do
-    desc "Whether to verify SSL when connecting to the LXCA"
+    desc 'Whether to verify SSL when connecting to the LXCA'
   end
 
   newparam(:auth_type) do
-    desc "The authorization type used to connect to LXCA. Defaults to basic_auth"
+    desc 'The authorization type used to connect to LXCA. Defaults to basic_auth'
     defaultto 'basic_auth'
   end
 
   newparam(:csrf_token) do
-    desc "The CSRF token to be used in case authentication type is set to token"
+    desc 'The CSRF token to be used in case authentication type is set to token'
   end
 
   newparam(:uuid) do
-    desc "UUID of the device associated with which the jobs are to be fetched"
+    desc 'UUID of the device associated with which the jobs are to be fetched'
   end
 
   newparam(:id) do
-    desc "ID of the job on which filtering is to be applied"
+    desc 'ID of the job on which filtering is to be applied'
   end
- 
+
   newparam(:state) do
-    desc "State of the job based on which the list of jobs is to be filtered"
+    desc 'State of the job based on which the list of jobs is to be filtered'
   end
 
   validate do
@@ -112,11 +109,9 @@ Puppet::Type.newtype(:lxca_job) do
       :verify_ssl,
     ]
     required_parameters.each do |param|
-      if param.nil? or param == ""
+      if param.nil? || param == ''
         raise Puppet::Error, _("Attribute #{param} is mandatory and should not be empty")
       end
     end
-  end    
-
+  end
 end
-

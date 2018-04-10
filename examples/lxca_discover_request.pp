@@ -20,22 +20,22 @@
 # This manifest contains some sample invocations of lxca_discover_request resource type
 
 lxca_discover_request{'discover_manageable_devices':
-  host => 'https://10.240.29.217',
-  port => '443',
-  login_user => 'USERID',
+  ensure         => 'discover_manageable_devices',
+  port           => '443',
+  login_user     => 'USERID',
   login_password => 'Passw0rd',
-  verify_ssl => 'NONE',
-  ensure => 'discover_manageable_devices',
-  ip_addresses => ['10.240.74.210']
+  verify_ssl     => 'NONE',
+  host           => 'https://10.240.29.217',
+  ip_addresses   => ['10.240.74.210']
 }
 
 lxca_discover_request{'monitor_discover_request':
-  host => 'https://10.240.29.217',
-  port => '443',
-  login_user => 'USERID',
+  ensure         => 'monitor_discover_request',
+  port           => '443',
+  login_user     => 'USERID',
   login_password => 'Passw0rd',
-  verify_ssl => 'NONE',
-  ensure => 'monitor_discover_request',
-  job_id => '5878'
+  verify_ssl     => 'NONE',
+  host           => 'https://10.240.29.217',
+  job_id         => '5878'
 }
 

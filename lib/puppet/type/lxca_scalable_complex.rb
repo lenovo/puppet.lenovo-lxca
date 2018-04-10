@@ -23,9 +23,7 @@
 ################################################################################
 
 Puppet::Type.newtype(:lxca_scalable_complex) do
-
   ensurable do
-    
     newvalue(:discover_all) do
       Puppet.notice "Fetching all the LXCA scalable complex elements. Results displayed below\n"
       provider.discover_all
@@ -40,59 +38,58 @@ Puppet::Type.newtype(:lxca_scalable_complex) do
       Puppet.notice "Fetching all the LXCA unmanaged scalable complex elements. Results displayed below\n"
       provider.discover_unmanaged_scalable_complex
     end
- 
+
     newvalue(:discover_flex) do
       Puppet.notice "Fetching all the LXCA Flex System scalable complex elements. Results displayed below\n"
       provider.discover_flex
     end
-    
+
     newvalue(:discover_rackserver) do
       Puppet.notice "Fetching all the LXCA System x or Thinkserver scalable complex elements. Results displayed below\n"
       provider.discover_rackserver
     end
-    
-    newvalue(:filter_by_uuid)do
+
+    newvalue(:filter_by_uuid) do
       Puppet.notice "Fetching LXCA scalable complex elements filtered by UUID. Results displayed below\n"
       provider.filter_by_uuid
     end
+  end
 
+  newparam(:name, namevar: true) do
+    desc 'Name of the lxca scalable complex resource'
   end
-                                  
-  newparam(:name, :namevar => true) do
-    desc "Name of the lxca scalable complex resource"
-  end
-      
+
   newparam(:host) do
-    desc "LXCA Host to connect to"
+    desc 'LXCA Host to connect to'
   end
 
   newparam(:port) do
-    desc "Port of LXCA to connect to"
+    desc 'Port of LXCA to connect to'
   end
 
   newparam(:login_user) do
-    desc "The username to be used to login into LXCA"
+    desc 'The username to be used to login into LXCA'
   end
 
   newparam(:login_password) do
-    desc "The password to be used to login into LXCA"
+    desc 'The password to be used to login into LXCA'
   end
 
   newparam(:verify_ssl) do
-    desc "Whether to verify SSL when connecting to the LXCA"
+    desc 'Whether to verify SSL when connecting to the LXCA'
   end
 
   newparam(:auth_type) do
-    desc "The authorization type used to connect to LXCA. Defaults to basic_auth"
+    desc 'The authorization type used to connect to LXCA. Defaults to basic_auth'
     defaultto 'basic_auth'
   end
 
   newparam(:csrf_token) do
-    desc "The CSRF token to be used in case authentication type is set to token"
+    desc 'The CSRF token to be used in case authentication type is set to token'
   end
-                                        
+
   newparam(:uuid) do
-    desc "UUID of the scalable complex"
+    desc 'UUID of the scalable complex'
   end
 
   validate do
@@ -104,11 +101,9 @@ Puppet::Type.newtype(:lxca_scalable_complex) do
       :verify_ssl,
     ]
     required_parameters.each do |param|
-      if param.nil? or param == ""
+      if param.nil? || param == ''
         raise Puppet::Error, _("Attribute #{param} is mandatory and should not be empty")
       end
     end
-  end    
-
+  end
 end
-

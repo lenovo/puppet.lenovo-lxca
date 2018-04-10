@@ -26,7 +26,6 @@
 require 'spec_helper'
 
 describe Puppet::Type.type(:lxca_users).provider(:lxca_users) do
-
   before :each do
     described_class.stubs(:suitable?).returns true
     Puppet::Type.type(:lxca_users).stubs(:defaultprovider).returns described_class
@@ -34,52 +33,51 @@ describe Puppet::Type.type(:lxca_users).provider(:lxca_users) do
 
   let :users do
     Puppet::Type.type(:lxca_users).new(
-      :name => 'lxca_users',
-      :host => 'https://10.243.10.75',
-      :port => '443',
-      :login_user => 'Admin',
-      :login_password => 'Lenovo123',
-      :verify_ssl => 'NONE',
-    )
-  end
-  
-  let :users_with_id do
-    Puppet::Type.type(:lxca_users).new(
-      :name => 'lxca_users',
-      :host => 'https://10.243.10.75',
-      :port => '443',
-      :login_user => 'Admin',
-      :login_password => 'Lenovo123',
-      :verify_ssl => 'NONE',
-      :id => '6610c3d3-ea89-4f12-8957-858dfc44f109'
+      name: 'lxca_users',
+      host: 'https://10.243.10.75',
+      port: '443',
+      login_user: 'Admin',
+      login_password: 'Lenovo123',
+      verify_ssl: 'NONE',
     )
   end
 
-  describe "provider instance type" do
-    it "without id should be an instance of provider ruby" do
+  let :users_with_id do
+    Puppet::Type.type(:lxca_users).new(
+      name: 'lxca_users',
+      host: 'https://10.243.10.75',
+      port: '443',
+      login_user: 'Admin',
+      login_password: 'Lenovo123',
+      verify_ssl: 'NONE',
+      id: '6610c3d3-ea89-4f12-8957-858dfc44f109',
+    )
+  end
+
+  describe 'provider instance type' do
+    it 'without id should be an instance of provider ruby' do
       expect(users.provider).to be_an_instance_of Puppet::Type.type(:lxca_users).provider(:lxca_users)
     end
-    it "with id should be an instance of provider ruby" do
+    it 'with id should be an instance of provider ruby' do
       expect(users_with_id.provider).to be_an_instance_of Puppet::Type.type(:lxca_users).provider(:lxca_users)
     end
   end
 
-  describe "for ensurable filter_by_id" do
-    it "should have id as a parameter" do
-      expect {users.provider.filter_by_id}.to raise_error(Puppet::Error, /Attribute id is mandatory for the ensurable filter_by_id/)
+  describe 'for ensurable filter_by_id' do
+    it 'has id as a parameter' do
+      expect { users.provider.filter_by_id }.to raise_error(Puppet::Error, %r{Attribute id is mandatory for the ensurable filter_by_id})
     end
   end
 
-  describe "for discover_all" do
-    it "should return an array as a result" do
+  describe 'for discover_all' do
+    it 'returns an array as a result' do
       expect(users.provider.discover_all).to be_instance_of(Array)
     end
   end
 
-  describe "for filter_by_id" do
-    it "should return an array as a result" do
+  describe 'for filter_by_id' do
+    it 'returns an array as a result' do
       expect(users_with_id.provider.filter_by_id).to be_instance_of(Array)
     end
   end
-
 end

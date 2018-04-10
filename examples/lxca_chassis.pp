@@ -20,39 +20,39 @@
 # This manifest contains some sample invocations of lxca_chassis resource type
 
 lxca_chassis{'list_all':
-  host => 'https://10.243.10.75',
-  port => '443',  
-  login_user => 'Admin',
+  ensure         => 'discover_all',
+  port           => '443',
+  login_user     => 'Admin',
   login_password => 'Lenovo123',
-  verify_ssl => 'NONE',
-  ensure => 'discover_all',
+  verify_ssl     => 'NONE',
+  host           => 'https://10.243.10.75',
 }
 
 lxca_chassis{'list_managed':
-  host => 'https://10.243.10.75',
-  port => '443',
-  login_user => 'Admin',
+  ensure         => 'discover_managed',
+  port           => '443',
+  login_user     => 'Admin',
   login_password => 'Lenovo123',
-  verify_ssl => 'NONE',
-  ensure => 'discover_managed',
+  verify_ssl     => 'NONE',
+  host           => 'https://10.243.10.75',
 }
 
 lxca_chassis{'list_unmanaged':
-  host => 'https://10.243.10.75',
-  port => '443',
-  login_user => 'Admin',
+  ensure         => 'discover_unmanaged',
+  port           => '443',
+  login_user     => 'Admin',
   login_password => 'Lenovo123',
-  verify_ssl => 'NONE',
-  ensure => 'discover_unmanaged',
+  verify_ssl     => 'NONE',
+  host           => 'https://10.243.10.75',
 }
 
 lxca_chassis{'filter_by_uuid':
-  host => 'https://10.243.10.75',
-  port => '443',
-  login_user => 'Admin',
+  ensure         => 'filter_by_uuid',
+  port           => '443',
+  login_user     => 'Admin',
   login_password => 'Lenovo123',
-  verify_ssl => 'NONE',
-  ensure => 'filter_by_uuid',
-  uuid => 'F44E92339683385A8D97CD6348A6F45F',
+  verify_ssl     => 'NONE',
+  host           => 'https://10.243.10.75',
+  uuid           => 'F44E92339683385A8D97CD6348A6F45F',
 }
 

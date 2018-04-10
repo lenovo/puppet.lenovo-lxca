@@ -20,108 +20,108 @@
 # This manifest contains some sample invocations of lxca_node resource type
 
 lxca_node{'list_all':
-  host => 'https://10.243.10.75',
-  port => '443',
-  login_user => 'Admin',
+  ensure         => 'discover_all',
+  port           => '443',
+  login_user     => 'Admin',
   login_password => 'Lenovo123',
-  verify_ssl => 'NONE',
-  ensure => 'discover_all',
+  verify_ssl     => 'NONE',
+  host           => 'https://10.243.10.75',
 }
 
 lxca_node{'list_managed':
-  host => 'https://10.243.10.75',
-  port => '443',
-  login_user => 'Admin',
+  ensure         => 'discover_managed',
+  port           => '443',
+  login_user     => 'Admin',
   login_password => 'Lenovo123',
-  verify_ssl => 'NONE',
-  ensure => 'discover_managed',
+  verify_ssl     => 'NONE',
+  host           => 'https://10.243.10.75',
 }
 
 lxca_node{'list_unmanaged':
-  host => 'https://10.243.10.75',
-  port => '443',
-  login_user => 'Admin',
+  ensure         => 'discover_unmanaged',
+  port           => '443',
+  login_user     => 'Admin',
   login_password => 'Lenovo123',
-  verify_ssl => 'NONE',
-  ensure => 'discover_unmanaged',
+  verify_ssl     => 'NONE',
+  host           => 'https://10.243.10.75',
 }
 
 lxca_node{'filter_by_chassis':
-  host => 'https://10.243.10.75',
-  port => '443',
-  login_user => 'Admin',
+  ensure         => 'filter_by_chassis',
+  port           => '443',
+  login_user     => 'Admin',
   login_password => 'Lenovo123',
-  verify_ssl => 'NONE',
-  ensure => 'filter_by_chassis',
-  chassis => 'F44E92339683385A8D97CD6348A6F45F',
+  verify_ssl     => 'NONE',
+  host           => 'https://10.243.10.75',
+  chassis        => 'F44E92339683385A8D97CD6348A6F45F',
 }
 
 lxca_node{'filter_by_uuid':
-  host => 'https://10.243.10.75',
-  port => '443',
-  login_user => 'Admin',
+  ensure         => 'filter_by_uuid',
+  port           => '443',
+  login_user     => 'Admin',
   login_password => 'Lenovo123',
-  verify_ssl => 'NONE',
-  ensure => 'filter_by_uuid',
-  uuid => 'FA59C0BBC43C3C15B9D72B94AFF52B91',
+  verify_ssl     => 'NONE',
+  host           => 'https://10.243.10.75',
+  uuid           => 'FA59C0BBC43C3C15B9D72B94AFF52B91',
 }
 
 lxca_node{'power_on':
-  host => 'https://10.243.10.75',
-  port => '443',
-  login_user => 'Admin',
+  ensure         => 'power_on',
+  port           => '443',
+  login_user     => 'Admin',
   login_password => 'Lenovo123',
-  verify_ssl => 'NONE',
-  ensure => 'power_on',
-  uuid => 'FA59C0BBC43C3C15B9D72B94AFF52B91',
+  verify_ssl     => 'NONE',
+  host           => 'https://10.243.10.75',
+  uuid           => 'FA59C0BBC43C3C15B9D72B94AFF52B91',
 }
 
 lxca_node{'power_off':
-  host => 'https://10.243.10.75',
-  port => '443',
-  login_user => 'Admin',
+  ensure         => 'power_off',
+  port           => '443',
+  login_user     => 'Admin',
   login_password => 'Lenovo123',
-  verify_ssl => 'NONE',
-  ensure => 'power_off',
-  uuid => 'FA59C0BBC43C3C15B9D72B94AFF52B91',
+  verify_ssl     => 'NONE',
+  host           => 'https://10.243.10.75',
+  uuid           => 'FA59C0BBC43C3C15B9D72B94AFF52B91',
 }
 
 lxca_node{'power_restart':
-  host => 'https://10.243.10.75',
-  port => '443',
-  login_user => 'Admin',
+  ensure         => 'power_restart',
+  port           => '443',
+  login_user     => 'Admin',
   login_password => 'Lenovo123',
-  verify_ssl => 'NONE',
-  ensure => 'power_restart',
-  uuid => 'FA59C0BBC43C3C15B9D72B94AFF52B91',
+  verify_ssl     => 'NONE',
+  host           => 'https://10.243.10.75',
+  uuid           => 'FA59C0BBC43C3C15B9D72B94AFF52B91',
 }
 
 lxca_node{'blink_led':
-  host => 'https://10.243.10.75',
-  port => '443',
-  login_user => 'Admin',
+  ensure         => 'blink_led',
+  port           => '443',
+  login_user     => 'Admin',
   login_password => 'Lenovo123',
-  verify_ssl => 'NONE',
-  ensure => 'blink_led',
-  uuid => 'FA59C0BBC43C3C15B9D72B94AFF52B91',
+  verify_ssl     => 'NONE',
+  host           => 'https://10.243.10.75',
+  uuid           => 'FA59C0BBC43C3C15B9D72B94AFF52B91',
 }
 
 lxca_node{'turn_on_led':
-  host => 'https://10.243.10.75',
-  port => '443',
-  login_user => 'Admin',
+  ensure         => 'turn_on_led',
+  port           => '443',
+  login_user     => 'Admin',
   login_password => 'Lenovo123',
-  verify_ssl => 'NONE',
-  ensure => 'turn_on_led',
-  uuid => 'FA59C0BBC43C3C15B9D72B94AFF52B91',
+  verify_ssl     => 'NONE',
+  host           => 'https://10.243.10.75',
+  uuid           => 'FA59C0BBC43C3C15B9D72B94AFF52B91',
 }
 
 lxca_node{'turn_off_led':
-  host => 'https://10.243.10.75',
-  port => '443',
-  login_user => 'Admin',
+  ensure         => 'turn_off_led',
+  port           => '443',
+  login_user     => 'Admin',
   login_password => 'Lenovo123',
-  verify_ssl => 'NONE',
-  ensure => 'turn_off_led',
-  uuid => 'FA59C0BBC43C3C15B9D72B94AFF52B91',
+  verify_ssl     => 'NONE',
+  host           => 'https://10.243.10.75',
+  uuid           => 'FA59C0BBC43C3C15B9D72B94AFF52B91',
 }

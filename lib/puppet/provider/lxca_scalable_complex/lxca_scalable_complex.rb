@@ -26,15 +26,15 @@ require 'xclarity_client'
 
 Puppet::Type.type(:lxca_scalable_complex).provide(:lxca_scalable_complex) do
   desc 'Scalable Complex provider for LXCA resource'
-  
+
   def create_client
-    conf=XClarityClient::Configuration.new(
-      :username => @resource['login_user'],
-      :password => @resource['login_password'],
-      :host => @resource['host'],
-      :port => @resource['port'],
-      :auth_type => @resource['auth_type'],
-      :verify_ssl => @resource['verify_ssl']
+    conf = XClarityClient::Configuration.new(
+      username: @resource['login_user'],
+      password: @resource['login_password'],
+      host: @resource['host'],
+      port: @resource['port'],
+      auth_type: @resource['auth_type'],
+      verify_ssl: @resource['verify_ssl'],
     )
     @client = XClarityClient::Client.new(conf)
   end
@@ -62,16 +62,16 @@ Puppet::Type.type(:lxca_scalable_complex).provide(:lxca_scalable_complex) do
 
   def discover_managed_scalable_complex
     create_client if @client.nil?
-    @client.discover_scalableComplexes({:status => 'managed'}).map do |scalableComplex|
+    @client.discover_scalableComplexes(status: 'managed').map do |scalableComplex|
       scalableComplex.instance_variables.each do |att|
         puts "#{att} - #{scalableComplex.instance_variable_get att}"
       end
     end
   end
-  
+
   def discover_unmanaged_scalable_complex
     create_client if @client.nil?
-    @client.discover_scalableComplexes({:status => 'unmanaged'}).map do |scalableComplex|
+    @client.discover_scalableComplexes(status: 'unmanaged').map do |scalableComplex|
       scalableComplex.instance_variables.each do |att|
         puts "#{att} - #{scalableComplex.instance_variable_get att}"
       end
@@ -80,7 +80,7 @@ Puppet::Type.type(:lxca_scalable_complex).provide(:lxca_scalable_complex) do
 
   def discover_flex
     create_client if @client.nil?
-    @client.discover_scalableComplexes({:type => 'flex'}).map do |scalableComplex|
+    @client.discover_scalableComplexes(type: 'flex').map do |scalableComplex|
       scalableComplex.instance_variables.each do |att|
         puts "#{att} - #{scalableComplex.instance_variable_get att}"
       end
@@ -89,7 +89,7 @@ Puppet::Type.type(:lxca_scalable_complex).provide(:lxca_scalable_complex) do
 
   def discover_rackserver
     create_client if @client.nil?
-    @client.discover_scalableComplexes({:type => 'rackserver'}).map do |scalableComplex|
+    @client.discover_scalableComplexes(type: 'rackserver').map do |scalableComplex|
       scalableComplex.instance_variables.each do |att|
         puts "#{att} - #{scalableComplex.instance_variable_get att}"
       end
@@ -99,15 +99,13 @@ Puppet::Type.type(:lxca_scalable_complex).provide(:lxca_scalable_complex) do
   def filter_by_uuid
     create_client if @client.nil?
     if @resource[:uuid].nil?
-      raise Puppet::Error, _("Attribute uuid is mandatory for the ensurable filter_by_uuid")
+      raise Puppet::Error, _('Attribute uuid is mandatory for the ensurable filter_by_uuid')
     end
 
-    @client.fetch_scalableComplexes(["#{@resource[:uuid]}"]).map do |scalableComplex|
+    @client.fetch_scalableComplexes([(@resource[:uuid]).to_s]).map do |scalableComplex|
       scalableComplex.instance_variables.each do |att|
         puts "#{att} - #{scalableComplex.instance_variable_get att}"
       end
     end
   end
-
 end
-

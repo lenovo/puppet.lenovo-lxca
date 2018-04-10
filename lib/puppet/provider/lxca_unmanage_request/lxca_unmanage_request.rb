@@ -26,15 +26,15 @@ require 'xclarity_client'
 
 Puppet::Type.type(:lxca_unmanage_request).provide(:lxca_unmanage_request) do
   desc 'Unmanage request provider for LXCA resource'
-  
+
   def create_client
-    conf=XClarityClient::Configuration.new(
-      :username => @resource['login_user'],
-      :password => @resource['login_password'],
-      :host => @resource['host'],
-      :port => @resource['port'],
-      :auth_type => @resource['auth_type'],
-      :verify_ssl => @resource['verify_ssl']
+    conf = XClarityClient::Configuration.new(
+      username: @resource['login_user'],
+      password: @resource['login_password'],
+      host: @resource['host'],
+      port: @resource['port'],
+      auth_type: @resource['auth_type'],
+      verify_ssl: @resource['verify_ssl'],
     )
     @client = XClarityClient::Client.new(conf)
   end
@@ -54,10 +54,10 @@ Puppet::Type.type(:lxca_unmanage_request).provide(:lxca_unmanage_request) do
   def fetch_unmanage_request
     create_client if @client.nil?
     if @resource[:job_id].nil?
-      raise Puppet::Error, _("Attribute job_id is mandatory for the ensurable fetch_unmanage_request")
+      raise Puppet::Error, _('Attribute job_id is mandatory for the ensurable fetch_unmanage_request')
     end
 
-    @client.fetch_unmanage_request("#{@resource[:job_id]}").map do |req|
+    @client.fetch_unmanage_request((@resource[:job_id]).to_s).map do |req|
       req.instance_variables.each do |attr|
         puts "#{attr} - #{req.instance_variable_get attr}"
       end
@@ -67,14 +67,12 @@ Puppet::Type.type(:lxca_unmanage_request).provide(:lxca_unmanage_request) do
   def unmanage_discovered_devices
     create_client if @client.nil?
     if @resource[:endpoints].nil?
-      raise Puppet::Error, _("Attribute endpoints is mandatory for the ensurable unmanage_discovered_devices")
+      raise Puppet::Error, _('Attribute endpoints is mandatory for the ensurable unmanage_discovered_devices')
     end
     if @resource[:force].nil?
-      raise Puppet::Error, _("Attribute force is mandatory for the ensurable unmanage_discovered_devices")
+      raise Puppet::Error, _('Attribute force is mandatory for the ensurable unmanage_discovered_devices')
     end
 
-    @client.unmanage_discovered_devices(@resource[:endpoints], "#{@resource[:force]}")
+    @client.unmanage_discovered_devices(@resource[:endpoints], (@resource[:force]).to_s)
   end
-
 end
-

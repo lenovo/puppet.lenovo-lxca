@@ -26,15 +26,15 @@ require 'xclarity_client'
 
 Puppet::Type.type(:lxca_job).provide(:lxca_job) do
   desc 'Job provider for LXCA resource'
-  
+
   def create_client
-    conf=XClarityClient::Configuration.new(
-      :username => @resource['login_user'],
-      :password => @resource['login_password'],
-      :host => @resource['host'],
-      :port => @resource['port'],
-      :auth_type => @resource['auth_type'],
-      :verify_ssl => @resource['verify_ssl']
+    conf = XClarityClient::Configuration.new(
+      username: @resource['login_user'],
+      password: @resource['login_password'],
+      host: @resource['host'],
+      port: @resource['port'],
+      auth_type: @resource['auth_type'],
+      verify_ssl: @resource['verify_ssl'],
     )
     @client = XClarityClient::Client.new(conf)
   end
@@ -63,9 +63,9 @@ Puppet::Type.type(:lxca_job).provide(:lxca_job) do
   def filter_by_id
     create_client if @client.nil?
     if @resource[:id].nil?
-      raise Puppet::Error, _("Attribute id is mandatory for the ensurable filter_by_id")
+      raise Puppet::Error, _('Attribute id is mandatory for the ensurable filter_by_id')
     end
-    @client.fetch_jobs(["#{@resource[:id]}"]).map do |job|
+    @client.fetch_jobs([(@resource[:id]).to_s]).map do |job|
       job.instance_variables.each do |att|
         puts "#{att} - #{job.instance_variable_get att}"
       end
@@ -75,10 +75,10 @@ Puppet::Type.type(:lxca_job).provide(:lxca_job) do
   def filter_by_uuid
     create_client if @client.nil?
     if @resource[:uuid].nil?
-      raise Puppet::Error, _("Attribute uuid is mandatory for the ensurable filter_by_uuid")
+      raise Puppet::Error, _('Attribute uuid is mandatory for the ensurable filter_by_uuid')
     end
 
-    @client.discover_jobs({:uuid => "#{@resource[:uuid]}"}).map do |job|
+    @client.discover_jobs(uuid: (@resource[:uuid]).to_s).map do |job|
       job.instance_variables.each do |att|
         puts "#{att} - #{job.instance_variable_get att}"
       end
@@ -88,10 +88,10 @@ Puppet::Type.type(:lxca_job).provide(:lxca_job) do
   def filter_by_state
     create_client if @client.nil?
     if @resource[:state].nil?
-      raise Puppet::Error, _("Attribute state is mandatory for the ensurable filter_by_state")
+      raise Puppet::Error, _('Attribute state is mandatory for the ensurable filter_by_state')
     end
 
-    @client.discover_jobs({:state => "#{@resource[:state]}"}).map do |job|
+    @client.discover_jobs(state: (@resource[:state]).to_s).map do |job|
       job.instance_variables.each do |att|
         puts "#{att} - #{job.instance_variable_get att}"
       end
@@ -101,7 +101,7 @@ Puppet::Type.type(:lxca_job).provide(:lxca_job) do
   def cancel_job
     create_client if @client.nil?
     if @resource[:id].nil?
-      raise Puppet::Error, _("Attribute id is mandatory when ensure is set to cancel_job")
+      raise Puppet::Error, _('Attribute id is mandatory when ensure is set to cancel_job')
     end
     @client.cancel_job(@resource[:id])
   end
@@ -109,10 +109,8 @@ Puppet::Type.type(:lxca_job).provide(:lxca_job) do
   def delete_job
     create_client if @client.nil?
     if @resource[:id].nil?
-      raise Puppet::Error, _("Attribute id is mandatory when ensure is set to delete_job")
+      raise Puppet::Error, _('Attribute id is mandatory when ensure is set to delete_job')
     end
     @client.delete_job(@resource[:id])
   end
-
 end
-

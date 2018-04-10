@@ -23,47 +23,44 @@
 ################################################################################
 
 Puppet::Type.newtype(:lxca_discovery) do
-
   ensurable do
-    
     newvalue(:discover_devices_by_slp) do
       Puppet.notice "Retrieving a list of devices discovered by SLP discovery. Results displayed below\n"
       provider.discover_devices_by_slp
     end
-    
   end
-                                  
-  newparam(:name, :namevar => true) do
-    desc "Name of the lxca discovery resource"
+
+  newparam(:name, namevar: true) do
+    desc 'Name of the lxca discovery resource'
   end
-                                              
+
   newparam(:host) do
-    desc "LXCA Host to connect to"
+    desc 'LXCA Host to connect to'
   end
 
   newparam(:port) do
-    desc "Port of LXCA to connect to"
+    desc 'Port of LXCA to connect to'
   end
 
   newparam(:login_user) do
-    desc "The username to be used to login into LXCA"
+    desc 'The username to be used to login into LXCA'
   end
 
   newparam(:login_password) do
-    desc "The password to be used to login into LXCA"
+    desc 'The password to be used to login into LXCA'
   end
 
   newparam(:verify_ssl) do
-    desc "Whether to verify SSL when connecting to the LXCA"
+    desc 'Whether to verify SSL when connecting to the LXCA'
   end
 
   newparam(:auth_type) do
-    desc "The authorization type used to connect to LXCA. Defaults to basic_auth"
+    desc 'The authorization type used to connect to LXCA. Defaults to basic_auth'
     defaultto 'basic_auth'
   end
 
   newparam(:csrf_token) do
-    desc "The CSRF token to be used in case authentication type is set to token"
+    desc 'The CSRF token to be used in case authentication type is set to token'
   end
 
   validate do
@@ -75,11 +72,9 @@ Puppet::Type.newtype(:lxca_discovery) do
       :verify_ssl,
     ]
     required_parameters.each do |param|
-      if param.nil? or param == ""
+      if param.nil? || param == ''
         raise Puppet::Error, _("Attribute #{param} is mandatory and should not be empty")
       end
     end
-  end    
-
+  end
 end
-

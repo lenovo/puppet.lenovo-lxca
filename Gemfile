@@ -108,6 +108,7 @@ elsif Gem.win_platform?
   gems['win32-service'] =  ['<= 0.8.8', require: false]
 end
 
+gems['xclarity_client'] = ['~> 0.5.9', require: false]
 gems.each do |gem_name, gem_params|
   gem gem_name, *gem_params
 end

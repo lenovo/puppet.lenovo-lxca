@@ -38,7 +38,6 @@ class Puppet::Util::NetworkDevice::Transport::Lxca < Puppet::Util::NetworkDevice
   end
 
   def call(url, args = {})
-    begin
       Puppet.debug("connection = #{@connection.inspect}")
       #result = @connection.getFacts(url, args)
   end

@@ -29,17 +29,19 @@ class Puppet::Util::NetworkDevice::Transport::Lxca < Puppet::Util::NetworkDevice
     params['host'] = transport+'://' + lxcaIP
     params['username'] = username
     params['password'] = password
-    params['auth_type'] = password
+    params['auth_type'] = 'basic_auth'
     params['verify_ssl'] = 'NONE'
+    params['user_agent_label'] = 'Ruby'
     #@connection = Connect.new(params)
-    @connection=XClarityClient::Configuration.new(params)
+    conf=XClarityClient::Configuration.new(params)
    
-    #@client = XClarityClient::Client.new(connection)
+    @connection = XClarityClient::Client.new(conf)
+    Puppet.debug("In initialize connection = #{@connection.inspect}")
   end
 
   def call(url, args = {})
-      Puppet.debug("connection = #{@connection.inspect}")
-      #result = @connection.getFacts(url, args)
+    Puppet.debug("connection = #{@connection.inspect}")
+    result = @connection.discover_users(args)
   end
 
   def failure?(result)

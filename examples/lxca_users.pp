@@ -20,21 +20,6 @@
 # This manifest contains some sample invocations of lxca_users resource type
 
 lxca_users{'list_all':
-  ensure         => 'discover_all',
-  port           => '443',
-  login_user     => 'Admin',
-  login_password => 'Lenovo123',
-  verify_ssl     => 'NONE',
-  host           => 'https://10.243.10.75',
-}
-
-lxca_users{'filter_by_id':
-  ensure         => 'filter_by_id',
-  port           => '443',
-  login_user     => 'Admin',
-  login_password => 'Lenovo123',
-  verify_ssl     => 'NONE',
-  host           => 'https://10.243.10.75',
-  id             => 'aad6a497-566c-4323-a08e-6fd939defb54',
+  ensure         => 'present',
 }
 

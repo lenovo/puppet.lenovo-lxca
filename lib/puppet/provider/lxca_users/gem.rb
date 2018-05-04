@@ -13,36 +13,36 @@ require 'puppet/type'
 require File.join(File.dirname(__FILE__), '../lxca')
 require 'json'
 
-Puppet::Type.type(:lxca_user).provide(:gem, parent: Puppet::Provider::Lxca) do
+Puppet::Type.type(:lxca_users).provide(:gem, parent: Puppet::Provider::Lxca) do
   desc 'Manage Users on Lenovo LXCA. Requires xclarity_client'
 
   mk_resource_methods
 
   def self.instances
     instances = []
-    vlans = Puppet::Provider::Cnos.call_items('/nos/api/cfg/vlan')
-    return [] if vlans.nil?
-    vlans.each do |item|
-      Puppet.debug('Vlan Id is ' + item['vlan_id'].to_s)
-      Puppet.debug('Vlan name is ' + item['vlan_name'].to_s)
-      Puppet.debug('Admin State is ' + item['admin_state'].to_s)
-      instances << new(name: item['vlan_id'].to_s,
-                       vlan_id: item['vlan_id'].to_i,
-                       vlan_name: item['vlan_name'],
-                       ensure: :present,
-                       admin_state: item['admin_state'])
+    users = Puppet::Provider::Lxca.get_all_users()
+
+    Puppet.debug('I am inside instances users = #{users}')
+    return [] if users.nil?
+    users.each do |item|
+      item = item.to_hash
+      Puppet.debug('User Id is ' + item['id'].to_s)
+      Puppet.debug('User name is ' + item['userName'].to_s)
+      instances << new(ensure: :present,
+                       name: item['userName'],
+                       id: item['id'].to_s)
     end
     instances
   end
 
   def self.prefetch(resources)
     Puppet.debug('I am inside prefetch')
-    vlans = instances
-    Puppet.debug('prefetch vlans ' + vlans.to_s)
+    users = instances
+    Puppet.debug('prefetch users ' + users.to_s)
+    Puppet.debug('prefetch resource ' + resources.to_s)
     Puppet.debug('prefetch resource keys' + resources.keys.to_s)
     resources.keys.each do |name|
-      Puppet.debug('prefetch vlan ' + vlans.first.to_s)
-      if provider = vlans.find { |vlan| vlan.name == name }
+      if provider = users.find { |user| user.name == name }
         Puppet.debug("Prefetch data coming here is #{provider}")
         resources[name].provider = provider
       end
@@ -51,34 +51,17 @@ Puppet::Type.type(:lxca_user).provide(:gem, parent: Puppet::Provider::Lxca) do
 
   def flush
     Puppet.debug('I am inside flush')
-    params = {}
-    if @property_hash != {}
-      params['vlan_name'] = resource[:vlan_name] unless resource[:vlan_name].nil?
-      unless resource[:admin_state].nil?
-        params['admin_state'] = resource[:admin_state]
-      end
-      resp = Puppet::Provider::Cnos.update_vlan(resource[:vlan_id].to_i, params)
-    end
-    @property_hash = resource.to_hash
   end
 
   def create
     Puppet.notice('I am inside create')
-    params = { 'vlan_id' => resource[:name].to_i,
-               'vlan_name' => resource[:vlan_name],
-               'admin_state' => resource[:admin_state] }
-    resp = Puppet::Provider::Cnos.create_vlan(params)
-    @property_hash.clear
   end
 
   def exists?
     Puppet.debug('I am inside exists')
-    @property_hash[:ensure] == :present
   end
 
   def destroy
-    Puppet.debug('I am inside destroy' + resource[:vlan_id].to_s)
-    resp = Puppet::Provider::Cnos.delete_vlan(resource[:vlan_id].to_i)
-    @property_hash.clear
+    Puppet.debug('I am inside destroy' + resource[:id].to_s)
   end
 end

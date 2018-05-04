@@ -1,11 +1,11 @@
 require File.join(File.dirname(__FILE__), '../util/network_device/lxca')
 require File.join(File.dirname(__FILE__), '../util/network_device/transport/lxca')
-require 'xclarity_client/users'
+require 'xclarity_client'
 require 'json'
 
-class Puppet::Provider::Cnos < Puppet::Provider
+class Puppet::Provider::Lxca < Puppet::Provider
   def self.device(url)
-    Puppet::Util::NetworkDevice::Cnos::Device.new(url)
+    Puppet::Util::NetworkDevice::Lxca::Device.new(url)
   end
 
   def self.transport
@@ -14,7 +14,7 @@ class Puppet::Provider::Cnos < Puppet::Provider
       Puppet::Util::NetworkDevice.current.transport
     else
       # we are in `puppet resource`
-      Puppet::Util::NetworkDevice::Transport::Cnos.new(Facter.value(:url))
+      Puppet::Util::NetworkDevice::Transport::Lxca.new(Facter.value(:url))
     end
   end
 
@@ -28,27 +28,11 @@ class Puppet::Provider::Cnos < Puppet::Provider
 
 
   # Users Starts here
-  def self.get_all_user
-    resp = Users.get_all_user(connection)
+  def self.get_all_users
+    resp = connection.discover_users()
+    puts "In get_all_users Provider resp = #{resp}"
     resp
   end
-
-=begin
-  def self.create_vlan(params)
-    resp = Vlan.create_vlan(connection, params)
-    resp
-  end
-
-  def self.update_vlan(vlan_id, params)
-    resp = Vlan.update_vlan(connection, vlan_id, params)
-    resp
-  end
-
-  def self.delete_vlan(vlan_id)
-    resp = Vlan.delete_vlan(connection, vlan_id)
-    resp
-  end
-=end
 
   # Generic methods starts here``
 

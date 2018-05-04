@@ -23,49 +23,11 @@
 ################################################################################
 
 Puppet::Type.newtype(:lxca_users) do
-  ensurable do
-    newvalue(:discover_all) do
-      Puppet.notice "Fetching all the LXCA users. Results displayed below\n"
-      provider.discover_all
-    end
-
-    newvalue(:filter_by_id) do
-      Puppet.notice "Fetching LXCA user filtered by ID. Results displayed below\n"
-      provider.filter_by_id
-    end
-  end
+  apply_to_device
+  ensurable
 
   newparam(:name, namevar: true) do
     desc 'Name of the lxca user resource'
-  end
-
-  newparam(:host) do
-    desc 'LXCA Host to connect to'
-  end
-
-  newparam(:port) do
-    desc 'Port of LXCA to connect to'
-  end
-
-  newparam(:login_user) do
-    desc 'The username to be used to login into LXCA'
-  end
-
-  newparam(:login_password) do
-    desc 'The password to be used to login into LXCA'
-  end
-
-  newparam(:verify_ssl) do
-    desc 'Whether to verify SSL when connecting to the LXCA'
-  end
-
-  newparam(:auth_type) do
-    desc 'The authorization type used to connect to LXCA. Defaults to basic_auth'
-    defaultto 'basic_auth'
-  end
-
-  newparam(:csrf_token) do
-    desc 'The CSRF token to be used in case authentication type is set to token'
   end
 
   newparam(:id) do
@@ -74,11 +36,6 @@ Puppet::Type.newtype(:lxca_users) do
 
   validate do
     required_parameters = [
-      :host,
-      :port,
-      :login_user,
-      :login_password,
-      :verify_ssl,
     ]
     required_parameters.each do |param|
       if param.nil? || param == ''

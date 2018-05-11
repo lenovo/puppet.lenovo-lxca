@@ -34,6 +34,20 @@ class Puppet::Provider::Lxca < Puppet::Provider
     resp
   end
 
+  # Jobs Starts here
+  def self.get_all_jobs
+    resp = connection.discover_jobs()
+    puts "In get_all_jobs Provider resp = #{resp}"
+    resp
+  end
+
+  def self.delete_job(id)
+    if id.nil?
+      raise Puppet::Error, _('Attribute id is mandatory when ensure is set to delete_job')
+    end
+    connection.delete_job(id)
+  end
+
   # Generic methods starts here``
 
   def self.call(url, args = {})

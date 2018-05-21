@@ -19,7 +19,9 @@
 
 # This manifest contains some sample invocations of lxca_users resource type
 
-lxca_users{'list_all':
-  ensure         => 'present',
+lxca_users{'list_test':
+  name => 'USERID',
+  id => 'aa0cefa4-d997-448b-9ade-fce5cd64c677',
+  ensure => 'present',
 }
 

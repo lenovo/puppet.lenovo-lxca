@@ -19,61 +19,16 @@
 
 # This manifest contains some sample invocations of lxca_job resource type
 
-lxca_job{'list_all':
-  ensure         => 'discover_all',
-  port           => '443',
-  login_user     => 'Admin',
-  login_password => 'Lenovo123',
-  verify_ssl     => 'NONE',
-  host           => 'https://10.243.10.75',
+# list job with id 10
+lxca_job{'10':
+  name => 'Manage',
+  id => '10',
+  ensure => 'present',
 }
 
-lxca_job{'filter_by_deviceid':
-  ensure         => 'filter_by_uuid',
-  port           => '443',
-  login_user     => 'Admin',
-  login_password => 'Lenovo123',
-  verify_ssl     => 'NONE',
-  host           => 'https://10.243.10.75',
-  uuid           => 'F44E92339683385A8D97CD6348A6F45F',
-}
-
-lxca_job{'filter_by_jobid':
-  ensure         => 'filter_by_id',
-  port           => '443',
-  login_user     => 'Admin',
-  login_password => 'Lenovo123',
-  verify_ssl     => 'NONE',
-  host           => 'https://10.243.10.75',
-  id             => '6',
-}
-
-lxca_job{'filter_by_state':
-  ensure         => 'filter_by_state',
-  port           => '443',
-  login_user     => 'Admin',
-  login_password => 'Lenovo123',
-  verify_ssl     => 'NONE',
-  host           => 'https://10.243.10.75',
-  state          => 'Complete',
-}
-
-lxca_job{'cancel_job':
-  ensure         => 'cancel_job',
-  port           => '443',
-  login_user     => 'Admin',
-  login_password => 'Lenovo123',
-  verify_ssl     => 'NONE',
-  host           => 'https://10.243.10.75',
-  id             => '289',
-}
-
-lxca_job{'delete_job':
-  ensure         => 'delete_job',
-  port           => '443',
-  login_user     => 'Admin',
-  login_password => 'Lenovo123',
-  verify_ssl     => 'NONE',
-  host           => 'https://10.243.10.75',
-  id             => '289',
+# delete job with id 10
+lxca_job{'10':
+  name => 'Manage',
+  id => '10',
+  ensure => 'absent',
 }

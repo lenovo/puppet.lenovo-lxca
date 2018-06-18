@@ -11,4 +11,4 @@
 
 require 'puppet/util/feature'
 
-Puppet.features.add(:xclarityclient, :libs => ['xclarity_client'])
+Puppet.features.add(:xclarityclient, libs: ['xclarity_client'])

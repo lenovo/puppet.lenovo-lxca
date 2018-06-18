@@ -20,7 +20,7 @@ Puppet::Type.type(:lxca_users).provide(:gem, parent: Puppet::Provider::Lxca) do
 
   def self.instances
     instances = []
-    users = Puppet::Provider::Lxca.get_all_users()
+    users = Puppet::Provider::Lxca.get_all_users
 
     Puppet.debug('I am inside instances users = #{users}')
     return [] if users.nil?

@@ -14,7 +14,7 @@ class Puppet::Util::NetworkDevice::Lxca::Device
 
     @autoloader = Puppet::Util::Autoload.new(
       self,
-      'puppet/util/network_device/transport'
+      'puppet/util/network_device/transport',
     )
     if @autoloader.load('lxca')
       @transport = Puppet::Util::NetworkDevice::Transport::Lxca.new(url, options[:debug])

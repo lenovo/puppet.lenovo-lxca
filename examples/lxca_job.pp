@@ -21,14 +21,14 @@
 
 # list job with id 10
 lxca_job{'10':
-  name => 'Manage',
-  id => '10',
   ensure => 'present',
+  id     => '10',
+  name   => 'Manage',
 }
 
 # delete job with id 10
 lxca_job{'10':
-  name => 'Manage',
-  id => '10',
   ensure => 'absent',
+  id     => '10',
+  name   => 'Manage',
 }

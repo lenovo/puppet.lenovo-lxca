@@ -20,7 +20,7 @@ Puppet::Type.type(:lxca_job).provide(:gem, parent: Puppet::Provider::Lxca) do
 
   def self.instances
     instances = []
-    jobs = Puppet::Provider::Lxca.get_all_jobs()
+    jobs = Puppet::Provider::Lxca.get_all_jobs
 
     Puppet.debug('I am inside instances jobs = #{jobs}')
     return [] if jobs.nil?

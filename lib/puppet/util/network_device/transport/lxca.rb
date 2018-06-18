@@ -9,11 +9,11 @@ class Puppet::Util::NetworkDevice::Transport::Lxca < Puppet::Util::NetworkDevice
   def initialize(url, _options = {})
     Puppet.debug("url = #{url}")
 
-    array = url.split(/:/)
+    array = url.split(%r{:})
     transport = array[0]
     username = array[1]
     username = username[2, username.length]
-    innerarray = array[2].split(/@/)
+    innerarray = array[2].split(%r{@})
     password = innerarray[0]
     lxcaIP = innerarray[1]
     lxcaIP = lxcaIP[0, lxcaIP.length - 1] if lxcaIP.chars.last == '/'
@@ -26,20 +26,20 @@ class Puppet::Util::NetworkDevice::Transport::Lxca < Puppet::Util::NetworkDevice
     end
     params = {}
     params['port'] = portnumber
-    params['host'] = transport+'://' + lxcaIP
+    params['host'] = transport + '://' + lxcaIP
     params['username'] = username
     params['password'] = password
     params['auth_type'] = 'basic_auth'
     params['verify_ssl'] = 'NONE'
     params['user_agent_label'] = 'Ruby'
-    #@connection = Connect.new(params)
-    conf=XClarityClient::Configuration.new(params)
-   
+    # @connection = Connect.new(params)
+    conf = XClarityClient::Configuration.new(params)
+
     @connection = XClarityClient::Client.new(conf)
     Puppet.debug("In initialize connection = #{@connection.inspect}")
   end
 
-  def call(url, args = {})
+  def call(_url, args = {})
     Puppet.debug("connection = #{@connection.inspect}")
     result = @connection.discover_users(args)
   end

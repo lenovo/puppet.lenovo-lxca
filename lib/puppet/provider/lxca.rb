@@ -26,17 +26,16 @@ class Puppet::Provider::Lxca < Puppet::Provider
     transport.connection
   end
 
-
   # Users Starts here
   def self.get_all_users
-    resp = connection.discover_users()
+    resp = connection.discover_users
     puts "In get_all_users Provider resp = #{resp}"
     resp
   end
 
   # Jobs Starts here
   def self.get_all_jobs
-    resp = connection.discover_jobs()
+    resp = connection.discover_jobs
     puts "In get_all_jobs Provider resp = #{resp}"
     resp
   end

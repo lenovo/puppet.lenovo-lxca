@@ -25,8 +25,8 @@ class Puppet::Util::NetworkDevice::Lxca::Facts
     puts "Result = #{result}"
     [:Name,
      :UpTime].each do |fact|
-      #facts[fact] = result[fact.to_s]
-      puts fact 
+      # facts[fact] = result[fact.to_s]
+      puts fact
     end
 
     facts.each do |key, value|

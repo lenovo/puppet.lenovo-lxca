@@ -36,7 +36,7 @@ class Puppet::Provider::Lxca < Puppet::Provider
   # Jobs Starts here
   def self.get_all_jobs
     resp = connection.discover_jobs
-    puts "In get_all_jobs Provider resp = #{resp}"
+    #puts "In get_all_jobs Provider resp = #{resp}"
     resp
   end
 
@@ -44,9 +44,27 @@ class Puppet::Provider::Lxca < Puppet::Provider
     if id.nil?
       raise Puppet::Error, _('Attribute id is mandatory when ensure is set to delete_job')
     end
+    puts "In delete jobs Provider "
     connection.delete_job(id)
+    puts "In after delete jobs Provider "
   end
 
+  def self.cancel_job(id)
+    if id.nil?
+      raise Puppet::Error, _('Attribute id is mandatory when ensure is set to cancel_job')
+    end
+    puts "In cancel jobs Provider "
+    connection.cancel_job(id)
+    puts "In after cancel jobs Provider "
+  end
+ 
+  def self.fetch_discovered_devices(job_id)
+    job = connection.fetch_discovered_devices(job_id)
+  end
+
+  def self.manage_discovered_devices(ip_address, username, password, recovery_password, force)
+    job = connection.manage_discovered_devices(ip_address, username, password, recovery_password, force)
+  end
   # Generic methods starts here``
 
   def self.call(url, args = {})

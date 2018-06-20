@@ -59,6 +59,7 @@ Puppet::Type.type(:lxca_users).provide(:gem, parent: Puppet::Provider::Lxca) do
 
   def exists?
     Puppet.debug('I am inside exists')
+    @property_hash[:ensure] == :present
   end
 
   def destroy

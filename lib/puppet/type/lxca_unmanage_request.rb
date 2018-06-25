@@ -23,6 +23,7 @@
 ################################################################################
 
 Puppet::Type.newtype(:lxca_unmanage_request) do
+  apply_to_all
   ensurable do
     newvalue(:fetch_unmanage_request) do
       Puppet.notice "Monitor the status of a unmanagement request using the job id. Results are displayed below\n"
@@ -39,35 +40,6 @@ Puppet::Type.newtype(:lxca_unmanage_request) do
     desc 'Name of the lxca unmanage request resource'
   end
 
-  newparam(:host) do
-    desc 'LXCA Host to connect to'
-  end
-
-  newparam(:port) do
-    desc 'Port of LXCA to connect to'
-  end
-
-  newparam(:login_user) do
-    desc 'The username to be used to login into LXCA'
-  end
-
-  newparam(:login_password) do
-    desc 'The password to be used to login into LXCA'
-  end
-
-  newparam(:verify_ssl) do
-    desc 'Whether to verify SSL when connecting to the LXCA'
-  end
-
-  newparam(:auth_type) do
-    desc 'The authorization type used to connect to LXCA. Defaults to basic_auth'
-    defaultto 'basic_auth'
-  end
-
-  newparam(:csrf_token) do
-    desc 'The CSRF token to be used in case authentication type is set to token'
-  end
-
   newparam(:endpoints) do
     desc 'Information about one or more devices to be unmanaged and specified as an Array.'
   end
@@ -82,11 +54,6 @@ Puppet::Type.newtype(:lxca_unmanage_request) do
 
   validate do
     required_parameters = [
-      :host,
-      :port,
-      :login_user,
-      :login_password,
-      :verify_ssl,
     ]
     required_parameters.each do |param|
       if param.nil? || param == ''

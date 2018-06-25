@@ -36,7 +36,6 @@ Puppet::Type.type(:lxca_manage_request).provide(:gem, parent: Puppet::Provider::
   end
 
   def fetch_manage_request
-    create_client if @client.nil?
     if @resource[:job_id].nil?
       raise Puppet::Error, _("Attribute job_id is mandatory for the ensurable fetch_manage_request")
     end

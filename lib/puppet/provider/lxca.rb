@@ -58,12 +58,20 @@ class Puppet::Provider::Lxca < Puppet::Provider
     puts "In after cancel jobs Provider "
   end
  
-  def self.fetch_discovered_devices(job_id)
-    job = connection.fetch_discovered_devices(job_id)
+  def self.fetch_manage_request(job_id)
+    job_status = connection.fetch_manage_request(job_id)
   end
 
   def self.manage_discovered_devices(ip_address, username, password, recovery_password, force)
     job = connection.manage_discovered_devices(ip_address, username, password, recovery_password, force)
+  end
+
+  def self.fetch_unmanage_request(job_id)
+    job_status = connection.fetch_unmanage_request(job_id)
+  end
+
+  def self.unmanage_discovered_devices(endpoints, force)
+    job = connection.unmanage_discovered_devices(endpoints, force)
   end
   # Generic methods starts here``
 

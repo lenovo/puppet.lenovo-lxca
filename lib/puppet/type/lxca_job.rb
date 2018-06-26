@@ -24,12 +24,12 @@
 
 Puppet::Type.newtype(:lxca_job) do
   apply_to_all
-  #ensurable
+  # ensurable
   ensurable do
     defaultvalues
 
     newvalue(:cancel_job) do
-      Puppet.notice "Cancelling the job"
+      Puppet.notice 'Cancelling the job'
       provider.cancel_job
     end
   end

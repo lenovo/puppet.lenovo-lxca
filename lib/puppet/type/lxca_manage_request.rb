@@ -23,17 +23,16 @@
 ################################################################################
 
 Puppet::Type.newtype(:lxca_manage_request) do
-
   apply_to_all
-  #ensurable
+  # ensurable
   ensurable do
     newvalue(:fetch_manage_request) do
       Puppet.notice "Monitor the status of a management request using the job id. Results are displayed below\n"
       provider.fetch_manage_request
     end
-    
+
     newvalue(:manage_discovered_devices) do
-      Puppet.notice "Manage devices that have been discovered. The response header includes a URI that is associated with a job that indicates that a task was started."
+      Puppet.notice 'Manage devices that have been discovered. The response header includes a URI that is associated with a job that indicates that a task was started.'
       provider.manage_discovered_devices
     end
   end

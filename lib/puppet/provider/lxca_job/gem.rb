@@ -22,7 +22,6 @@ Puppet::Type.type(:lxca_job).provide(:gem, parent: Puppet::Provider::Lxca) do
     instances = []
     jobs = Puppet::Provider::Lxca.get_all_jobs
 
-    #Puppet.debug('I am inside instances jobs = #{jobs}')
     return [] if jobs.nil?
     jobs.each do |item|
       item = item.to_hash
@@ -42,7 +41,6 @@ Puppet::Type.type(:lxca_job).provide(:gem, parent: Puppet::Provider::Lxca) do
   def self.prefetch(resources)
     Puppet.debug('I am inside prefetch')
     jobs = instances
-    #Puppet.debug('prefetch jobs ' + jobs.to_s)
     Puppet.debug('prefetch resource ' + resources.to_s)
     Puppet.debug('prefetch resource keys' + resources.keys.to_s)
     resources.keys.each do |name|
@@ -76,6 +74,4 @@ Puppet::Type.type(:lxca_job).provide(:gem, parent: Puppet::Provider::Lxca) do
     Puppet.debug('Provider: I am inside cancel job' + resource[:id].to_s)
     Puppet::Provider::Lxca.cancel_job(resource[:id])
   end
-
-
 end

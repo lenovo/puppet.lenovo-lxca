@@ -36,7 +36,7 @@ class Puppet::Provider::Lxca < Puppet::Provider
   # Jobs Starts here
   def self.get_all_jobs
     resp = connection.discover_jobs
-    #puts "In get_all_jobs Provider resp = #{resp}"
+    # puts "In get_all_jobs Provider resp = #{resp}"
     resp
   end
 
@@ -44,34 +44,34 @@ class Puppet::Provider::Lxca < Puppet::Provider
     if id.nil?
       raise Puppet::Error, _('Attribute id is mandatory when ensure is set to delete_job')
     end
-    puts "In delete jobs Provider "
+    puts 'In delete jobs Provider '
     connection.delete_job(id)
-    puts "In after delete jobs Provider "
+    puts 'In after delete jobs Provider '
   end
 
   def self.cancel_job(id)
     if id.nil?
       raise Puppet::Error, _('Attribute id is mandatory when ensure is set to cancel_job')
     end
-    puts "In cancel jobs Provider "
+    puts 'In cancel jobs Provider '
     connection.cancel_job(id)
-    puts "In after cancel jobs Provider "
+    puts 'In after cancel jobs Provider '
   end
- 
+
   def self.fetch_manage_request(job_id)
-    job_status = connection.fetch_manage_request(job_id)
+    connection.fetch_manage_request(job_id)
   end
 
   def self.manage_discovered_devices(ip_address, username, password, recovery_password, force)
-    job = connection.manage_discovered_devices(ip_address, username, password, recovery_password, force)
+    connection.manage_discovered_devices(ip_address, username, password, recovery_password, force)
   end
 
   def self.fetch_unmanage_request(job_id)
-    job_status = connection.fetch_unmanage_request(job_id)
+    connection.fetch_unmanage_request(job_id)
   end
 
   def self.unmanage_discovered_devices(endpoints, force)
-    job = connection.unmanage_discovered_devices(endpoints, force)
+    connection.unmanage_discovered_devices(endpoints, force)
   end
   # Generic methods starts here``
 

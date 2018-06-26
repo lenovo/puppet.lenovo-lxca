@@ -23,7 +23,7 @@ Puppet::Type.type(:lxca_manage_request).provide(:gem, parent: Puppet::Provider::
     instances
   end
 
-  def self.prefetch(resources)
+  def self.prefetch(_resources)
     Puppet.debug('I am inside prefetch')
   end
 
@@ -37,10 +37,10 @@ Puppet::Type.type(:lxca_manage_request).provide(:gem, parent: Puppet::Provider::
 
   def fetch_manage_request
     if @resource[:job_id].nil?
-      raise Puppet::Error, _("Attribute job_id is mandatory for the ensurable fetch_manage_request")
+      raise Puppet::Error, _('Attribute job_id is mandatory for the ensurable fetch_manage_request')
     end
 
-    Puppet::Provider::Lxca.fetch_manage_request("#{@resource[:job_id]}").map do |req|
+    Puppet::Provider::Lxca.fetch_manage_request((@resource[:job_id]).to_s).map do |req|
       req.instance_variables.each do |attr|
         puts "#{attr} - #{req.instance_variable_get attr}"
       end
@@ -49,22 +49,22 @@ Puppet::Type.type(:lxca_manage_request).provide(:gem, parent: Puppet::Provider::
 
   def manage_discovered_devices
     if @resource[:ip_address].nil?
-      raise Puppet::Error, _("Attribute ip_address is mandatory for the ensurable manage_discovered_devices")
+      raise Puppet::Error, _('Attribute ip_address is mandatory for the ensurable manage_discovered_devices')
     end
     if @resource[:username].nil?
-      raise Puppet::Error, _("Attribute username is mandatory for the ensurable manage_discovered_devices")
+      raise Puppet::Error, _('Attribute username is mandatory for the ensurable manage_discovered_devices')
     end
     if @resource[:password].nil?
-      raise Puppet::Error, _("Attribute password is mandatory for the ensurable manage_discovered_devices")
+      raise Puppet::Error, _('Attribute password is mandatory for the ensurable manage_discovered_devices')
     end
     if @resource[:recovery_password].nil?
-      raise Puppet::Error, _("Attribute recovery_password is mandatory for the ensurable manage_discovered_devices")
+      raise Puppet::Error, _('Attribute recovery_password is mandatory for the ensurable manage_discovered_devices')
     end
     if @resource[:force].nil?
-      raise Puppet::Error, _("Attribute force is mandatory for the ensurable manage_discovered_devices")
+      raise Puppet::Error, _('Attribute force is mandatory for the ensurable manage_discovered_devices')
     end
 
-    Puppet::Provider::Lxca.manage_discovered_devices(@resource[:ip_address], "#{@resource[:username]}", "#{@resource[:password]}", "#{@resource[:recovery_password]}", "#{@resource[:force]}")
+    Puppet::Provider::Lxca.manage_discovered_devices(@resource[:ip_address], (@resource[:username]).to_s, (@resource[:password]).to_s, (@resource[:recovery_password]).to_s, (@resource[:force]).to_s)
   end
 
   def exists?

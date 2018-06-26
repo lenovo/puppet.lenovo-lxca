@@ -1,3 +1,14 @@
+# Copyright (c) 2017, Lenovo. All rights reserved.
+#
+# This program and the accompanying materials are licensed and made available
+# under the terms and conditions of the 3-clause BSD License that accompanies
+# this distribution. The full text of the license may be found at
+#
+# https://opensource.org/licenses/BSD-3-Clause
+#
+# THE PROGRAM IS DISTRIBUTED UNDER THE BSD LICENSE ON AN "AS IS" BASIS, WITHOUT
+# WARRANTIES OR REPRESENTATIONS OF ANY KIND, EITHER EXPRESS OR IMPLIED.
+
 require 'puppet/util/network_device'
 require 'puppet/util/network_device/transport'
 require 'puppet/util/network_device/transport/base'
@@ -15,8 +26,8 @@ class Puppet::Util::NetworkDevice::Transport::Lxca < Puppet::Util::NetworkDevice
     username = username[2, username.length]
     innerarray = array[2].split(%r{@})
     password = innerarray[0]
-    lxcaIP = innerarray[1]
-    lxcaIP = lxcaIP[0, lxcaIP.length - 1] if lxcaIP.chars.last == '/'
+    lxca_ip = innerarray[1]
+    lxca_ip = lxca_ip[0, lxca_ip.length - 1] if lxca_ip.chars.last == '/'
     portnumber = '443'
     if array [3] != nil
       portnumber = array [3]
@@ -26,7 +37,7 @@ class Puppet::Util::NetworkDevice::Transport::Lxca < Puppet::Util::NetworkDevice
     end
     params = {}
     params['port'] = portnumber
-    params['host'] = transport + '://' + lxcaIP
+    params['host'] = transport + '://' + lxca_ip
     params['username'] = username
     params['password'] = password
     params['auth_type'] = 'basic_auth'

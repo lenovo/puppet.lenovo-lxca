@@ -23,7 +23,7 @@ Puppet::Type.type(:lxca_unmanage_request).provide(:gem, parent: Puppet::Provider
     instances
   end
 
-  def self.prefetch(resources)
+  def self.prefetch(_resources)
     Puppet.debug('I am inside prefetch')
   end
 
@@ -37,10 +37,10 @@ Puppet::Type.type(:lxca_unmanage_request).provide(:gem, parent: Puppet::Provider
 
   def fetch_unmanage_request
     if @resource[:job_id].nil?
-      raise Puppet::Error, _("Attribute job_id is mandatory for the ensurable fetch_unmanage_request")
+      raise Puppet::Error, _('Attribute job_id is mandatory for the ensurable fetch_unmanage_request')
     end
 
-    Puppet::Provider::Lxca.fetch_unmanage_request("#{@resource[:job_id]}").map do |req|
+    Puppet::Provider::Lxca.fetch_unmanage_request((@resource[:job_id]).to_s).map do |req|
       req.instance_variables.each do |attr|
         puts "#{attr} - #{req.instance_variable_get attr}"
       end
@@ -49,13 +49,13 @@ Puppet::Type.type(:lxca_unmanage_request).provide(:gem, parent: Puppet::Provider
 
   def unmanage_discovered_devices
     if @resource[:endpoints].nil?
-      raise Puppet::Error, _("Attribute endpoints is mandatory for the ensurable unmanage_discovered_devices")
+      raise Puppet::Error, _('Attribute endpoints is mandatory for the ensurable unmanage_discovered_devices')
     end
     if @resource[:force].nil?
-      raise Puppet::Error, _("Attribute force is mandatory for the ensurable manage_discovered_devices")
+      raise Puppet::Error, _('Attribute force is mandatory for the ensurable manage_discovered_devices')
     end
 
-    Puppet::Provider::Lxca.unmanage_discovered_devices(@resource[:endpoints], "#{@resource[:force]}")
+    Puppet::Provider::Lxca.unmanage_discovered_devices(@resource[:endpoints], (@resource[:force]).to_s)
   end
 
   def exists?

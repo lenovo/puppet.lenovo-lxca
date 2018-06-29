@@ -73,6 +73,182 @@ class Puppet::Provider::Lxca < Puppet::Provider
   def self.unmanage_discovered_devices(endpoints, force)
     connection.unmanage_discovered_devices(endpoints, force)
   end
+
+  # chassis Starts here
+  def self.discover_all_chassis
+    connection.discover_chassis
+  end
+
+  def self.discover_managed_chassis
+    connection.discover_chassis(status: 'managed')
+  end
+
+  def self.discover_unmanaged_chassis
+    connection.discover_chassis( status: 'unmanaged')
+  end
+
+  def self.filter_chassis_by_uuid(uuid)
+    connection.fetch_chassis(uuid)
+  end
+
+  # cmm Starts here
+  def self.discover_all_cmms
+    connection.discover_cmms
+  end
+
+  def self.filter_cmms_by_chassis(chassis)
+    connection.discover_cmms(chassis: chassis)
+  end
+
+  def self.filter_cmms_by_uuid(uuid)
+    connection.fetch_cmms(uuid)
+  end
+
+  # nodes Starts here
+  def self.discover_all_nodes
+    connection.discover_nodes
+  end
+
+  def self.discover_managed_nodes
+    connection.discover_nodes(status: 'managed')
+  end
+
+  def self.discover_unmanaged_nodes
+    connection.discover_nodes(status: 'unmanaged')
+  end
+
+  def self.filter_nodes_by_uuid(uuid)
+    connection.fetch_nodes(uuid)
+  end
+
+  def self.filter_nodes_by_chassis(chassis)
+    connection.discover_nodes(chassis: chassis)
+  end
+
+  def self.power_on_node(uuid)
+    connection.power_on_node(uuid)
+  end
+
+  def self.power_off_node(uuid)
+    connection.power_off_node(uuid)
+  end
+
+  def self.power_restart_node(uuid)
+    connection.power_restart_node(uuid)
+  end
+
+  def self.blink_loc_led(uuid)
+    connection.blink_loc_led(uuid)
+  end
+
+  def self.turn_on_loc_led(uuid)
+    connection.turn_on_loc_led(uuid)
+  end
+
+  def self.turn_off_loc_led(uuid)
+    connection.turn_off_loc_led(uuid)
+  end
+
+  # discover_request method starts here
+  def self.discover_manageable_devices(ip_address)
+    connection.discover_manageable_devices(ip_address)
+  end
+
+  def self.monitor_discover_request(job_id)
+    connection.monitor_discover_request(job_id)
+  end
+
+  def self.discover_devices_by_slp
+    connection.discover_devices_by_slp
+  end
+
+  # discover events start here
+  def self.discover_events
+    connection.discover_events
+  end
+
+  # fan_muxes Starts here
+  def self.discover_all_fan_muxes
+    connection.discover_fan_muxes
+  end
+
+  def self.filter_fan_muxes_by_chassis(chassis)
+    connection.discover_fan_muxes(chassis: chassis)
+  end
+
+  def self.filter_fan_muxes_by_uuid(uuid)
+    connection.fetch_fan_muxes(uuid)
+  end
+
+  # fan Starts here
+  def self.discover_all_fans
+    connection.discover_fans
+  end
+
+  def self.filter_fans_by_chassis(chassis)
+    connection.discover_fans(chassis: chassis)
+  end
+
+  def self.filter_fans_by_uuid(uuid)
+    connection.fetch_fans(uuid)
+  end
+
+  def self.fetch_ffdc(uuid)
+    connection.fetch_ffdc(uuid)
+  end
+
+  # power_supplies Starts here
+  def self.discover_all_power_supplies
+    connection.discover_power_supplies
+  end
+
+  def self.filter_power_supplies_by_chassis(chassis)
+    connection.discover_power_supplies(chassis: chassis)
+  end
+
+  def self.filter_power_supplies_by_uuid(uuid)
+    connection.fetch_power_supplies(uuid)
+  end
+
+  # scalableComplex Starts here
+  def self.discover_all_scalable_complexes
+    connection.discover_scalableComplexes
+  end
+
+  def self.discover_managed_scalable_complexes
+    connection.discover_scalableComplexes(status: 'managed')
+  end
+
+  def self.discover_unmanaged_scalable_complexes
+    connection.discover_scalableComplexes(status: 'unmanaged')
+  end
+
+  def self.discover_flex_scalable_complexes
+    connection.discover_scalableComplexes(type: 'flex')
+  end
+
+  def self.discover_rackserver_scalable_complexes
+    connection.discover_scalableComplexes(status: 'rackserver')
+  end
+
+  def self.filter_scalable_complexes_by_uuid(uuid)
+    connection.fetch_scalableComplexes(uuid)
+  end
+
+
+  # switches Starts here
+  def self.discover_all_switches
+    connection.discover_switches
+  end
+
+  def self.filter_switches_by_chassis(chassis)
+    connection.discover_switches(chassis: chassis)
+  end
+
+  def self.filter_switches_by_uuid(uuid)
+    connection.fetch_switches(uuid)
+  end
+
   # Generic methods starts here``
 
   def self.call(url, args = {})

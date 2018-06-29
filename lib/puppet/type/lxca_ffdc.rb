@@ -23,6 +23,7 @@
 ################################################################################
 
 Puppet::Type.newtype(:lxca_ffdc) do
+  apply_to_all
   ensurable do
     newvalue(:filter_by_uuid) do
       Puppet.notice "Fetching LXCA ffdc filtered by UUID. Results displayed below\n"
@@ -34,46 +35,12 @@ Puppet::Type.newtype(:lxca_ffdc) do
     desc 'Name of the lxca ffdc resource'
   end
 
-  newparam(:host) do
-    desc 'LXCA Host to connect to'
-  end
-
-  newparam(:port) do
-    desc 'Port of LXCA to connect to'
-  end
-
-  newparam(:login_user) do
-    desc 'The username to be used to login into LXCA'
-  end
-
-  newparam(:login_password) do
-    desc 'The password to be used to login into LXCA'
-  end
-
-  newparam(:verify_ssl) do
-    desc 'Whether to verify SSL when connecting to the LXCA'
-  end
-
-  newparam(:auth_type) do
-    desc 'The authorization type used to connect to LXCA. Defaults to basic_auth'
-    defaultto 'basic_auth'
-  end
-
-  newparam(:csrf_token) do
-    desc 'The CSRF token to be used in case authentication type is set to token'
-  end
-
   newparam(:uuid) do
     desc 'UUID of the ffdc'
   end
 
   validate do
     required_parameters = [
-      :host,
-      :port,
-      :login_user,
-      :login_password,
-      :verify_ssl,
     ]
     required_parameters.each do |param|
       if param.nil? || param == ''

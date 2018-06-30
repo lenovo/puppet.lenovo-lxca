@@ -91,6 +91,24 @@ class Puppet::Provider::Lxca < Puppet::Provider
     connection.fetch_chassis(uuid)
   end
 
+  # cabinet Starts here
+  def self.discover_all_cabinets
+    connection.discover_cabinet
+  end
+
+  def self.filter_cabinets_by_uuid(uuid)
+    connection.fetch_cabinet(uuid)
+  end
+
+  # canister Starts here
+  def self.discover_all_canisters
+    connection.discover_canisters
+  end
+
+  def self.filter_canisters_by_uuid(uuid)
+    connection.fetch_canisters(uuid)
+  end
+
   # cmm Starts here
   def self.discover_all_cmms
     connection.discover_cmms

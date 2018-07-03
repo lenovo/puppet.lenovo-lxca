@@ -21,21 +21,11 @@
 
 lxca_manage_request{'fetch_manage_request':
   ensure         => 'fetch_manage_request',
-  port           => '443',
-  login_user     => 'USERID',
-  login_password => 'Passw0rd',
-  verify_ssl     => 'NONE',
-  host           => 'https://10.243.13.140',
   job_id         => '4191',
 }
 
 lxca_manage_request{'manage_discovered_devices':
   ensure            => 'manage_discovered_devices',
-  port              => '443',
-  login_user        => 'USERID',
-  login_password    => 'Passw0rd',
-  verify_ssl        => 'NONE',
-  host              => 'https://10.243.13.140',
   ip_address        => ['10.243.8.28'],
   username          => 'USERID',
   password          => 'CME44ibm',

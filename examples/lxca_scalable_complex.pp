@@ -21,47 +21,22 @@
 
 lxca_scalable_complex{'list_all':
   ensure         => 'discover_all',
-  port           => '443',
-  login_user     => 'Admin',
-  login_password => 'Lenovo123',
-  verify_ssl     => 'NONE',
-  host           => 'https://10.243.10.75',
 }
 
 lxca_scalable_complex{'list_managed':
   ensure         => 'discover_managed',
-  port           => '443',
-  login_user     => 'Admin',
-  login_password => 'Lenovo123',
-  verify_ssl     => 'NONE',
-  host           => 'https://10.243.10.75',
 }
 
 lxca_scalable_complex{'list_unmanaged':
   ensure         => 'discover_unmanaged',
-  port           => '443',
-  login_user     => 'Admin',
-  login_password => 'Lenovo123',
-  verify_ssl     => 'NONE',
-  host           => 'https://10.243.10.75',
 }
 
 lxca_scalable_complex{'list_flex':
   ensure         => 'discover_flex',
-  port           => '443',
-  login_user     => 'Admin',
-  login_password => 'Lenovo123',
-  verify_ssl     => 'NONE',
-  host           => 'https://10.243.10.75',
 }
 
 lxca_scalable_complex{'list_rackserver':
   ensure         => 'discover_rackserver',
-  port           => '443',
-  login_user     => 'Admin',
-  login_password => 'Lenovo123',
-  verify_ssl     => 'NONE',
-  host           => 'https://10.243.10.75',
 }
 
 lxca_scalable_complex{'filter_by_uuid':

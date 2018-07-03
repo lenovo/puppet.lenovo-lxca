@@ -21,21 +21,11 @@
 
 lxca_unmanage_request{'fetch_unmanage_request':
   ensure         => 'fetch_unmanage_request',
-  port           => '443',
-  login_user     => 'USERID',
-  login_password => 'Passw0rd',
-  verify_ssl     => 'NONE',
-  host           => 'https://10.243.13.140',
   job_id         => '4253',
 }
 
 lxca_unmanage_request{'unmanage_discovered_devices':
   ensure         => 'unmanage_discovered_devices',
-  port           => '443',
-  login_user     => 'USERID',
-  login_password => 'Passw0rd',
-  verify_ssl     => 'NONE',
-  host           => 'https://10.243.13.140',
   endpoints      => [{'ipAddresses'=>['10.243.8.28'],'type'=>'Chassis','uuid'=>'792812BA57B24337821B72AC27CF2055'}],
   force          => 'True',
 }

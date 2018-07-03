@@ -21,11 +21,6 @@
 
 lxca_ffdc{'filter_by_uuid':
   ensure         => 'filter_by_uuid',
-  port           => '443',
-  login_user     => 'Admin',
-  login_password => 'passw0rd',
-  verify_ssl     => 'NONE',
-  host           => 'https://10.243.10.75',
   uuid           => 'FA59C0BBC43C3C15B9D72B94AFF52B91',
 }
 

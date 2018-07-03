@@ -21,38 +21,21 @@
 
 lxca_chassis{'list_all':
   ensure         => 'discover_all',
-  port           => '443',
-  login_user     => 'Admin',
-  login_password => 'Lenovo123',
-  verify_ssl     => 'NONE',
   host           => 'https://10.243.10.75',
 }
 
 lxca_chassis{'list_managed':
   ensure         => 'discover_managed',
-  port           => '443',
-  login_user     => 'Admin',
-  login_password => 'Lenovo123',
-  verify_ssl     => 'NONE',
   host           => 'https://10.243.10.75',
 }
 
 lxca_chassis{'list_unmanaged':
   ensure         => 'discover_unmanaged',
-  port           => '443',
-  login_user     => 'Admin',
-  login_password => 'Lenovo123',
-  verify_ssl     => 'NONE',
   host           => 'https://10.243.10.75',
 }
 
 lxca_chassis{'filter_by_uuid':
   ensure         => 'filter_by_uuid',
-  port           => '443',
-  login_user     => 'Admin',
-  login_password => 'Lenovo123',
-  verify_ssl     => 'NONE',
-  host           => 'https://10.243.10.75',
   uuid           => 'F44E92339683385A8D97CD6348A6F45F',
 }
 

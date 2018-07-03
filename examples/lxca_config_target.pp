@@ -21,11 +21,6 @@
 
 lxca_config_target{'filter_by_id':
   ensure         => 'filter_by_id',
-  port           => '443',
-  login_user     => 'USERID',
-  login_password => 'Passw0rd',
-  verify_ssl     => 'NONE',
-  host           => 'https://10.240.29.217',
   id             => '65',
 }
 

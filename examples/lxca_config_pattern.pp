@@ -21,40 +21,20 @@
 
 lxca_config_pattern{'list_all':
   ensure         => 'discover_all',
-  port           => '443',
-  login_user     => 'USERID',
-  login_password => 'Passw0rd',
-  verify_ssl     => 'NONE',
-  host           => 'https://10.240.29.217',
 }
 
 lxca_config_pattern{'filter_by_patternid':
   ensure         => 'filter_by_id',
-  port           => '443',
-  login_user     => 'USERID',
-  login_password => 'Passw0rd',
-  verify_ssl     => 'NONE',
-  host           => 'https://10.240.29.217',
   id             => '59',
 }
 
 lxca_config_pattern{'export_config_pattern':
   ensure         => 'export_config_pattern',
-  port           => '443',
-  login_user     => 'USERID',
-  login_password => 'Passw0rd',
-  verify_ssl     => 'NONE',
-  host           => 'https://10.240.29.217',
   id             => '59',
 }
 
 lxca_config_pattern{'deploy_config_pattern':
   ensure         => 'deploy_config_pattern',
-  port           => '443',
-  login_user     => 'USERID',
-  login_password => 'Passw0rd',
-  verify_ssl     => 'NONE',
-  host           => 'https://10.240.29.217',
   id             => '59',
   endpoints      => 'B918EDCA1B5F11E2803EBECB82710ADE',
   restart        => 'pending',
@@ -63,11 +43,6 @@ lxca_config_pattern{'deploy_config_pattern':
 
 lxca_config_pattern{'import_config_pattern':
   ensure         => 'import_config_pattern',
-  port           => '443',
-  login_user     => 'USERID',
-  login_password => 'Passw0rd',
-  verify_ssl     => 'NONE',
-  host           => 'https://10.240.29.217',
   import_json    => '{"template_type" : "SystemInfo","template" : {"contact" : "contact","description" : "Pattern created by ruby test API ","location" : "location","name" : "Learned-System_Info-99","systemName" : {"autogen" : "Disable","hyphenChecked" : "FALSE"},"type" : "SystemInfo","uri" : "\/config\/template\/62","userDefined" : "TRUE"}}',
 }
 

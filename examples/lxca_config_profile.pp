@@ -21,30 +21,15 @@
 
 lxca_config_profile{'list_all':
   ensure         => 'discover_all',
-  port           => '443',
-  login_user     => 'USERID',
-  login_password => 'Passw0rd',
-  verify_ssl     => 'NONE',
-  host           => 'https://10.240.29.217',
 }
 
 lxca_config_profile{'filter_by_profileid':
   ensure         => 'filter_by_id',
-  port           => '443',
-  login_user     => 'USERID',
-  login_password => 'Passw0rd',
-  verify_ssl     => 'NONE',
-  host           => 'https://10.240.29.217',
   id             => '68',
 }
 
 lxca_config_profile{'activate_config_profile':
   ensure         => 'activate_config_profile',
-  port           => '443',
-  login_user     => 'USERID',
-  login_password => 'Passw0rd',
-  verify_ssl     => 'NONE',
-  host           => 'https://10.240.29.217',
   id             => '68',
   endpoint_uuid  => '46920C143355486F97C19A34ABC7D746_bay10',
   restart        => 'immediate',
@@ -52,22 +37,12 @@ lxca_config_profile{'activate_config_profile':
 
 lxca_config_profile{'rename_config_profile':
   ensure         => 'rename_config_profile',
-  port           => '443',
-  login_user     => 'USERID',
-  login_password => 'Passw0rd',
-  verify_ssl     => 'NONE',
-  host           => 'https://10.240.29.217',
   id             => '68',
   profile_name   => 'name_from_puppet_type',
 }
 
 lxca_config_profile{'unassign_config_profile':
   ensure         => 'unassign_config_profile',
-  port           => '443',
-  login_user     => 'USERID',
-  login_password => 'Passw0rd',
-  verify_ssl     => 'NONE',
-  host           => 'https://10.240.29.217',
   id             => '68',
   power_down     => 'False',
   reset_imm      => 'False',
@@ -76,10 +51,5 @@ lxca_config_profile{'unassign_config_profile':
 
 lxca_config_profile{'delete_config_profile':
   ensure         => 'delete_config_profile',
-  port           => '443',
-  login_user     => 'USERID',
-  login_password => 'Passw0rd',
-  verify_ssl     => 'NONE',
-  host           => 'https://10.240.29.217',
   id             => '68',
 }

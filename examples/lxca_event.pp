@@ -21,11 +21,6 @@
 
 lxca_event{'list_all':
   ensure         => 'discover_all',
-  port           => '443',
-  login_user     => 'Admin',
-  login_password => 'Lenovo123',
-  verify_ssl     => 'NONE',
-  host           => 'https://10.243.10.75',
 }
 
 

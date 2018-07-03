@@ -21,21 +21,11 @@
 
 lxca_discover_request{'discover_manageable_devices':
   ensure         => 'discover_manageable_devices',
-  port           => '443',
-  login_user     => 'USERID',
-  login_password => 'Passw0rd',
-  verify_ssl     => 'NONE',
-  host           => 'https://10.240.29.217',
   ip_addresses   => ['10.240.74.210']
 }
 
 lxca_discover_request{'monitor_discover_request':
   ensure         => 'monitor_discover_request',
-  port           => '443',
-  login_user     => 'USERID',
-  login_password => 'Passw0rd',
-  verify_ssl     => 'NONE',
-  host           => 'https://10.240.29.217',
   job_id         => '5878'
 }
 

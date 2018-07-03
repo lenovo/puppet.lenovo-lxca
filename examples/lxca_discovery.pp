@@ -21,10 +21,5 @@
 
 lxca_discovery{'discover_devices_by_slp':
   ensure         => 'discover_devices_by_slp',
-  port           => '443',
-  login_user     => 'USERID',
-  login_password => 'Passw0rd',
-  verify_ssl     => 'NONE',
-  host           => 'https://10.240.29.217',
 }
 

@@ -21,30 +21,15 @@
 
 lxca_power_supplies{'list_all':
   ensure         => 'discover_all',
-  port           => '443',
-  login_user     => 'Admin',
-  login_password => 'Lenovo123',
-  verify_ssl     => 'NONE',
-  host           => 'https://10.243.10.75',
 }
 
 lxca_power_supplies{'filter_by_chassis':
   ensure         => 'filter_by_chassis',
-  port           => '443',
-  login_user     => 'Admin',
-  login_password => 'Lenovo123',
-  verify_ssl     => 'NONE',
-  host           => 'https://10.243.10.75',
   chassis        => 'F44E92339683385A8D97CD6348A6F45F',
 }
 
 lxca_power_supplies{'filter_by_uuid':
   ensure         => 'filter_by_uuid',
-  port           => '443',
-  login_user     => 'Admin',
-  login_password => 'Lenovo123',
-  verify_ssl     => 'NONE',
-  host           => 'https://10.243.10.75',
   uuid           => 'FA59C0BBC43C3C15B9D72B94AFF52B91',
 }
 

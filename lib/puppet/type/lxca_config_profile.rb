@@ -75,6 +75,13 @@ Puppet::Type.newtype(:lxca_config_profile) do
 
   newparam(:restart) do
     desc 'Indicates when to restart the server to activate the profile. 2 values are allowed: immediate, defer'
+
+    validate do |value|
+      super value
+      unless %w[defer immediatete].any? { |option| value.include? option }
+        raise('The valid values are: defer, immediate')
+      end
+    end
   end
 
   newparam(:power_down) do

@@ -66,10 +66,23 @@ Puppet::Type.newtype(:lxca_config_pattern) do
 
   newparam(:restart) do
     desc 'Identifies when to activate the configurations. The valid values are: defer, immediate, pending'
+    validate do |value|
+      super value
+      unless %w[defer immediate pending].any? { |option| value.include? option }
+        raise(' The valid values are: defer, immediate, pending')
+      end
+    end
   end
 
   newparam(:etype) do
     desc 'Identified whether the endpoint on which a configuration pattern is to be deployed is a node, rack or a tower.'
+
+    validate do |value|
+      super value
+      unless %w[node rack tower].any? { |option| value.include? option }
+        raise('The valid values are: node, rack, tower')
+      end
+    end
   end
 
   newparam(:import_json) do

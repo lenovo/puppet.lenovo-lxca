@@ -88,10 +88,20 @@ Puppet::Type.newtype(:lxca_node) do
 
   newparam(:uuid) do
     desc 'UUID of the node'
+
+    validate do |value|
+      super value
+      raise('the uuid must be string of lenth 16 ') if value.size < 16
+    end
   end
 
   newparam(:chassis) do
     desc 'UUID of the chassis on which filtering is to be applied'
+
+    validate do |value|
+      super value
+      raise('the uuid must be string of lenth 16 ') if value.size < 16
+    end
   end
 
   validate do

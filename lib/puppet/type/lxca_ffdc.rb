@@ -37,6 +37,11 @@ Puppet::Type.newtype(:lxca_ffdc) do
 
   newparam(:uuid) do
     desc 'UUID of the ffdc'
+
+    validate do |value|
+      super value
+      raise('the uuid must be string of lenth 16 ') if value.size < 16
+    end
   end
 
   validate do

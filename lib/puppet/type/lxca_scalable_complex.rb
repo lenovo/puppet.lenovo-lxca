@@ -63,6 +63,11 @@ Puppet::Type.newtype(:lxca_scalable_complex) do
 
   newparam(:uuid) do
     desc 'UUID of the scalable complex'
+
+    validate do |value|
+      super value
+      raise('the uuid must be string of lenth 16 ') if value.size < 16
+    end
   end
 
   validate do

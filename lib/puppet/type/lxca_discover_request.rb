@@ -42,6 +42,11 @@ Puppet::Type.newtype(:lxca_discover_request) do
 
   newparam(:ip_addresses) do
     desc 'One or more IP addresses for each device to be discovered.'
+
+    validate do |value|
+      super value
+      raise('the ip address must be string representation of ip address') if value.size > 11
+    end
   end
 
   newparam(:job_id) do

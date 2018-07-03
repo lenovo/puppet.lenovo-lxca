@@ -267,6 +267,53 @@ class Puppet::Provider::Lxca < Puppet::Provider
     connection.fetch_switches(uuid)
   end
 
+  # config target starts here
+  def self.fetch_config_target(id)
+    connection.fetch_config_target(id)
+  end
+
+  # config profile start here
+  def self.discover_all_config_profiles
+    connection.discover_config_profile
+  end
+
+  def self.fetch_config_profile(id)
+    connection.fetch_config_profile(id)
+  end
+
+  def self.activate_config_profile(id, endpoint_uuid, restart)
+    connection.activate_config_profile(id, endpoint_uuid, restart)
+  end
+
+  def self.rename_config_profile(id, profile_name)
+    connection.rename_config_profile(id, profile_name)
+  end
+
+  def self.unassign_config_profile(id, power_down, reset_imm, force)
+    connection.unassign_config_profile(id, power_down, reset_imm,force)
+  end
+
+  # config pattern starts here
+  def self.discover_all_config_paterns
+    connection.discover_config_pattern
+  end
+
+  def self.fetch_config_pattern(id)
+    connection.fetch_config_pattern(id)
+  end
+
+  def self.export_config_pattern(id)
+    connection.export_config_pattern(id)
+  end
+
+  def self.deploy_config_pattern(id, endpoints, restart, etype)
+    connection.deploy_config_pattern(id, endpoints, restart, etype)
+  end
+
+  def self.import_config_pattern(import_json)
+    connection.import_config_pattern(import_json)
+  end
+
   # Generic methods starts here``
 
   def self.call(url, args = {})

@@ -43,6 +43,11 @@ Puppet::Type.newtype(:lxca_manage_request) do
 
   newparam(:ip_address) do
     desc 'Specifies the IP address of the device to be managed.'
+
+    validate do |value|
+      super value
+      raise('the ip address must be string representation of ip address') if value.size > 11
+    end
   end
 
   newparam(:username) do

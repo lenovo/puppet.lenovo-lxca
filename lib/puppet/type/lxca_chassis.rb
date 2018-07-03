@@ -53,6 +53,11 @@ Puppet::Type.newtype(:lxca_chassis) do
 
   newparam(:uuid) do
     desc 'UUID of the chassis'
+
+    validate do |value|
+      super value
+      raise('the uuid must be string of lenth 16 ') if value.size < 16
+    end
   end
 
   validate do

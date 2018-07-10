@@ -45,7 +45,7 @@ Puppet::Type.newtype(:lxca_discover_request) do
 
     validate do |value|
       super value
-      raise('the ip address must be string representation of ip address') if value.size > 11
+      raise('the ip address must be string representation of ip address') if value.size > 15
     end
   end
 

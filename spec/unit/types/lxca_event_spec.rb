@@ -30,7 +30,7 @@ describe 'lxca_event', type: :type do
     expect { type_class.new({}) }.to raise_error(Puppet::Error, 'Title or name must be provided')
   end
 
-  it 'does support :present as a value to :ensure' do
-    type_class.new(name: 'A Lxca event ', ensure: :present)
+  it 'does support :discover_all as a value to :ensure' do
+    type_class.new(name: ' Lxca events', ensure: :discover_all)
   end
 end

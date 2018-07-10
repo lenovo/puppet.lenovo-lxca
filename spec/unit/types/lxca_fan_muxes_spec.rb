@@ -35,4 +35,12 @@ describe 'lxca_fan_muxes', type: :type do
   it 'does support :present as a value to :ensure' do
     type_class.new(name: 'Lxca fan_muxes', uuid: '1234567890123456', ensure: :present)
   end
+
+  it 'does support :filter_by_uuid as a value to :ensure' do
+    type_class.new(name: 'A Lxca fan_mux ', uuid: '1234567890123456', ensure: :filter_by_uuid)
+  end
+
+  it 'does support :filter_by_chassis as a value to :ensure' do
+    type_class.new(name: 'Lxca fan_muxes ', chassis: '1234567890123456', ensure: :filter_by_chassis)
+  end
 end

@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-describe 'lxca_cmm', type: :type do
-  let(:type_class) { Puppet::Type.type(:lxca_cmm) }
+describe 'lxca_chassis', type: :type do
+  let(:type_class) { Puppet::Type.type(:lxca_chassis) }
 
   let :params do
     [
@@ -32,6 +32,18 @@ describe 'lxca_cmm', type: :type do
   end
 
   it 'does support :present as a value to :ensure' do
-    type_class.new(name: 'A Lxca node ', uuid: '1234567890123456', ensure: :present)
+    type_class.new(name: 'A Lxca chassis ', uuid: '1234567890123456', ensure: :present)
+  end
+
+  it 'does support :filter_by_uuid as a value to :ensure' do
+    type_class.new(name: 'A Lxca chassis ', uuid: '1234567890123456', ensure: :filter_by_uuid)
+  end
+
+  it 'does support :discover_managed as a value to :ensure' do
+    type_class.new(name: 'Managed Lxca chassis ', ensure: :discover_managed)
+  end
+
+  it 'does support :discover_unmanaged as a value to :ensure' do
+    type_class.new(name: 'Unmanaged Lxca chassis ', ensure: :discover_unmanaged)
   end
 end

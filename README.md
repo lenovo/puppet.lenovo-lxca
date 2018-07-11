@@ -43,6 +43,126 @@ puppet module install lxca
 
 Till then, download the entire contents of this repository to the directory /etc/puppetlabs/code/modules/lxca on the Puppet server
 
+### Beginning with Lxca Module in puppet
+
+Before you can use the lxca module, you must create a proxy system able to run puppet device. 
+Your Puppet agent will serve as the proxy for the puppet device subcommand.
+
+
+## Usage
+
+
+### Installation Requirements 
+
+The following infrastructure is required for the use of Lxca module:
+
+1. A server running as a Puppet Master
+2. A Puppet Agent running as a Puppet Device proxy to the lxca 
+3. A Lxca device running having static ip and hostname/FQDN 
+
+### Installation and Configuration Steps
+
+1.  Install Puppet Lxca Module on Puppet Master
+2.  Install Lxca and xClarity Client gems on Puppet Agent, running as proxy to the Lxca device 
+3.  Create a device.conf file on the Puppet Agent node with details of the Lxca device
+4.  Run Puppet Device command on the Puppet Agent to initiate registration with the Puppet Master
+5.  Creating, Updating and Applying Manifests (Resources) to create a catalog on Puppet Master
+6.  Classify the Lxca device to the applied Manifests (Resources) from PE console
+7.  Run Configuration Task to the Lxca device per Catalog from Puppet Master
+
+See below for the detailed steps.
+
+#### Step One: Install Puppet Lxca Module on Puppet Master
+
+To install the module run, 
+
+puppet module install lenovo-lxca
+
+#### Step Two: Install Lxca and Rest-Client gems on Puppet Agent
+
+To install the gem files on Puppet Agent
+ 
+/opt/puppetlabs/puppet/bin/gem install xclarity_client
+
+To handle xclarity_client gem dependencies on Puppet Agent, 'Package' resource is used for reference gems on init.pp manifest file on Puppet Master under Lxca Module path. Sample manifest looks like;
+
+```ruby
+class cnos::install {
+ if $::puppetversion and $::puppetversion =~ /Puppet Enterprise/ {
+   $provider = 'pe_gem'
+ } elsif $::puppetversion and versioncmp($::puppetversion, '4.0.0') >= 0 {
+   $provider = 'puppet_gem'
+ } else {
+   $provider = 'gem'
+ }
+package { 'xclarity_client' :
+   ensure => '0.6.1',
+   provider => 'puppet_gem',
+ }
+}
+```
+
+#### Step Three: Create a device.conf file on the Puppet Agent
+
+Create a device.conf file in the /etc/puppetlabs/puppet/ directory on Puppet Agent with details of the Lxca 
+```ruby
+[<FQDN of Lxca>]
+type lxca
+url https://<USERNAME>:<PASSWORD>@<IP ADDRESS OF Lxca >/
+```
+In the above example, 
+<USERNAME> and <PASSWORD> refer to Puppet's login for the device
+FQDN refers to Fully Qualified Domain Name of the switch 
+
+NOTE: Make sure the Lxca is reachable by its FQDN from the Master and Agent instance
+
+
+#### Step Four: Run Puppet Device command on the Puppet Agent
+
+Run the following command on Puppet Agent to have the device proxy node generate a certificate for the device (switch)
+```ruby
+puppet device -v
+```
+Verify the device (switch) FQDN with SSL certificate information is listed on the output of following command on Puppet Master
+```ruby
+puppet cert list --all
+```
+
+Sign the device SSL certificate on Puppet Master
+```ruby
+puppet cert sign <device FQDN>
+puppet cert list --all
+```
+
+
+#### Step Five: Updating and Applying Manifests (Resources)
+
+Manifests are available at /etc/puppetlabs/code/environment/production/modules/lxca/manifests/
+To list existing managed lxca nodes modify manifest (for eg: For lxca_node )
+
+Sample Manifest
+```ruby
+class lxca::node {
+  lxca_node { 'list_managed':
+    ensure      => 'discover_managed',
+  }
+}
+```
+
+#### Step Six: Classify the Lxca device
+
+Open Puppet Enterprise (PE) Console using https://<FQDN of Puppet Master>/ and enter credentials created during Puppet Enterprise Installation
+Click on Classification under Configure section and select the Manifests (Resource - lxca::<class>) and Node (switch/device)
+
+#### Step Seven: Run Configuration Tasks to the Lxca device from Puppet Agent
+
+Run the following commands on Puppet Agent
+```ruby
+puppet agent --test
+puppet device -v --user=root
+```
+
+## Reference
 ### What lxca affects
 
 In the current implementation, LXCA can interact with the following LXCA resources:

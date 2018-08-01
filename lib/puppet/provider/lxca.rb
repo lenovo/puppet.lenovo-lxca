@@ -84,7 +84,7 @@ class Puppet::Provider::Lxca < Puppet::Provider
   end
 
   def self.discover_unmanaged_chassis
-    connection.discover_chassis( status: 'unmanaged')
+    connection.discover_chassis(status: 'unmanaged')
   end
 
   def self.filter_chassis_by_uuid(uuid)
@@ -253,7 +253,6 @@ class Puppet::Provider::Lxca < Puppet::Provider
     connection.fetch_scalableComplexes(uuid)
   end
 
-
   # switches Starts here
   def self.discover_all_switches
     connection.discover_switches
@@ -290,7 +289,7 @@ class Puppet::Provider::Lxca < Puppet::Provider
   end
 
   def self.unassign_config_profile(id, power_down, reset_imm, force)
-    connection.unassign_config_profile(id, power_down, reset_imm,force)
+    connection.unassign_config_profile(id, power_down, reset_imm, force)
   end
 
   # config pattern starts here
@@ -312,6 +311,29 @@ class Puppet::Provider::Lxca < Puppet::Provider
 
   def self.import_config_pattern(import_json)
     connection.import_config_pattern(import_json)
+  end
+
+  # update_comp (firmware update) starts here
+  def self.discover_firmware_update_status
+    connection.discover_firmware_update_status
+  end
+
+  def self.discover_updatable_device_comp(id)
+    connection.discover_updatable_device_comp(id)
+  end
+
+  def self.apply_firmware_update(activation_mode, force_update_mode, on_error_mode,
+                                 server, switch, storage, cmm)
+    connection.apply_firmware_update(activation_mode, force_update_mode, on_error_mode,
+                                     server, switch, storage, cmm)
+  end
+
+  def self.cancel_firmware_update(server, switch, storage, cmm)
+    connection.cancel_firmware_update(server, switch, storage, cmm)
+  end
+
+  def self.modify_power_state(server, switch, storage, cmm)
+    connection.modify_power_state(server, switch, storage, cmm)
   end
 
   # Generic methods starts here``

@@ -82,7 +82,7 @@ Puppet::Type.type(:lxca_fan).provide(:gem, parent: Puppet::Provider::Lxca) do
         puts "#{att} - #{fan.instance_variable_get att}"
       end
     end
-    #@property_hash[:ensure] == :filter_by_chassis
+    # @property_hash[:ensure] == :filter_by_chassis
   end
 
   def filter_by_uuid

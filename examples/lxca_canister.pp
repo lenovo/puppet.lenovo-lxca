@@ -21,7 +21,6 @@
 
 lxca_canister{'list_all':
   ensure         => 'discover_all',
-  host           => 'https://10.243.10.75',
 }
 
 lxca_canister{'filter_by_uuid':

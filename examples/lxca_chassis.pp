@@ -21,17 +21,14 @@
 
 lxca_chassis{'list_all':
   ensure         => 'discover_all',
-  host           => 'https://10.243.10.75',
 }
 
 lxca_chassis{'list_managed':
   ensure         => 'discover_managed',
-  host           => 'https://10.243.10.75',
 }
 
 lxca_chassis{'list_unmanaged':
   ensure         => 'discover_unmanaged',
-  host           => 'https://10.243.10.75',
 }
 
 lxca_chassis{'filter_by_uuid':

@@ -34,12 +34,9 @@ class Puppet::Util::NetworkDevice::Lxca::Facts
       Puppet.warning('Did not receive device details. Lxca REST requires Administrator level access.')
       return facts
     end
-    puts "Result = #{result}"
-    [:Name,
-     :UpTime].each do |fact|
-      # facts[fact] = result[fact.to_s]
-      puts fact
-    end
+    facts['lxca_name'] = result[0].appliance['name'].to_s
+    facts['version'] = result[0].appliance['version'].to_s
+    puts facts
 
     facts.each do |key, value|
       Puppet.notice("Key  = #{key} , Value = #{value}")

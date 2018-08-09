@@ -52,7 +52,7 @@ class Puppet::Util::NetworkDevice::Transport::Lxca < Puppet::Util::NetworkDevice
 
   def call(_url, args = {})
     Puppet.debug("connection = #{@connection.inspect}")
-    result = @connection.discover_users(args)
+    result = @connection.discover_aicc(args)
   end
 
   def failure?(result)

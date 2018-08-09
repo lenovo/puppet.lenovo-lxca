@@ -54,8 +54,11 @@ Puppet::Type.type(:lxca_unmanage_request).provide(:gem, parent: Puppet::Provider
     if @resource[:force].nil?
       raise Puppet::Error, _('Attribute force is mandatory for the ensurable manage_discovered_devices')
     end
-
-    Puppet::Provider::Lxca.unmanage_discovered_devices(@resource[:endpoints], (@resource[:force]).to_s)
+    endpoints = @resource[:endpoints]
+    if endpoints.instance_of? String
+      endpoints = eval(endpoints)
+    end
+    Puppet::Provider::Lxca.unmanage_discovered_devices(endpoints, (@resource[:force]).to_s)
   end
 
   def exists?

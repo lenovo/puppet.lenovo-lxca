@@ -97,7 +97,7 @@ class cnos::install {
  }
 package { 'xclarity_client' :
    ensure => '0.6.1',
-   provider => 'puppet_gem',
+   provider => 'gem',
  }
 }
 ```
@@ -112,7 +112,7 @@ url https://<USERNAME>:<PASSWORD>@<IP ADDRESS OF Lxca >/
 ```
 In the above example, 
 <USERNAME> and <PASSWORD> refer to Puppet's login for the device
-FQDN refers to Fully Qualified Domain Name of the switch 
+FQDN refers to Fully Qualified Domain Name of the lxca 
 
 NOTE: Make sure the Lxca is reachable by its FQDN from the Master and Agent instance
 
@@ -123,7 +123,7 @@ Run the following command on Puppet Agent to have the device proxy node generate
 ```ruby
 puppet device -v
 ```
-Verify the device (switch) FQDN with SSL certificate information is listed on the output of following command on Puppet Master
+Verify the device (lxca) FQDN with SSL certificate information is listed on the output of following command on Puppet Master
 ```ruby
 puppet cert list --all
 ```
@@ -173,6 +173,25 @@ In the current implementation, LXCA can interact with the following LXCA resourc
 
 The lxca module needs xclarity_client gem to be installed.
 
+
+### Classes
+
+#### Public classes
+
+### lxca::chassis
+
+Handles Chassis on Lenovo lxca for interfaces.
+For details regarding parameters, please refer to [lxca_chassis](#lxca_chassis).
+
+#### Sample Manifest 
+```ruby
+class lxca::chassis {
+    lxca_chassis{'list_all':
+		ensure         => 'discover_all',
+	}
+}
+```
+
 ## Usage
 ### Types and Providers
 There are types and the respective providers have been implemented - lxca_node, lxca_chassis, lxca_resource ...
@@ -192,35 +211,37 @@ A sample manifest is provided below that demonstrates the usage of lxca_node and
 
 ```puppet
 lxca_node{'list_all':
-  base_url => 'https://10.243.10.75',
-  login_user => 'Admin',
-  login_password => 'Lenovo123',
-  verify_ssl => 'NONE',
   ensure => 'discover_all',
 }
 
 lxca_node{'blink_led':
-  base_url => 'https://10.243.10.75',
-  login_user => 'Admin',
-  login_password => 'Lenovo123',
-  verify_ssl => 'NONE',
   ensure => 'turn_on_led',
   uuid => 'FA59C0BBC43C3C15B9D72B94AFF52B91',
 }
 
-lxca_chassis{'list_managed':
-  base_url => 'https://10.243.10.75',
-  login_user => 'Admin',
-  login_password => 'Lenovo123',
-  verify_ssl => 'NONE',
+lxca_chassis{'leference
+
+### Classes
+
+#### Public classes
+
+### cnos::arp
+
+Handles Arp on Lenovo CNOS for interfaces.
+For details regarding parameters, please refer to [cnos_arp](#cnos_arp).
+
+#### Sample Manifest 
+```ruby
+class cnos::arp {
+  cnos_arp{'Ethernet1/13':
+    ageout_time => 1500,
+  }
+}
+```
   ensure => 'discover_managed',
 }
 
 lxca_chassis{'filter_by_uuid':
-  base_url => 'https://10.243.10.75',
-  login_user => 'Admin',
-  login_password => 'Lenovo123',
-  verify_ssl => 'NONE',
   ensure => 'filter_by_uuid',
   uuid => 'F44E92339683385A8D97CD6348A6F45F',
 }

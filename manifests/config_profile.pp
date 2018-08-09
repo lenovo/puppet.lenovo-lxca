@@ -9,18 +9,18 @@
 # @param [String] profile_name - new name of profile for rename operation.
 # @param [String] id - id of config profile. default value: '0'
 # @param [String] endpoint_uuid - uuid of endpoint. default value: 'DUMMY_UUID_FOR_ENDPOINTS'
-# @param [Boolean] power_down - power_down device. default value: 'False'
-# @param [Boolean] reset_imm - reset imm. default value: 'False
-# @param [Boolean] Force - Force operation. default value: 'False'
+# @param [String] power_down - power_down device. default value: 'False'
+# @param [String] reset_imm - reset imm. default value: 'False
+# @param [String] Force - Force operation. default value: 'False'
 
 class lxca::config_profile(
   String $interface_name = $title,
   String $profile_name = 'NEW_PROFILE_NAME',
   String $id = '0',
   String $endpoint_uuid = 'DUMMY_UUID_FOR_ENDPOINTS',
-  Boolean $power_down = 'False',
-  Boolean $reset_imm = 'False',
-  Boolean $force = 'False',
+  String $power_down = 'False',
+  String $reset_imm = 'False',
+  String $force = 'False',
   Enum[
     'defer',
     'immediate'] $restart  = 'defer',

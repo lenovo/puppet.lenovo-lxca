@@ -1,8 +1,13 @@
 ################################################################################
-# <LENOVO COPYRIGHT TO BE INSERTED>
+# Lenovo Copyright
 #
-# <The below Apache License information to be reviewed by legal
-# and modified if need be>
+# (c) Copyright Lenovo 2016.
+#
+# LIMITED AND RESTRICTED RIGHTS NOTICE:
+# If data or software is delivered pursuant a General Services
+# Administration (GSA) contract, use, reproduction, or disclosure
+# is subject to restrictions set forth in Contract No. GS-35F-05925.
+#-------------------------------------------------------------
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # You may not use this file except in compliance with the License.
@@ -20,12 +25,11 @@
 # This manifest contains some sample invocations of lxca_discover_request resource type
 
 lxca_discover_request{'discover_manageable_devices':
-  ensure         => 'discover_manageable_devices',
-  ip_addresses   => ['10.240.74.210']
+  ensure       => 'discover_manageable_devices',
+  ip_addresses => ['10.240.74.210']
 }
 
 lxca_discover_request{'monitor_discover_request':
-  ensure         => 'monitor_discover_request',
-  job_id         => '5878'
+  ensure => 'monitor_discover_request',
+  job_id => '5878'
 }
-

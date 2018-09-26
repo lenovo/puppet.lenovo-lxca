@@ -37,7 +37,6 @@ describe Puppet::Type.type(:lxca_users).provider(:lxca_users) do
     )
   end
 
-
   describe 'provider instance type' do
     it 'without id should be an instance of provider ruby' do
       expect(users.provider).to be_an_instance_of Puppet::Type.type(:lxca_users).provider(:gem)

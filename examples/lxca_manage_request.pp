@@ -1,8 +1,13 @@
 ################################################################################
-# <LENOVO COPYRIGHT TO BE INSERTED>
+# Lenovo Copyright
 #
-# <The below Apache License information to be reviewed by legal
-# and modified if need be>
+# (c) Copyright Lenovo 2018.
+#
+# LIMITED AND RESTRICTED RIGHTS NOTICE:
+# If data or software is delivered pursuant a General Services
+# Administration (GSA) contract, use, reproduction, or disclosure
+# is subject to restrictions set forth in Contract No. GS-35F-05925.
+#-------------------------------------------------------------
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # You may not use this file except in compliance with the License.
@@ -20,26 +25,15 @@
 # This manifest contains some sample invocations of lxca_manage_request resource type
 
 lxca_manage_request{'fetch_manage_request':
-  ensure         => 'fetch_manage_request',
-  port           => '443',
-  login_user     => 'USERID',
-  login_password => 'Passw0rd',
-  verify_ssl     => 'NONE',
-  host           => 'https://10.243.13.140',
-  job_id         => '4191',
+  ensure => 'fetch_manage_request',
+  job_id => '4191',
 }
 
 lxca_manage_request{'manage_discovered_devices':
   ensure            => 'manage_discovered_devices',
-  port              => '443',
-  login_user        => 'USERID',
-  login_password    => 'Passw0rd',
-  verify_ssl        => 'NONE',
-  host              => 'https://10.243.13.140',
   ip_address        => ['10.243.8.28'],
   username          => 'USERID',
   password          => 'CME44ibm',
   recovery_password => 'CME55ibm',
   force             => 'True'
 }
-

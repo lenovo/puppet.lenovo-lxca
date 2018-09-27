@@ -1,105 +1,36 @@
-################################################################################
-# Lenovo Copyright
-#
-# (c) Copyright Lenovo 2016.
-#
-# LIMITED AND RESTRICTED RIGHTS NOTICE:
-# If data or software is delivered pursuant a General Services
-# Administration (GSA) contract, use, reproduction, or disclosure
-# is subject to restrictions set forth in Contract No. GS-35F-05925.
-#-------------------------------------------------------------
-#
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# You may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-# http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-################################################################################
-
 require 'spec_helper'
 
-describe Puppet::Type.type(:lxca_event) do
-  before(:each) do
-    @event_example = {
-      host: 'https://10.243.10.75',
-      port: '443',
-      login_user: 'Admin',
-      login_password: 'Lenovo123',
-      verify_ssl: 'NONE',
-    }
+describe 'lxca_event', type: :type do
+  let(:type_class) { Puppet::Type.type(:lxca_event) }
 
-    @provider = stub('provider', class: described_class.defaultprovider, clear: nil)
-    described_class.defaultprovider.stubs(:new).returns(@provider)
+  let :params do
+    [
+      :name,
+    ]
   end
 
-  it 'has :name be its namevar' do
-    described_class.key_attributes.should == [:name]
+  let :properties do
+    [
+    ]
   end
 
-  describe 'when validating attributes' do
-    [:name, :provider, :host, :port, :login_user, :login_password, :verify_ssl].each do |param|
-      it "should have a #{param} parameter" do
-        described_class.attrtype(param).should == :param
-      end
-    end
-
-    [:ensure].each do |prop|
-      it "should have a #{prop} property" do
-        described_class.attrtype(prop).should == :property
-      end
+  it 'does have expected properties' do
+    properties.each do |property|
+      expect(type_class.properties.map(&:name)).to be_include(property)
     end
   end
 
-  describe 'for ensure' do
-    it 'does not support other values' do
-      expect { described_class.new(name: 'lxca_event', ensure: 'foo') }.to raise_error(Puppet::Error, %r{Invalid value "foo"})
-    end
-
-    it 'does not have a default value' do
-      described_class.new(name: 'lxca_event')[:ensure].should.nil?
+  it 'does have expected parameters' do
+    params.each do |param|
+      expect(type_class.parameters).to be_include(param)
     end
   end
 
-  describe 'for host' do
-    it 'does not have a default value' do
-      described_class.new(name: 'lxca_event')[:host].should.nil?
-    end
+  it 'does require a name' do
+    expect { type_class.new({}) }.to raise_error(Puppet::Error, 'Title or name must be provided')
   end
 
-  describe 'for port' do
-    it 'does not have a default value' do
-      described_class.new(name: 'lxca_event')[:port].should.nil?
-    end
-  end
-
-  describe 'for login_user' do
-    it 'does not have a default value' do
-      described_class.new(name: 'lxca_event')[:login_user].should.nil?
-    end
-  end
-
-  describe 'for login_password' do
-    it 'does not have a default value' do
-      described_class.new(name: 'lxca_event')[:login_password].should.nil?
-    end
-  end
-
-  describe 'for verify_ssl' do
-    it 'does not have a default value' do
-      described_class.new(name: 'lxca_event')[:verify_ssl].should.nil?
-    end
-  end
-
-  describe 'for auth_type' do
-    it "has a default value of 'basic_auth" do
-      described_class.new(name: 'lxca_event', ensure: 'discover_all')[:auth_type].should == 'basic_auth'
-    end
+  it 'does support :discover_all as a value to :ensure' do
+    type_class.new(name: ' Lxca events', ensure: :discover_all)
   end
 end

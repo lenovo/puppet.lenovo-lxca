@@ -1,13 +1,26 @@
-# Copyright (c) 2017, Lenovo. All rights reserved.
+################################################################################
+# Lenovo Copyright
 #
-# This program and the accompanying materials are licensed and made available
-# under the terms and conditions of the 3-clause BSD License that accompanies
-# this distribution. The full text of the license may be found at
+# (c) Copyright Lenovo 2018.
 #
-# https://opensource.org/licenses/BSD-3-Clause
+# LIMITED AND RESTRICTED RIGHTS NOTICE:
+# If data or software is delivered pursuant a General Services
+# Administration (GSA) contract, use, reproduction, or disclosure
+# is subject to restrictions set forth in Contract No. GS-35F-05925.
+#-------------------------------------------------------------
 #
-# THE PROGRAM IS DISTRIBUTED UNDER THE BSD LICENSE ON AN "AS IS" BASIS, WITHOUT
-# WARRANTIES OR REPRESENTATIONS OF ANY KIND, EITHER EXPRESS OR IMPLIED.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# You may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+################################################################################
 
 require 'puppet/type'
 require File.join(File.dirname(__FILE__), '../lxca')
@@ -20,9 +33,8 @@ Puppet::Type.type(:lxca_job).provide(:gem, parent: Puppet::Provider::Lxca) do
 
   def self.instances
     instances = []
-    jobs = Puppet::Provider::Lxca.get_all_jobs()
+    jobs = Puppet::Provider::Lxca.get_all_jobs
 
-    Puppet.debug('I am inside instances jobs = #{jobs}')
     return [] if jobs.nil?
     jobs.each do |item|
       item = item.to_hash
@@ -42,7 +54,6 @@ Puppet::Type.type(:lxca_job).provide(:gem, parent: Puppet::Provider::Lxca) do
   def self.prefetch(resources)
     Puppet.debug('I am inside prefetch')
     jobs = instances
-    Puppet.debug('prefetch jobs ' + jobs.to_s)
     Puppet.debug('prefetch resource ' + resources.to_s)
     Puppet.debug('prefetch resource keys' + resources.keys.to_s)
     resources.keys.each do |name|
@@ -63,10 +74,17 @@ Puppet::Type.type(:lxca_job).provide(:gem, parent: Puppet::Provider::Lxca) do
 
   def exists?
     Puppet.debug('I am inside exists')
+    @property_hash[:ensure] == :present
   end
 
   def destroy
-    Puppet.debug('I am inside destroy' + resource[:id].to_s)
+    Puppet.debug('provider I am inside destroy' + resource[:id].to_s)
     Puppet::Provider::Lxca.delete_job(resource[:id])
+    @property_hash.clear
+  end
+
+  def cancel_job
+    Puppet.debug('Provider: I am inside cancel job' + resource[:id].to_s)
+    Puppet::Provider::Lxca.cancel_job(resource[:id])
   end
 end

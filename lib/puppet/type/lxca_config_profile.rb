@@ -1,7 +1,7 @@
 ################################################################################
 # Lenovo Copyright
 #
-# (c) Copyright Lenovo 2016.
+# (c) Copyright Lenovo 2018.
 #
 # LIMITED AND RESTRICTED RIGHTS NOTICE:
 # If data or software is delivered pursuant a General Services
@@ -23,7 +23,9 @@
 ################################################################################
 
 Puppet::Type.newtype(:lxca_config_profile) do
+  apply_to_all
   ensurable do
+    defaultvalues
     newvalue(:discover_all) do
       Puppet.notice "Fetching all the LXCA configuration profile elements. Results displayed below\n"
       provider.discover_all
@@ -59,35 +61,6 @@ Puppet::Type.newtype(:lxca_config_profile) do
     desc 'Name for the lxca configuration profile resource'
   end
 
-  newparam(:host) do
-    desc 'LXCA Host to connect to'
-  end
-
-  newparam(:port) do
-    desc 'Port of LXCA to connect to'
-  end
-
-  newparam(:login_user) do
-    desc 'The username to be used to login into LXCA'
-  end
-
-  newparam(:login_password) do
-    desc 'The password to be used to login into LXCA'
-  end
-
-  newparam(:verify_ssl) do
-    desc 'Whether to verify SSL when connecting to the LXCA'
-  end
-
-  newparam(:auth_type) do
-    desc 'The authorization type used to connect to LXCA. Defaults to basic_auth'
-    defaultto 'basic_auth'
-  end
-
-  newparam(:csrf_token) do
-    desc 'The CSRF token to be used in case authentication type is set to token'
-  end
-
   newparam(:id) do
     desc 'ID of the configuration profile on which an operation is to be performed'
   end
@@ -102,6 +75,13 @@ Puppet::Type.newtype(:lxca_config_profile) do
 
   newparam(:restart) do
     desc 'Indicates when to restart the server to activate the profile. 2 values are allowed: immediate, defer'
+
+    validate do |value|
+      super value
+      unless %w[defer immediatete].any? { |option| value.include? option }
+        raise('The valid values are: defer, immediate')
+      end
+    end
   end
 
   newparam(:power_down) do
@@ -118,11 +98,6 @@ Puppet::Type.newtype(:lxca_config_profile) do
 
   validate do
     required_parameters = [
-      :host,
-      :port,
-      :login_user,
-      :login_password,
-      :verify_ssl,
     ]
     required_parameters.each do |param|
       if param.nil? || param == ''

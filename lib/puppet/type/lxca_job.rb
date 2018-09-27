@@ -1,7 +1,7 @@
 ################################################################################
 # Lenovo Copyright
 #
-# (c) Copyright Lenovo 2016.
+# (c) Copyright Lenovo 2018.
 #
 # LIMITED AND RESTRICTED RIGHTS NOTICE:
 # If data or software is delivered pursuant a General Services
@@ -23,8 +23,16 @@
 ################################################################################
 
 Puppet::Type.newtype(:lxca_job) do
-  apply_to_device
-  ensurable
+  apply_to_all
+  # ensurable
+  ensurable do
+    defaultvalues
+
+    newvalue(:cancel_job) do
+      Puppet.notice 'Cancelling the job'
+      provider.cancel_job
+    end
+  end
 
   newparam(:name, namevar: true) do
     desc 'Name for the lxca job resource'

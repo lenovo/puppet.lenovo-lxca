@@ -8,7 +8,7 @@ class lxca::install {
     $provider = 'gem'
   }
   package { 'xclarity_client' :
-    ensure   => '0.5.9',
+    ensure   => '0.6.1',
     provider => $provider,
   }
 }

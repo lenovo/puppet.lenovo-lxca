@@ -18,9 +18,9 @@ lxca module is used to interact with Lenovo XClarity™ Administrator resources 
 
 ## Module Description
 
-Lenovo XClarity™ Administrator is a centralized resource management solution that is aimed at reducing complexity, speeding response, and enhancing the availability of Lenovo® server systems and solutions. Using the lxca module, you can interact with the LXCA resources such as nodes, chassis, cmms etc...
+Lenovo XClarity™ Administrator is a centralized resource management solution that is aimed at reducing complexity, speeding response, and enhancing the availability of Lenovo® server systems and solutions. Using the lxca module, you can interact with the LXCA resources such lxca_cabinet, lxca_canister, lxca_chassis, lxca_cmm, lxca_config_pattern, lxca_config_profile, lxca_config_target, lxca_discover_request, lxca_discovery, lxca_event, lxca_fan, lxca_fan_muxes, lxca_ffdc, lxca_job, lxca_manage_request, lxca_node, lxca_power_supplies, lxca_resource, lxca_scalable_complex, lxca_switches, lxca_unmanage_request, lxca_update_comp, lxca_users
 
-In this supported functionality are:
+In lxca_node supported functionality are:
 * Listing of all nodes
 * Listing of managed nodes
 * Listing of unmanaged nodes
@@ -39,14 +39,15 @@ In this supported functionality are:
 
 ## Setup
 Once the lxca module becomes a part of the Puppet Forge, it can be installed using the command:
-puppet module install lxca
+puppet module install lenovo-lxca
 
 Till then, download the entire contents of this repository to the directory /etc/puppetlabs/code/modules/lxca on the Puppet server
 
 ### Beginning with Lxca Module in puppet
 
 Before you can use the lxca module, you must create a proxy system able to run puppet device. 
-Your Puppet agent will serve as the proxy for the puppet device subcommand.
+Your Puppet agent will serve as the proxy for the puppet device subcommand. This module can used 
+as host also.
 
 
 ## Usage
@@ -69,6 +70,7 @@ The following infrastructure is required for the use of Lxca module:
 5.  Creating, Updating and Applying Manifests (Resources) to create a catalog on Puppet Master
 6.  Classify the Lxca device to the applied Manifests (Resources) from PE console
 7.  Run Configuration Task to the Lxca device per Catalog from Puppet Master
+8.  Puppet module as host.
 
 See below for the detailed steps.
 
@@ -154,13 +156,17 @@ class lxca::node {
 Open Puppet Enterprise (PE) Console using https://<FQDN of Puppet Master>/ and enter credentials created during Puppet Enterprise Installation
 Click on Classification under Configure section and select the Manifests (Resource - lxca::<class>) and Node (switch/device)
 
-#### Step Seven: Run Configuration Tasks to the Lxca device from Puppet Agent
+#### Step Seven: Run Confiyyguration Tasks to the Lxca device from Puppet Agent
 
 Run the following commands on Puppet Agent
 ```ruby
 puppet agent --test
 puppet device -v --user=root
 ```
+
+#### Step Eight: Run module as host
+set fact url
+export FACTER_url="https://USERID:PASSWORD@10.243.9.238"
 
 ## Reference
 ### What lxca affects
@@ -194,7 +200,7 @@ class lxca::chassis {
 
 ## Usage
 ### Types and Providers
-There are types and the respective providers have been implemented - lxca_node, lxca_chassis, lxca_resource ...
+There are types and the respective providers have been implemented - lxca_node, lxca_chassis, ...
 
 lxca_nodes accepts the following ensurable methods:
 discover_all, discover_managed, discover_unmanaged, filter_by_chassis, filter_by_uuid, power_on, power_off, power_restart, blink_led, turn_on_led, turn_off_led
@@ -203,17 +209,12 @@ discover_all, discover_managed, discover_unmanaged, filter_by_chassis, filter_by
 lxca_chassis accepts the following ensurable methods:
 discover_all, discover_managed, discover_unmanaged, filter_by_uuid
 
-
-lxca_resource is a placeholder for ffdc events and other operations that does not logically fall under any resource and is more of a property of the whole LXCA. This will be implemented as requirements are encountered.
-
-
 A sample manifest is provided below that demonstrates the usage of lxca_node and lxca_chassis:
 
 ```puppet
 lxca_node{'list_all':
   ensure => 'discover_all',
 }
-
 lxca_node{'blink_led':
   ensure => 'turn_on_led',
   uuid => 'FA59C0BBC43C3C15B9D72B94AFF52B91',

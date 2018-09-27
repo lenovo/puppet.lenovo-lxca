@@ -1,7 +1,7 @@
 ################################################################################
 # Lenovo Copyright
 #
-# (c) Copyright Lenovo 2016.
+# (c) Copyright Lenovo 2018.
 #
 # LIMITED AND RESTRICTED RIGHTS NOTICE:
 # If data or software is delivered pursuant a General Services

@@ -82,7 +82,7 @@ Puppet::Type.type(:lxca_config_profile).provide(:gem, parent: Puppet::Provider::
   end
 
   def discover_all
-    Puppet::Provider::Lxca.discover_all_config_profiles().map do |profile|
+    Puppet::Provider::Lxca.discover_all_config_profiles.map do |profile|
       profile.instance_variables.each do |att|
         puts "#{att} - #{profile.instance_variable_get att}"
       end
@@ -143,5 +143,4 @@ Puppet::Type.type(:lxca_config_profile).provide(:gem, parent: Puppet::Provider::
 
     Puppet::Provider::Lxca.unassign_config_profile((@resource[:id]).to_s, (@resource[:power_down]).to_s, (@resource[:reset_imm]).to_s, (@resource[:force]).to_s)
   end
-
 end

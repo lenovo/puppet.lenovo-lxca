@@ -83,5 +83,4 @@ Puppet::Type.type(:lxca_event).provide(:gem, parent: Puppet::Provider::Lxca) do
       end
     end
   end
-
 end

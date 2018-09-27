@@ -51,10 +51,10 @@ describe 'lxca_config_profile', type: :type do
 
   it 'does support :unassign_config_profile as a value to :ensure' do
     type_class.new(name: 'unassign config profile ', id: '12',
-                     power_down: 'False',
-                     reset_imm: 'False',
-                     force: 'False',
-                     ensure: :unassign_config_profile)
+                   power_down: 'False',
+                   reset_imm: 'False',
+                   force: 'False',
+                   ensure: :unassign_config_profile)
   end
 
   it 'does support :delete_config_profile as a value to :ensure' do
@@ -67,8 +67,8 @@ describe 'lxca_config_profile', type: :type do
 
   it 'does support :activate_config_profilen as a value to :ensure' do
     type_class.new(name: 'activate config profile', id: '12',
-                      endpoint_uuid: '46920C143355486F97C19A34ABC7D746_bay10',
-                      restart: 'defer',
-                      ensure: :activate_config_profile)
+                   endpoint_uuid: '46920C143355486F97C19A34ABC7D746_bay10',
+                   restart: 'defer',
+                   ensure: :activate_config_profile)
   end
 end

@@ -49,16 +49,15 @@ describe 'lxca_config_pattern', type: :type do
 
   it 'does support :deploy_config_pattern as a value to :ensure' do
     type_class.new(name: 'deploy config pattern', id: '12',
-                      endpoints: 'B918EDCA1B5F11E2803EBECB82710ADE',
-                      restart: 'pending',
-                      etype: 'node',
-                      ensure: :deploy_config_pattern)
-
+                   endpoints: 'B918EDCA1B5F11E2803EBECB82710ADE',
+                   restart: 'pending',
+                   etype: 'node',
+                   ensure: :deploy_config_pattern)
   end
 
   it 'does support :import_config_pattern as a value to :ensure' do
     type_class.new(name: 'import config pattern',
-                      import_json:  '{"template_type" : "SystemInfo","template" : {"contact" : "contact","description" : "Pattern created by ruby test API ","location" : "location","name" : "Learned-System_Info-99","systemName" : {"autogen" : "Disable","hyphenChecked" : "FALSE"},"type" : "SystemInfo","uri" : "\/config\/template\/62","userDefined" : "TRUE"}}',
-                      ensure: :import_config_pattern)
+                   import_json:  '{"template_type" : "SystemInfo","template" : {"contact" : "contact","description" : "Pattern created by ruby test API ","location" : "location","name" : "Learned-System_Info-99","systemName" : {"autogen" : "Disable","hyphenChecked" : "FALSE"},"type" : "SystemInfo","uri" : "\/config\/template\/62","userDefined" : "TRUE"}}',
+                   ensure: :import_config_pattern)
   end
 end

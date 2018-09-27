@@ -78,7 +78,7 @@ Puppet::Type.type(:lxca_node).provide(:gem, parent: Puppet::Provider::Lxca) do
   end
 
   def discover_all
-    Puppet::Provider::Lxca.discover_all_nodes().map do |node|
+    Puppet::Provider::Lxca.discover_all_nodes.map do |node|
       node.instance_variables.each do |att|
         puts "#{att} - #{node.instance_variable_get att}"
       end
@@ -87,7 +87,7 @@ Puppet::Type.type(:lxca_node).provide(:gem, parent: Puppet::Provider::Lxca) do
   end
 
   def discover_managed_nodes
-    Puppet::Provider::Lxca.discover_managed_nodes().map do |node|
+    Puppet::Provider::Lxca.discover_managed_nodes.map do |node|
       node.instance_variables.each do |att|
         puts "#{att} - #{node.instance_variable_get att}"
       end
@@ -96,7 +96,7 @@ Puppet::Type.type(:lxca_node).provide(:gem, parent: Puppet::Provider::Lxca) do
   end
 
   def discover_unmanaged_nodes
-    Puppet::Provider::Lxca.discover_unmanaged_chassis().map do |node|
+    Puppet::Provider::Lxca.discover_unmanaged_chassis.map do |node|
       node.instance_variables.each do |att|
         puts "#{att} - #{node.instance_variable_get att}"
       end

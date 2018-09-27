@@ -77,7 +77,7 @@ Puppet::Type.type(:lxca_cabinet).provide(:gem, parent: Puppet::Provider::Lxca) d
   end
 
   def discover_all
-    Puppet::Provider::Lxca.discover_all_cabinets().map do |cabinet|
+    Puppet::Provider::Lxca.discover_all_cabinets.map do |cabinet|
       cabinet.instance_variables.each do |att|
         puts "#{att} - #{cabinet.instance_variable_get att}"
       end

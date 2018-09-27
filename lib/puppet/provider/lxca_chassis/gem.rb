@@ -78,7 +78,7 @@ Puppet::Type.type(:lxca_chassis).provide(:gem, parent: Puppet::Provider::Lxca) d
   end
 
   def discover_all
-    Puppet::Provider::Lxca.discover_all_chassis().map do |chassis|
+    Puppet::Provider::Lxca.discover_all_chassis.map do |chassis|
       chassis.instance_variables.each do |att|
         puts "#{att} - #{chassis.instance_variable_get att}"
       end
@@ -87,7 +87,7 @@ Puppet::Type.type(:lxca_chassis).provide(:gem, parent: Puppet::Provider::Lxca) d
   end
 
   def discover_managed_chassis
-    Puppet::Provider::Lxca.discover_managed_chassis().map do |chassis|
+    Puppet::Provider::Lxca.discover_managed_chassis.map do |chassis|
       chassis.instance_variables.each do |att|
         puts "#{att} - #{chassis.instance_variable_get att}"
       end
@@ -96,7 +96,7 @@ Puppet::Type.type(:lxca_chassis).provide(:gem, parent: Puppet::Provider::Lxca) d
   end
 
   def discover_unmanaged_chassis
-    Puppet::Provider::Lxca.discover_unmanaged_chassis().map do |chassis|
+    Puppet::Provider::Lxca.discover_unmanaged_chassis.map do |chassis|
       chassis.instance_variables.each do |att|
         puts "#{att} - #{chassis.instance_variable_get att}"
       end

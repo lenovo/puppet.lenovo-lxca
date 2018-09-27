@@ -65,6 +65,4 @@ Puppet::Type.type(:lxca_discovery).provide(:gem, parent: Puppet::Provider::Lxca)
       end
     end
   end
-
-
 end

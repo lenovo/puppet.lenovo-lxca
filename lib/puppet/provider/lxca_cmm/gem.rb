@@ -78,7 +78,7 @@ Puppet::Type.type(:lxca_cmm).provide(:gem, parent: Puppet::Provider::Lxca) do
   end
 
   def discover_all
-    Puppet::Provider::Lxca.discover_all_cmms().map do |cmm|
+    Puppet::Provider::Lxca.discover_all_cmms.map do |cmm|
       cmm.instance_variables.each do |att|
         puts "#{att} - #{cmm.instance_variable_get att}"
       end

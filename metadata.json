@@ -31,7 +31,9 @@
       "operatingsystemrelease": [
         "16.04"
       ]
-    },
+    }
+  ],
+  "requirements": [
     {
       "name": "puppet",
       "version_requirement": ">= 4.7.0 < 6.0.0"

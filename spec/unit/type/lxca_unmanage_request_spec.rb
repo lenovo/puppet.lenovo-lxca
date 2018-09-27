@@ -34,8 +34,8 @@ describe 'lxca_unmanage_request', type: :type do
   end
 
   it 'does support :unmanage_discovered_devices as a value to :ensure' do
-    type_class.new(name: 'manage device ', endpoints: [{'ipAddresses'=>['10.243.8.28'],'type'=>'Chassis','uuid'=>'792812BA57B24337821B72AC27CF2055'}],
-                     force: 'True', ensure: :unmanage_discovered_devices)
+    type_class.new(name: 'manage device ', endpoints: [{ 'ipAddresses' => ['10.243.8.28'], 'type' => 'Chassis', 'uuid' => '792812BA57B24337821B72AC27CF2055' }],
+                   force: 'True', ensure: :unmanage_discovered_devices)
   end
 
   it 'does support :fetch_unmanage_request as a value to :ensure' do

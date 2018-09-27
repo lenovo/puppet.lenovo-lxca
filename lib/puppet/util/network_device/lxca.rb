@@ -24,5 +24,6 @@
 
 require 'puppet/util/network_device'
 
+# stub for network device
 module Puppet::Util::NetworkDevice::Lxca
 end

@@ -78,7 +78,7 @@ Puppet::Type.type(:lxca_canister).provide(:gem, parent: Puppet::Provider::Lxca) 
   end
 
   def discover_all
-    Puppet::Provider::Lxca.discover_all_canisters().map do |canister|
+    Puppet::Provider::Lxca.discover_all_canisters.map do |canister|
       canister.instance_variables.each do |att|
         puts "#{att} - #{canister.instance_variable_get att}"
       end

@@ -87,7 +87,7 @@ Puppet::Type.type(:lxca_scalable_complex).provide(:gem, parent: Puppet::Provider
   end
 
   def discover_managed_nodes
-    Puppet::Provider::Lxca.discover_managed_scalable_complexes().map do |scalble_complex|
+    Puppet::Provider::Lxca.discover_managed_scalable_complexes.map do |scalble_complex|
       scalble_complex.instance_variables.each do |att|
         puts "#{att} - #{scalble_complex.instance_variable_get att}"
       end
@@ -96,7 +96,7 @@ Puppet::Type.type(:lxca_scalable_complex).provide(:gem, parent: Puppet::Provider
   end
 
   def discover_unmanaged_nodes
-    Puppet::Provider::Lxca.discover_unmanaged_scalable_complexes().map do |scalble_complex|
+    Puppet::Provider::Lxca.discover_unmanaged_scalable_complexes.map do |scalble_complex|
       scalble_complex.instance_variables.each do |att|
         puts "#{att} - #{scalble_complex.instance_variable_get att}"
       end

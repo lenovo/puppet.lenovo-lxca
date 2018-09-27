@@ -1,14 +1,49 @@
 {
-  "name": "np-lxca",
+  "name": "lenovo-lxca",
   "version": "0.1.0",
-  "author": "Manasa K Rao",
+  "author": "Lenovo",
   "summary": "This is a puppet module to interface with Lenovo XClarity Administrator (LXCA)",
   "license": "Apache-2.0",
-  "source": "<To be filled>",
-  "project_page": "<To be filled>",
-  "issues_url": "<To be filled>",
+  "source": "https://github.com/lenovo/puppet.lenovo-lxca",
+  "project_page": "https://github.com/lenovo/puppet.lenovo-lxca",
+  "issues_url": "https://github.com/lenovo/puppet.lenovo-lxca/issues",
   "dependencies": [
-    {"name":"puppetlabs-stdlib","version_requirement":">= 1.0.0"}
-  ]
+    {
+      "name": "puppetlabs-stdlib",
+      "version_requirement": ">= 1.0.0"
+    }
+  ],
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "Debian",
+      "operatingsystemrelease": [
+        "8"
+      ]
+    },
+    {
+      "operatingsystem": "RedHat",
+      "operatingsystemrelease": [
+        "7.0"
+      ]
+    },
+    {
+      "operatingsystem": "Ubuntu",
+      "operatingsystemrelease": [
+        "16.04"
+      ]
+    }
+  ],
+  "requirements": [
+    {
+      "name": "puppet",
+      "version_requirement": ">= 4.7.0 < 6.0.0"
+    }
+  ],
+  "tags": [
+    "Lenovo",
+    "lxca"
+  ],
+  "pdk-version": "1.4.1",
+  "template-url": "https://github.com/puppetlabs/pdk-templates",
+  "template-ref": "1.4.1-0-g52adbbb"
 }
-

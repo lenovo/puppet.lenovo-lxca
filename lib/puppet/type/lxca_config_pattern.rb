@@ -1,7 +1,7 @@
 ################################################################################
 # Lenovo Copyright
 #
-# (c) Copyright Lenovo 2016.
+# (c) Copyright Lenovo 2018.
 #
 # LIMITED AND RESTRICTED RIGHTS NOTICE:
 # If data or software is delivered pursuant a General Services
@@ -23,9 +23,9 @@
 ################################################################################
 
 Puppet::Type.newtype(:lxca_config_pattern) do
-
+  apply_to_all
   ensurable do
-    
+    defaultvalues
     newvalue(:discover_all) do
       Puppet.notice "Fetching all the LXCA configuration pattern elements. Results displayed below\n"
       provider.discover_all
@@ -35,91 +35,67 @@ Puppet::Type.newtype(:lxca_config_pattern) do
       Puppet.notice "Fetching all the LXCA configuration pattern elements filtered by id of the pattern. Results displayed below\n"
       provider.filter_by_id
     end
-   
+
     newvalue(:export_config_pattern) do
-      Puppet.notice "Exporting the configuration pattern"
+      Puppet.notice 'Exporting the configuration pattern'
       provider.export_config_pattern
     end
 
     newvalue(:import_config_pattern) do
-      Puppet.notice "Importing a configuration pattern"
+      Puppet.notice 'Importing a configuration pattern'
       provider.import_config_pattern
-    end 
- 
-    newvalue(:deploy_config_pattern) do
-      Puppet.notice "Deploy a configuration pattern"
-      provider.deploy_config_pattern
     end
 
-  end
-                                  
-  newparam(:name, :namevar => true) do
-    desc "Name for the lxca configuration pattern resource"
-  end
-                                              
-  newparam(:host) do
-    desc "LXCA Host to connect to"
+    newvalue(:deploy_config_pattern) do
+      Puppet.notice 'Deploy a configuration pattern'
+      provider.deploy_config_pattern
+    end
   end
 
-  newparam(:port) do
-    desc "Port of LXCA to connect to"
-  end
-
-  newparam(:login_user) do
-    desc "The username to be used to login into LXCA"
-  end
-
-  newparam(:login_password) do
-    desc "The password to be used to login into LXCA"
-  end
-
-  newparam(:verify_ssl) do
-    desc "Whether to verify SSL when connecting to the LXCA"
-  end
-
-  newparam(:auth_type) do
-    desc "The authorization type used to connect to LXCA. Defaults to basic_auth"
-    defaultto 'basic_auth'
-  end
-
-  newparam(:csrf_token) do
-    desc "The CSRF token to be used in case authentication type is set to token"
+  newparam(:name, namevar: true) do
+    desc 'Name for the lxca configuration pattern resource'
   end
 
   newparam(:id) do
-    desc "ID of the configuration pattern on which an operation is to be performed"
+    desc 'ID of the configuration pattern on which an operation is to be performed'
   end
 
   newparam(:endpoints) do
-    desc "A list of one or more UUIDs for the target servers, empty chassis bay, or placeholder chassis bay"  
+    desc 'A list of one or more UUIDs for the target servers, empty chassis bay, or placeholder chassis bay'
   end
 
   newparam(:restart) do
-    desc "Identifies when to activate the configurations. The valid values are: defer, immediate, pending"
+    desc 'Identifies when to activate the configurations. The valid values are: defer, immediate, pending'
+    validate do |value|
+      super value
+      unless %w[defer immediate pending].any? { |option| value.include? option }
+        raise(' The valid values are: defer, immediate, pending')
+      end
+    end
   end
 
   newparam(:etype) do
-    desc "Identified whether the endpoint on which a configuration pattern is to be deployed is a node, rack or a tower."
+    desc 'Identified whether the endpoint on which a configuration pattern is to be deployed is a node, rack or a tower.'
+
+    validate do |value|
+      super value
+      unless %w[node rack tower].any? { |option| value.include? option }
+        raise('The valid values are: node, rack, tower')
+      end
+    end
   end
 
   newparam(:import_json) do
-    desc "A correctly formatted JSON of the configuration pattern that needs to be imported."
+    desc 'A correctly formatted JSON of the configuration pattern that needs to be imported.'
   end
 
   validate do
     required_parameters = [
-      :host,
-      :port,
-      :login_user,
-      :login_password,
-      :verify_ssl,
     ]
     required_parameters.each do |param|
-      if param.nil? or param == ""
+      if param.nil? || param == ''
         raise Puppet::Error, _("Attribute #{param} is mandatory and should not be empty")
       end
     end
-  end    
-
+  end
 end
-

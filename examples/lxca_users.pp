@@ -1,8 +1,13 @@
 ################################################################################
-# <LENOVO COPYRIGHT TO BE INSERTED>
+# Lenovo Copyright
 #
-# <The below Apache License information to be reviewed by legal
-# and modified if need be>
+# (c) Copyright Lenovo 2018.
+#
+# LIMITED AND RESTRICTED RIGHTS NOTICE:
+# If data or software is delivered pursuant a General Services
+# Administration (GSA) contract, use, reproduction, or disclosure
+# is subject to restrictions set forth in Contract No. GS-35F-05925.
+#-------------------------------------------------------------
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # You may not use this file except in compliance with the License.
@@ -19,22 +24,8 @@
 
 # This manifest contains some sample invocations of lxca_users resource type
 
-lxca_users{'list_all':
-  host => 'https://10.243.10.75',
-  port => '443',
-  login_user => 'Admin',
-  login_password => 'Lenovo123',
-  verify_ssl => 'NONE',
-  ensure => 'discover_all',
+lxca_users{'list_test':
+  ensure => 'present',
+  id     => 'aa0cefa4-d997-448b-9ade-fce5cd64c677',
+  name   => 'USERID',
 }
-
-lxca_users{'filter_by_id':
-  host => 'https://10.243.10.75',
-  port => '443',
-  login_user => 'Admin',
-  login_password => 'Lenovo123',
-  verify_ssl => 'NONE',
-  ensure => 'filter_by_id',
-  id => 'aad6a497-566c-4323-a08e-6fd939defb54',
-}
-

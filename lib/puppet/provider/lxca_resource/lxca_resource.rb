@@ -1,7 +1,7 @@
 ################################################################################
 # Lenovo Copyright
 #
-# (c) Copyright Lenovo 2016.
+# (c) Copyright Lenovo 2018.
 #
 # LIMITED AND RESTRICTED RIGHTS NOTICE:
 # If data or software is delivered pursuant a General Services
@@ -26,15 +26,15 @@ require 'xclarity_client'
 
 Puppet::Type.type(:lxca_resource).provide(:lxca_resource) do
   desc 'Base provider for LXCA resource'
-  
+
   def create_client
-    conf=XClarityClient::Configuration.new(
-      :username => @resource['login_user'],
-      :password => @resource['login_password'],
-      :host => @resource['host'],
-      :port => @resource['port'],
-      :auth_type => @resource['auth_type'],
-      :verify_ssl => @resource['verify_ssl']
+    conf = XClarityClient::Configuration.new(
+      username: @resource['login_user'],
+      password: @resource['login_password'],
+      host: @resource['host'],
+      port: @resource['port'],
+      auth_type: @resource['auth_type'],
+      verify_ssl: @resource['verify_ssl'],
     )
     @client = XClarityClient::Client.new(conf)
   end
@@ -54,6 +54,4 @@ Puppet::Type.type(:lxca_resource).provide(:lxca_resource) do
   def ffdc_events
     create_client if @client.nil?
   end
-
 end
-

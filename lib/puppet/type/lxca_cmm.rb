@@ -1,7 +1,7 @@
 ################################################################################
 # Lenovo Copyright
 #
-# (c) Copyright Lenovo 2016.
+# (c) Copyright Lenovo 2018.
 #
 # LIMITED AND RESTRICTED RIGHTS NOTICE:
 # If data or software is delivered pursuant a General Services
@@ -23,9 +23,9 @@
 ################################################################################
 
 Puppet::Type.newtype(:lxca_cmm) do
-
+  apply_to_all
   ensurable do
-    
+    defaultvalues
     newvalue(:discover_all) do
       Puppet.notice "Fetching all the LXCA cmm elements. Results displayed below\n"
       provider.discover_all
@@ -35,69 +35,37 @@ Puppet::Type.newtype(:lxca_cmm) do
       Puppet.notice "Fetching all the LXCA cmm elements filtered by chassis. Results displayed below\n"
       provider.filter_by_chassis
     end
-    
+
     newvalue(:filter_by_uuid) do
       Puppet.notice "Fetching LXCA cmm filtered by UUID. Results displayed below\n"
       provider.filter_by_uuid
     end
-    
-  end
-                                  
-  newparam(:name, :namevar => true) do
-    desc "Name of the lxca cmm resource"
-  end
-                                              
-  newparam(:host) do
-    desc "LXCA Host to connect to"
   end
 
-  newparam(:port) do
-    desc "Port of LXCA to connect to"
-  end
-
-  newparam(:login_user) do
-    desc "The username to be used to login into LXCA"
-  end
-
-  newparam(:login_password) do
-    desc "The password to be used to login into LXCA"
-  end
-
-  newparam(:verify_ssl) do
-    desc "Whether to verify SSL when connecting to the LXCA"
-  end
-
-  newparam(:auth_type) do
-    desc "The authorization type used to connect to LXCA. Defaults to basic_auth"
-    defaultto 'basic_auth'
-  end
-
-  newparam(:csrf_token) do
-    desc "The CSRF token to be used in case authentication type is set to token"
+  newparam(:name, namevar: true) do
+    desc 'Name of the lxca cmm resource'
   end
 
   newparam(:uuid) do
-    desc "UUID of the cmm"
+    desc 'UUID of the cmm'
+
+    validate do |value|
+      super value
+      raise('the uuid must be string of lenth 16 ') if value.size < 16
+    end
   end
 
   newparam(:chassis) do
-    desc "UUID of the chassis on which filtering is to be applied"
+    desc 'UUID of the chassis on which filtering is to be applied'
   end
- 
+
   validate do
     required_parameters = [
-      :host,
-      :port,
-      :login_user,
-      :login_password,
-      :verify_ssl,
     ]
     required_parameters.each do |param|
-      if param.nil? or param == ""
+      if param.nil? || param == ''
         raise Puppet::Error, _("Attribute #{param} is mandatory and should not be empty")
       end
     end
-  end    
-
+  end
 end
-

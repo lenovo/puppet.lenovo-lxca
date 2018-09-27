@@ -1,7 +1,7 @@
 ################################################################################
 # Lenovo Copyright
 #
-# (c) Copyright Lenovo 2016.
+# (c) Copyright Lenovo 2018.
 #
 # LIMITED AND RESTRICTED RIGHTS NOTICE:
 # If data or software is delivered pursuant a General Services
@@ -23,9 +23,9 @@
 ################################################################################
 
 Puppet::Type.newtype(:lxca_node) do
-
+  apply_to_all
   ensurable do
-    
+    defaultvalues
     newvalue(:discover_all) do
       Puppet.notice "Fetching all the LXCA node elements. Results displayed below\n"
       provider.discover_all
@@ -40,104 +40,77 @@ Puppet::Type.newtype(:lxca_node) do
       Puppet.notice "Fetching all the LXCA unmanaged node elements. Results displayed below\n"
       provider.discover_unmanaged_nodes
     end
- 
+
     newvalue(:filter_by_chassis) do
       Puppet.notice "Fetching all the LXCA node elements filtered by chassis. Results displayed below\n"
       provider.filter_by_chassis
     end
-    
+
     newvalue(:filter_by_uuid) do
       Puppet.notice "Fetching LXCA node filtered by UUID. Results displayed below\n"
       provider.filter_by_uuid
     end
-    
+
     newvalue(:power_on) do
-      Puppet.notice "Powering on the node"
+      Puppet.notice 'Powering on the node'
       provider.power_on
     end
 
     newvalue(:power_off) do
-      Puppet.notice "Powering off the node"
+      Puppet.notice 'Powering off the node'
       provider.power_off
     end
 
     newvalue(:power_restart) do
-      Puppet.notice "Restarting the node"
+      Puppet.notice 'Restarting the node'
       provider.power_restart
     end
 
     newvalue(:blink_led) do
-      Puppet.notice "Blinking the led on the node"
+      Puppet.notice 'Blinking the led on the node'
       provider.blink_led
     end
 
     newvalue(:turn_on_led) do
-      Puppet.notice "Turning on led on the node"
+      Puppet.notice 'Turning on led on the node'
       provider.turn_on_led
     end
 
     newvalue(:turn_off_led) do
-      Puppet.notice "Turning off the led on the node"
+      Puppet.notice 'Turning off the led on the node'
       provider.turn_off_led
     end
-
-  end
-                                  
-  newparam(:name, :namevar => true) do
-    desc "Name of the lxca node resource"
-  end
-                                              
-  newparam(:host) do
-    desc "LXCA Host to connect to"
   end
 
-  newparam(:port) do
-    desc "Port of LXCA to connect to"
-  end
-
-  newparam(:login_user) do
-    desc "The username to be used to login into LXCA"
-  end
-
-  newparam(:login_password) do
-    desc "The password to be used to login into LXCA"
-  end
-
-  newparam(:verify_ssl) do
-    desc "Whether to verify SSL when connecting to the LXCA"
-  end
-
-  newparam(:auth_type) do
-    desc "The authorization type used to connect to LXCA. Defaults to basic_auth"
-    defaultto 'basic_auth'
-  end
-
-  newparam(:csrf_token) do
-    desc "The CSRF token to be used in case authentication type is set to token"
+  newparam(:name, namevar: true) do
+    desc 'Name of the lxca node resource'
   end
 
   newparam(:uuid) do
-    desc "UUID of the node"
+    desc 'UUID of the node'
+
+    validate do |value|
+      super value
+      raise('the uuid must be string of lenth 16 ') if value.size < 16
+    end
   end
 
   newparam(:chassis) do
-    desc "UUID of the chassis on which filtering is to be applied"
+    desc 'UUID of the chassis on which filtering is to be applied'
+
+    validate do |value|
+      super value
+      raise('the uuid must be string of lenth 16 ') if value.size < 16
+    end
   end
- 
+
   validate do
     required_parameters = [
-      :host,
-      :port,
-      :login_user,
-      :login_password,
-      :verify_ssl,
     ]
     required_parameters.each do |param|
-      if param.nil? or param == ""
+      if param.nil? || param == ''
         raise Puppet::Error, _("Attribute #{param} is mandatory and should not be empty")
       end
     end
-  end    
-
+  end
 end
-

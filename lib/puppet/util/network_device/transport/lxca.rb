@@ -43,8 +43,7 @@ class Puppet::Util::NetworkDevice::Transport::Lxca < Puppet::Util::NetworkDevice
     lxca_ip = innerarray[1]
     lxca_ip = lxca_ip[0, lxca_ip.length - 1] if lxca_ip.chars.last == '/'
     portnumber = '443'
-    # if array [3] != nil
-    unless array[3].nil
+    if array [3] != nil
       portnumber = array [3]
       if portnumber.chars.last == '/'
         portnumber = portnumber[0, portnumber.length - 1]

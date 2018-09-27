@@ -14,7 +14,7 @@
 
 ## Overview
 
-lxca module is used to interact with Lenovo XClarity™ Administrator resources through implemented puppet types. 
+lxca module is used to interact with Lenovo XClarity™ Administrator resources through implemented puppet types.
 
 ## Module Description
 
@@ -45,26 +45,26 @@ Till then, download the entire contents of this repository to the directory /etc
 
 ### Beginning with Lxca Module in puppet
 
-Before you can use the lxca module, you must create a proxy system able to run puppet device. 
-Your Puppet agent will serve as the proxy for the puppet device subcommand. This module can used 
+Before you can use the lxca module, you must create a proxy system able to run puppet device.
+Your Puppet agent will serve as the proxy for the puppet device subcommand. This module can used
 as host also.
 
 
 ## Usage
 
 
-### Installation Requirements 
+### Installation Requirements
 
 The following infrastructure is required for the use of Lxca module:
 
 1. A server running as a Puppet Master
-2. A Puppet Agent running as a Puppet Device proxy to the lxca 
-3. A Lxca device running having static ip and hostname/FQDN 
+2. A Puppet Agent running as a Puppet Device proxy to the lxca
+3. A Lxca device running having static ip and hostname/FQDN
 
 ### Installation and Configuration Steps
 
 1.  Install Puppet Lxca Module on Puppet Master
-2.  Install Lxca and xClarity Client gems on Puppet Agent, running as proxy to the Lxca device 
+2.  Install Lxca and xClarity Client gems on Puppet Agent, running as proxy to the Lxca device
 3.  Create a device.conf file on the Puppet Agent node with details of the Lxca device
 4.  Run Puppet Device command on the Puppet Agent to initiate registration with the Puppet Master
 5.  Creating, Updating and Applying Manifests (Resources) to create a catalog on Puppet Master
@@ -76,14 +76,14 @@ See below for the detailed steps.
 
 #### Step One: Install Puppet Lxca Module on Puppet Master
 
-To install the module run, 
+To install the module run,
 
 puppet module install lenovo-lxca
 
 #### Step Two: Install Lxca and Rest-Client gems on Puppet Agent
 
 To install the gem files on Puppet Agent
- 
+
 /opt/puppetlabs/puppet/bin/gem install xclarity_client
 
 To handle xclarity_client gem dependencies on Puppet Agent, 'Package' resource is used for reference gems on init.pp manifest file on Puppet Master under Lxca Module path. Sample manifest looks like;
@@ -106,15 +106,15 @@ package { 'xclarity_client' :
 
 #### Step Three: Create a device.conf file on the Puppet Agent
 
-Create a device.conf file in the /etc/puppetlabs/puppet/ directory on Puppet Agent with details of the Lxca 
+Create a device.conf file in the /etc/puppetlabs/puppet/ directory on Puppet Agent with details of the Lxca
 ```ruby
 [<FQDN of Lxca>]
 type lxca
 url https://<USERNAME>:<PASSWORD>@<IP ADDRESS OF Lxca >/
 ```
-In the above example, 
+In the above example,
 <USERNAME> and <PASSWORD> refer to Puppet's login for the device
-FQDN refers to Fully Qualified Domain Name of the lxca 
+FQDN refers to Fully Qualified Domain Name of the lxca
 
 NOTE: Make sure the Lxca is reachable by its FQDN from the Master and Agent instance
 
@@ -189,7 +189,7 @@ The lxca module needs xclarity_client gem to be installed.
 Handles Chassis on Lenovo lxca for interfaces.
 For details regarding parameters, please refer to [lxca_chassis](#lxca_chassis).
 
-#### Sample Manifest 
+#### Sample Manifest
 ```ruby
 class lxca::chassis {
     lxca_chassis{'list_all':
@@ -231,7 +231,7 @@ lxca_chassis{'leference
 Handles Arp on Lenovo CNOS for interfaces.
 For details regarding parameters, please refer to [cnos_arp](#cnos_arp).
 
-#### Sample Manifest 
+#### Sample Manifest
 ```ruby
 class cnos::arp {
   cnos_arp{'Ethernet1/13':
@@ -259,9 +259,8 @@ Unless required by applicable law or agreed to in writing, software distributed 
 ## Development
 
 Puppet modules on the Puppet Forge are open projects, and community contributions are essential for keeping them great. Please follow our guidelines when contributing changes.
-For more information, see our [module contribution guide.](https://docs.puppetlabs.com/forge/contributing.html)
+For more information, see our ['module contribution guide.'](https://docs.puppetlabs.com/forge/contributing.html)
 
 ## Support
 
-Support for this module is provided by Lenovo.  To file an issue, please visit this [link](https://github.com/lenovo/puppet.lenovo-lxca/issues/new)
-
+Support for this module is provided by Lenovo.  To file an issue, please visit this ['link'](https://github.com/lenovo/puppet.lenovo-lxca/issues/new)

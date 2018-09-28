@@ -89,7 +89,7 @@ To install the gem files on Puppet Agent
 To handle xclarity_client gem dependencies on Puppet Agent, 'Package' resource is used for reference gems on init.pp manifest file on Puppet Master under Lxca Module path. Sample manifest looks like;
 
 ```ruby
-class cnos::install {
+class lxca::install {
  if $::puppetversion and $::puppetversion =~ /Puppet Enterprise/ {
    $provider = 'pe_gem'
  } elsif $::puppetversion and versioncmp($::puppetversion, '4.0.0') >= 0 {
@@ -219,32 +219,21 @@ lxca_node{'blink_led':
   ensure => 'turn_on_led',
   uuid => 'FA59C0BBC43C3C15B9D72B94AFF52B91',
 }
-
-lxca_chassis{'leference
+```
 
 ### Classes
 
 #### Public classes
 
-### cnos::arp
-
-Handles Arp on Lenovo CNOS for interfaces.
-For details regarding parameters, please refer to [cnos_arp](#cnos_arp).
+### lxca::chassis
 
 #### Sample Manifest
-```ruby
-class cnos::arp {
-  cnos_arp{'Ethernet1/13':
-    ageout_time => 1500,
-  }
-}
 ```
-  ensure => 'discover_managed',
-}
-
-lxca_chassis{'filter_by_uuid':
-  ensure => 'filter_by_uuid',
-  uuid => 'F44E92339683385A8D97CD6348A6F45F',
+class lxca::chassis {
+  lxca_chassis{'filter_by_uuid':
+    ensure => 'filter_by_uuid',
+    uuid => 'F44E92339683385A8D97CD6348A6F45F',
+  }
 }
 ```
 

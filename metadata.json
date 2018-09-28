@@ -1,6 +1,6 @@
 {
   "name": "lenovo-lxca",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "author": "Lenovo",
   "summary": "This is a puppet module to interface with Lenovo XClarity Administrator (LXCA)",
   "license": "Apache-2.0",
